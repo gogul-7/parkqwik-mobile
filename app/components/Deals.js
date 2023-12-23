@@ -6,8 +6,10 @@ import {
   ScrollView,
   ImageBackground,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigation } from "@react-navigation/native";
 
 const travel = [
   {
@@ -29,17 +31,27 @@ const travel = [
     id: 4,
     title: "Protocols",
     image: require("../assets/images/greentraffic.png"),
+    route: "Protocols",
   },
 ];
 
 const Deals = () => {
+  const navigation = useNavigation();
+
+  const handleNavigate = (route) => {
+    navigation.navigate(route);
+  };
+
   return (
     <View style={styles.contianer}>
-      <Text style={[styles.header, { marginLeft: 18 }]}>Deals For You</Text>
+      <View style={{ width: "100%" }}>
+        <Text style={[styles.header, { marginLeft: 22 }]}>Deals For You</Text>
+      </View>
       <ScrollView
         style={{ marginTop: 10 }}
         horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 7, paddingStart: 15, paddingEnd: 10 }}
       >
         <ImageBackground
           style={styles.image}
@@ -114,23 +126,41 @@ const Deals = () => {
         </ImageBackground>
         <ImageBackground
           style={styles.image}
-          source={require("../assets/images/frame4.png")}
-        />
+          source={require("../assets/images/frame9.png")}
+        >
+          <Text style={[styles.text, { fontSize: 18, color: "#FBFF35" }]}>
+            Get 25% off
+          </Text>
+          <Text
+            style={[
+              styles.text,
+              { fontSize: 8, color: "white", marginTop: -5 },
+            ]}
+          >
+            on your first car wash
+          </Text>
+          <View style={styles.button}>
+            <Text style={{ fontWeight: "600", fontSize: 12 }}>Book Now</Text>
+          </View>
+        </ImageBackground>
       </ScrollView>
       <View style={styles.travelContainer}>
-        <Text style={styles.header}>Gonna Travel ?</Text>
+        <Text style={[styles.header]}>Gonna Travel ?</Text>
         <View style={styles.discContainer}>
           {travel.map((item) => (
             <View
               key={item.id}
               style={{ display: "flex", alignItems: "center", gap: 5 }}
             >
-              <View style={styles.icon}>
+              <TouchableOpacity
+                onPress={() => handleNavigate(item.route)}
+                style={styles.icon}
+              >
                 <Image
-                  style={{ maxHeight: 25, maxWidth: 30 }}
+                  style={{ maxHeight: 28, maxWidth: 30 }}
                   source={item.image}
                 />
-              </View>
+              </TouchableOpacity>
               <Text style={styles.iconText}>{item.title}</Text>
             </View>
           ))}
@@ -142,14 +172,13 @@ const Deals = () => {
 
 const styles = StyleSheet.create({
   contianer: {
-    width: "90%",
+    width: "100%",
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "center",
   },
   header: {
-    fontSize: 18,
-    fontWeight: "600",
-    fontFamily: "Poppins_400Regular",
+    fontSize: 16,
+    fontFamily: "Poppins_500Medium",
   },
   image: {
     height: 140,
@@ -176,8 +205,8 @@ const styles = StyleSheet.create({
     width: 80,
   },
   travelContainer: {
-    width: "100%",
-    padding: 20,
+    width: "90%",
+    padding: 15,
     backgroundColor: "white",
     borderRadius: 15,
     display: "flex",
@@ -185,7 +214,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   discContainer: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
@@ -201,7 +229,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   iconText: {
-    width: 60,
+    width: 70,
     textAlign: "center",
     fontSize: 11,
     fontFamily: "Poppins_400Regular",

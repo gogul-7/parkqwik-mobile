@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   StyleSheet,
   Text,
   TextInput,
   Image,
+  TouchableOpacity,
   Pressable,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
+import AppContext from "../context/AppContext";
 
 const discover = [
   {
@@ -21,7 +23,7 @@ const discover = [
     id: 2,
     title: "Replace FASTag",
     image: require("../assets/images/published.png"),
-    route: "",
+    route: "Replace FASTag",
   },
   {
     id: 3,
@@ -33,15 +35,38 @@ const discover = [
     id: 4,
     title: "Close FASTag",
     image: require("../assets/images/scan.png"),
-    route: "",
+    route: "Close FASTag",
   },
 ];
 
 const FastRecharge = () => {
   const navigation = useNavigation();
+  const [value, setValue] = useState("");
+  const [alert, setAlert] = useState(false);
+  const { setFastNum } = useContext(AppContext);
 
   const handlePress = (route) => {
     navigation.navigate(`${route}`);
+  };
+
+  const handleRecharge = () => {
+    if (validation(value)) {
+      navigation.navigate("FASTag Recharge");
+      setFastNum(value);
+      setValue("");
+    } else {
+      setAlert(true);
+    }
+  };
+
+  const validation = (value) => {
+    let pattern = /^[A-Z]{2}\d{2}[A-Z]{1,2}\d{4}$/;
+    return pattern.test(value);
+  };
+
+  const handleChange = (text) => {
+    !validation(text) ? setAlert(true) : setAlert(false);
+    setValue(text);
   };
 
   return (
@@ -55,11 +80,17 @@ const FastRecharge = () => {
           style={styles.input}
           placeholder="Add vehicle or chassis number"
           placeholderTextColor="#1A9E75"
+          autoCapitalize="characters"
+          onChangeText={handleChange}
+          value={value}
         />
-        <View style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Recharge</Text>
-        </View>
+        <TouchableOpacity onPress={handleRecharge} style={styles.button}>
+          <Text style={[styles.bold, { color: "white" }]}>Recharge</Text>
+        </TouchableOpacity>
       </View>
+      {alert && (
+        <Text style={[styles.text, { color: "#FC6969" }]}>Invalid format.</Text>
+      )}
       <View style={styles.bannerContainer}>
         <Text style={[styles.text, { color: "#A0A0A0" }]}>Powered by</Text>
         <Image
@@ -96,19 +127,23 @@ const FastRecharge = () => {
 const styles = StyleSheet.create({
   container: {
     width: "90%",
-    padding: 20,
+    padding: 15,
     backgroundColor: "white",
     borderRadius: 15,
     display: "flex",
     gap: 8,
   },
   header: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins_500Medium",
   },
   text: {
     fontFamily: "Poppins_400Regular",
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    fontSize: 14,
   },
   inputContainer: {
     display: "flex",
@@ -118,22 +153,23 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: "#1A9E75",
-    height: 45,
+    height: 40,
     flex: 1,
-    paddingLeft: 10,
+    paddingLeft: 8,
     borderRadius: 8,
     backgroundColor: "#F0FFFA",
     borderWidth: 1,
     fontFamily: "Poppins_400Regular",
     fontSize: 12,
+    color: "#1A9E75",
   },
   button: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#1A9E75",
-    height: 45,
-    width: 75,
+    paddingHorizontal: 10,
+    height: 40,
     borderRadius: 8,
   },
   bannerContainer: {

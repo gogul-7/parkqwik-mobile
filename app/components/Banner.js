@@ -72,7 +72,6 @@ const Banner = () => {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     height: 170,

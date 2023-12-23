@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import ActivateFast1 from "../components/ActivateFast1";
-import ActivateFast2 from "../components/ActivateFast2";
-import ActivateFast3 from "../components/ActivateFast3";
+import ActivateFast1 from "../components/fastag/ActivateFast1";
+import ActivateFast2 from "../components/fastag/ActivateFast2";
+import ActivateFast3 from "../components/fastag/ActivateFast3";
 
 const FastagStack = createStackNavigator();
 

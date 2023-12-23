@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   FlatList,
   ImageBackground,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import FastRecharge from "../components/FastRecharge";
@@ -16,37 +17,43 @@ import Deals from "../components/Deals";
 import PremiumPlans from "../components/PremiumPlans";
 import CarsCenter from "../components/CarsCenter";
 import { useNavigation } from "@react-navigation/native";
+import Hamburger from "../components/Hamburger";
+import AppContext from "../context/AppContext";
+import Modal from "react-native-modal";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
+const Tab = createMaterialTopTabNavigator();
 
 const services = [
   {
     id: 2,
     title: "Nearby Parking",
     image: require("../assets/images/location.png"),
-    route: "",
+    route: "Nearby",
   },
   {
     id: 3,
     title: "EV Parking",
     image: require("../assets/images/electric.png"),
-    route: "",
+    route: "Ev Parking",
   },
   {
     id: 8,
     title: "Car Wash",
     image: require("../assets/images/wash.png"),
-    route: "",
+    route: "Wash",
   },
   {
     id: 4,
     title: "Car Insurance",
     image: require("../assets/images/insure.png"),
-    route: "",
+    route: "Insurance",
   },
   {
     id: 5,
     title: "Road Assistance",
     image: require("../assets/images/crane.png"),
-    route: "",
+    route: "Road Assistance",
   },
   {
     id: 6,
@@ -58,25 +65,20 @@ const services = [
     id: 7,
     title: "Toll Estimator",
     image: require("../assets/images/toll.png"),
-    route: "",
+    route: "Toll",
   },
   {
     id: 8,
     title: "Valet Parking",
     image: require("../assets/images/valet.png"),
-    route: "",
+    route: "Valet",
   },
 
-  {
-    id: 9,
-    title: "Shop Here",
-    image: require("../assets/images/shop.png"),
-    route: "",
-  },
   {
     id: 10,
     title: "Rentout Helmet",
     image: require("../assets/images/helmet.png"),
+    route: "Helmet",
   },
   {
     id: 11,
@@ -84,12 +86,17 @@ const services = [
     image: require("../assets/images/fuel.png"),
     route: "",
   },
-
+  {
+    id: 9,
+    title: "Shop Here",
+    image: require("../assets/images/shop.png"),
+    route: "Shop",
+  },
   {
     id: 13,
     title: "My Vehicles",
     image: require("../assets/images/car.png"),
-    route: "",
+    route: "My Vehicles",
   },
 ];
 
@@ -98,14 +105,29 @@ const mainService = services.filter((item) => item.id < 9);
 const otherService = services.filter((item) => item.id >= 9);
 
 const Home = () => {
+  const { ham, setHam } = useContext(AppContext);
   return (
-    <View>
+    <View style={{ flex: 1 }}>
+      <StatusBar backgroundColor="#1A9E75" barStyle="light-content" />
+
+      <Modal
+        isVisible={ham}
+        animationIn={"slideInLeft"}
+        animationOut={"slideOutLeft"}
+        style={{ margin: 0 }}
+        useNativeDriverForBackdrop
+        useNativeDriver
+        onBackdropPress={() => setHam(false)}
+      >
+        <Hamburger />
+      </Modal>
+
       <ImageBackground
         style={styles.backImage}
         source={require("../assets/images/headerback.png")}
       />
       <View style={styles.homeContent}>
-        <View style={styles.serviceContainer}>
+        <View style={[styles.serviceContainer]}>
           <Text style={styles.header}>Services</Text>
           <FlatList
             data={mainService}
@@ -168,7 +190,7 @@ const Home = () => {
               }}
             >
               <View style={styles.button}>
-                <Text style={[styles.text, { fontSize: 9, color: "black" }]}>
+                <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
                   Recharge Now
                 </Text>
               </View>
@@ -191,15 +213,35 @@ const Home = () => {
             <Text
               style={[
                 styles.text,
-                { color: "white", fontSize: 9, marginBottom: 20 },
+                { color: "white", fontSize: 9, marginBottom: 10, width: "80%" },
               ]}
             >
               Win 300ml petrol on your first parking!
             </Text>
-            <View style={styles.button}>
-              <Text style={[styles.text, { fontSize: 9, color: "black" }]}>
-                Explore Now
-              </Text>
+            <View
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <View style={styles.button}>
+                <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
+                  Explore Now
+                </Text>
+              </View>
+              <Image
+                style={{
+                  maxWidth: 68,
+                  maxHeight: 75,
+                  position: "absolute",
+                  right: 20,
+                  bottom: -6,
+                }}
+                source={require("../assets/images/reservecar.png")}
+              />
             </View>
           </LinearGradient>
         </ScrollView>
@@ -225,11 +267,7 @@ const List = ({ item }) => {
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
   homeContainer: {
-    flex: 1,
     display: "flex",
     alignItems: "center",
     gap: 8,
@@ -241,10 +279,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   homeContent: {
-    position: "relative",
-    display: "flex",
     alignItems: "center",
     gap: 25,
+    position: "relative",
     top: -100,
   },
   serviceContainer: {
@@ -255,9 +292,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   header: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins_500Medium",
     marginLeft: 8,
   },
   gridItem: {
@@ -273,8 +310,11 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontFamily: "Poppins_400Regular",
   },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+  },
   title: {
-    width: "90%",
+    width: "85%",
     textAlign: "center",
     fontSize: 11,
     fontFamily: "Poppins_400Regular",
@@ -308,7 +348,6 @@ const styles = StyleSheet.create({
   },
   bannerContainer: {
     paddingLeft: "5%",
-    display: "flex",
   },
   banner: {
     width: 230,

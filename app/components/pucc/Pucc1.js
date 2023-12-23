@@ -1,0 +1,551 @@
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TextInput,
+  Image,
+  Pressable,
+  useWindowDimensions,
+} from "react-native";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+
+const centers = [
+  {
+    id: 1,
+    name: "Avantika Vehicle Emission Testing Center",
+    address: "No.1/249B, OMR, Kelambakkam, Chennai, 603103",
+    type: ["Petrol", "Diesel", "CNG", "LPG"],
+  },
+  {
+    id: 2,
+    name: "Amman Vehicle Pollution Testing Center",
+    address: "No.239, OMR Road, Lcard Avenue, Sholinganallur, Chennai, 600119",
+    type: ["Petrol", "Diesel", "CNG", "LPG"],
+  },
+  {
+    id: 3,
+    name: "Kanchi Vehicle Emission Testing Center",
+    address: "No.275, OMR Road, Shollinganallur, Chennai, 600119",
+    type: ["Petrol", "Diesel", "CNG", "LPG"],
+  },
+  {
+    id: 4,
+    name: "Sri Vinayaga PCT Center",
+    address:
+      "Plot No -G, Prithigiradevi Kovil Street, KTK Town ECR Link Road, Chennai, 600119",
+    type: ["Petrol", "Diesel", "CNG", "LPG"],
+  },
+  {
+    id: 5,
+    name: "Thirumurugan Environmental Service Center",
+    address: "No.3/121, Velachery Main Road, Chennai, 600100",
+    type: ["Petrol", "Diesel", "CNG", "LPG"],
+  },
+  {
+    id: 6,
+    name: "Ariista Tedi PUC Center",
+    address:
+      "SF704/2A, Tambaram Main Road, Pattunool Chathiram, Sriperumbudur, 602105",
+    type: ["Petrol", "Diesel", "CNG", "LPG"],
+  },
+];
+
+const Pucc1 = () => {
+  const [border, setBorder] = useState("#A0A0A0");
+  const [search, setSearch] = useState([]);
+  const [key, setKey] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const [toggleId, setToggleId] = useState(0);
+  const [selected, setSelected] = useState("All");
+
+  const handleChange = (text) => {
+    setBorder("#1A9E75");
+    if (text.length == 0) setBorder("#A0A0A0");
+    setKey(text);
+    setSearch(
+      centers.filter(
+        (item) =>
+          item.name.toLowerCase().includes(text.toLowerCase()) ||
+          item.address.toLowerCase().includes(text.toLowerCase())
+      )
+    );
+  };
+
+  const handleToggle = (id) => {
+    setToggle(true);
+    setToggleId(id);
+  };
+
+  const handleSelect = (value) => {
+    setSelected(value);
+  };
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        paddingTop: 15,
+        alignItems: "center",
+        gap: 10,
+      }}
+    >
+      {toggle && <Popup id={toggleId} toggle={setToggle} />}
+      <View
+        style={{
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          height: 50,
+        }}
+      >
+        <TextInput
+          style={[styles.input, { borderColor: border }]}
+          placeholder="Search PUCC Center"
+          onChangeText={handleChange}
+        />
+        <Image
+          style={styles.search}
+          source={
+            key
+              ? require("../assets/images/greensearch.png")
+              : require("../assets/images/search.png")
+          }
+        />
+      </View>
+      {!key && (
+        <View style={styles.navbar}>
+          <Pressable onPress={() => handleSelect("All")}>
+            <Text
+              style={selected == "All" ? [styles.highlighted] : styles.header}
+            >
+              All
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => handleSelect("Petrol")}>
+            <Text
+              style={
+                selected == "Petrol" ? [styles.highlighted] : styles.header
+              }
+            >
+              Petrol
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => handleSelect("Diesel")}>
+            <Text
+              style={
+                selected == "Diesel" ? [styles.highlighted] : styles.header
+              }
+            >
+              Diesel
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => handleSelect("CNG")}>
+            <Text
+              style={selected == "CNG" ? [styles.highlighted] : styles.header}
+            >
+              CNG
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => handleSelect("LPG")}>
+            <Text
+              style={selected == "LPG" ? [styles.highlighted] : styles.header}
+            >
+              LPG
+            </Text>
+          </Pressable>
+        </View>
+      )}
+      {key && (
+        <View style={{ width: "90%" }}>
+          <Text style={styles.text}>
+            {search.length} results for "{key}"
+          </Text>
+        </View>
+      )}
+      <ScrollView
+        contentContainerStyle={{
+          alignItems: "center",
+          gap: 10,
+          paddingBottom: 10,
+          paddingTop: 5,
+        }}
+        style={{ width: "100%", flex: 1 }}
+      >
+        {key
+          ? search.map((item) => (
+              <View key={item.id} style={styles.container}>
+                <Pressable onPress={() => handleToggle(item.id)}>
+                  <Text style={styles.header}>
+                    {item.name.length > 31
+                      ? item.name.slice(0, 31) + "..."
+                      : item.name}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.text,
+                      { fontSize: 12, color: "#A0A0A0", width: "90%" },
+                    ]}
+                  >
+                    {item.address}
+                  </Text>
+                  <FontAwesomeIcon
+                    icon={"angle-right"}
+                    color={"#1A9E75"}
+                    style={{ position: "absolute", right: 15, top: 16 }}
+                  />
+                </Pressable>
+                <View style={styles.downPart}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      width: "70%",
+                      gap: 10,
+                    }}
+                  >
+                    {selected !== "All" ? (
+                      <View
+                        style={{
+                          backgroundColor: "#F5F5F5",
+                          borderRadius: 10,
+                          padding: 5,
+                          width: 42,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text
+                          style={[
+                            styles.text,
+                            {
+                              color: "#393939",
+                              fontSize: 10,
+                            },
+                          ]}
+                        >
+                          {selected}
+                        </Text>
+                      </View>
+                    ) : (
+                      item.type.map((data) => (
+                        <View
+                          key={data}
+                          style={{
+                            backgroundColor: "#F5F5F5",
+                            borderRadius: 10,
+                            padding: 5,
+                            width: 42,
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Text
+                            style={[
+                              styles.text,
+                              {
+                                color: "#393939",
+                                fontSize: 10,
+                              },
+                            ]}
+                          >
+                            {data}
+                          </Text>
+                        </View>
+                      ))
+                    )}
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 20,
+                      alignItems: "center",
+                      paddingBottom: 4,
+                    }}
+                  >
+                    <FontAwesomeIcon icon={"phone"} color="#1A9E75" size={18} />
+                    <FontAwesomeIcon
+                      icon={"diamond-turn-right"}
+                      color="#1A9E75"
+                      size={22}
+                    />
+                  </View>
+                </View>
+              </View>
+            ))
+          : centers.map((item) => (
+              <View key={item.id} style={styles.container}>
+                <Pressable onPress={() => handleToggle(item.id)}>
+                  <Text style={styles.header}>
+                    {item.name.length > 31
+                      ? item.name.slice(0, 31) + "..."
+                      : item.name}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.text,
+                      { fontSize: 12, color: "#A0A0A0", width: "90%" },
+                    ]}
+                  >
+                    {item.address}
+                  </Text>
+                  <FontAwesomeIcon
+                    icon={"angle-right"}
+                    color={"#1A9E75"}
+                    style={{ position: "absolute", right: 15, top: 16 }}
+                  />
+                </Pressable>
+                <View style={styles.downPart}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      width: "70%",
+                      gap: 10,
+                    }}
+                  >
+                    {selected !== "All" ? (
+                      <View
+                        style={{
+                          backgroundColor: "#F5F5F5",
+                          borderRadius: 10,
+                          padding: 5,
+                          width: 42,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text
+                          style={[
+                            styles.text,
+                            {
+                              color: "#393939",
+                              fontSize: 10,
+                            },
+                          ]}
+                        >
+                          {selected}
+                        </Text>
+                      </View>
+                    ) : (
+                      item.type.map((data) => (
+                        <View
+                          key={data}
+                          style={{
+                            backgroundColor: "#F5F5F5",
+                            borderRadius: 10,
+                            padding: 5,
+                            width: 42,
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Text
+                            style={[
+                              styles.text,
+                              {
+                                color: "#393939",
+                                fontSize: 10,
+                              },
+                            ]}
+                          >
+                            {data}
+                          </Text>
+                        </View>
+                      ))
+                    )}
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 20,
+                      alignItems: "center",
+                      paddingBottom: 4,
+                    }}
+                  >
+                    <FontAwesomeIcon icon={"phone"} color="#1A9E75" size={18} />
+                    <FontAwesomeIcon
+                      icon={"diamond-turn-right"}
+                      color="#1A9E75"
+                      size={22}
+                    />
+                  </View>
+                </View>
+              </View>
+            ))}
+      </ScrollView>
+    </View>
+  );
+};
+
+export default Pucc1;
+
+const Popup = ({ id, toggle }) => {
+  const { height } = useWindowDimensions();
+  const details = centers.find((item) => item.id == id);
+  return (
+    <View style={[styles.backDrop, { height: height - 80 }]}>
+      <View style={styles.popContainer}>
+        <Text style={[styles.header, { width: "80%" }]}>{details.name}</Text>
+        <Text
+          style={[
+            styles.text,
+            { fontSize: 12, color: "#A0A0A0", width: "90%" },
+          ]}
+        >
+          {details.address}
+        </Text>
+        <View
+          style={{ width: "70%", flexDirection: "row", gap: 10, marginTop: 10 }}
+        >
+          {details.type.map((item) => (
+            <View
+              key={item}
+              style={{
+                backgroundColor: "#F5F5F5",
+                borderRadius: 10,
+                padding: 5,
+                width: 42,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color: "#393939",
+                    fontSize: 10,
+                  },
+                ]}
+              >
+                {item}
+              </Text>
+            </View>
+          ))}
+        </View>
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            alignItems: "center",
+            flex: 1,
+            justifyContent: "space-evenly",
+          }}
+        >
+          <View style={styles.button1}>
+            <FontAwesomeIcon icon={"phone"} color="#1A9E75" size={16} />
+            <Text style={styles.bold}>Call</Text>
+          </View>
+          <View style={styles.button2}>
+            <FontAwesomeIcon
+              icon={"diamond-turn-right"}
+              color="white"
+              size={18}
+            />
+            <Text style={[styles.bold, { color: "white" }]}>Get Direction</Text>
+          </View>
+        </View>
+        <Pressable
+          style={{ position: "absolute", right: 20, top: 20 }}
+          onPress={() => toggle(false)}
+        >
+          <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={22} />
+        </Pressable>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  input: {
+    width: "90%",
+    borderWidth: 1,
+    borderRadius: 9,
+    height: 40,
+    paddingLeft: 35,
+    position: "relative",
+    fontFamily: "Poppins_400Regular",
+    fontSize: 13,
+    paddingTop: 3,
+  },
+  search: { width: 20, height: 20, position: "absolute", left: 25 },
+  container: {
+    width: "90%",
+    backgroundColor: "white",
+    borderRadius: 15,
+    padding: 15,
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#1A9E75",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  highlighted: {
+    fontFamily: "Poppins_500Medium",
+    borderBottomColor: "#1A9E75",
+    borderBottomWidth: 2,
+  },
+  text: {
+    fontFamily: "Poppins_400Regular",
+  },
+  downPart: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    height: 40,
+    borderTopColor: "#E6E6E6",
+    borderTopWidth: 1,
+    marginTop: 5,
+    justifyContent: "space-between",
+  },
+  navbar: {
+    height: 40,
+    flexDirection: "row",
+    borderBottomColor: "#E6E6E6",
+    borderBottomWidth: 1,
+    width: "90%",
+    marginBottom: 10,
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+  },
+  backDrop: {
+    flex: 1,
+    backgroundColor: "rgba(72, 72, 72, 0.83)",
+    position: "absolute",
+    width: "100%",
+    zIndex: 5,
+    justifyContent: "flex-end",
+  },
+  popContainer: {
+    backgroundColor: "white",
+    height: 230,
+    width: "100%",
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    padding: 20,
+    gap: 5,
+  },
+  button1: {
+    width: "44%",
+    height: 38,
+    borderRadius: 14,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 5,
+    backgroundColor: "#F0FFFA",
+    borderWidth: 1,
+    borderColor: "#1A9E75",
+  },
+  button2: {
+    width: "44%",
+    height: 38,
+    borderRadius: 14,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 5,
+    backgroundColor: "#1A9E75",
+  },
+});

@@ -17,15 +17,15 @@ const BannerItem = ({ item }) => {
         <LinearGradient
           colors={["rgba(26, 158, 117, 0.80)", "#1A9E75", "#A6A765"]}
           locations={[0, 0.3958, 1]}
-          style={styles.bannerBox}
+          style={[styles.bannerBox, { paddingLeft: 15 }]}
         >
-          <View style={styles.bannerContent}>
+          <View style={{ width: "60%" }}>
             <Text style={styles.text}>{item.title}</Text>
             <Text style={[styles.text, { fontSize: 12, fontWeight: "400" }]}>
               {item.desc}
             </Text>
             <View style={styles.button}>
-              <Text style={{ color: "#1A9E75", fontWeight: "600" }}>
+              <Text style={[styles.bold, { color: "#1A9E75" }]}>
                 {item.buttonText}
               </Text>
             </View>
@@ -54,8 +54,8 @@ const BannerItem = ({ item }) => {
             <Text
               style={
                 item.id === 3
-                  ? { color: "white", fontWeight: "600" }
-                  : { color: "#1A9E75", fontWeight: "600" }
+                  ? [styles.bold, { color: "white" }]
+                  : [styles.bold, { color: "#1A9E75" }]
               }
             >
               {item.buttonText}
@@ -93,15 +93,19 @@ const styles = StyleSheet.create({
     maxHeight: 90,
     maxWidth: 120,
   },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    fontSize: 11,
+  },
   button: {
     backgroundColor: "white",
     borderRadius: 30,
     height: 30,
-    display: "flex",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    width: 130,
+    paddingHorizontal: 1,
+    width: 100,
   },
   text: {
     color: "white",

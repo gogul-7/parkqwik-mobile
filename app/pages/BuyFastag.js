@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-
-import BuyFast1 from "../components/BuyFast1";
+import BuyFast1 from "../components/fastag/BuyFast1";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 const BuyFastagStack = createStackNavigator();
-import BuyFast2 from "../components/BuyFast2";
-import BuyFast3 from "../components/BuyFast3";
-import BuyFastPay from "../components/BuyFastPay";
+import BuyFast2 from "../components/fastag/BuyFast2";
+import BuyFast3 from "../components/fastag/BuyFast3";
+import BuyFastPay from "../components/fastag/BuyFastPay";
 import AppContext from "../context/AppContext";
 
 const BuyFastag = () => {

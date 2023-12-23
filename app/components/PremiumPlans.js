@@ -9,6 +9,8 @@ import {
   Pressable,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const services = [
   {
@@ -21,64 +23,71 @@ const services = [
     id: 2,
     title: "Mobile Recharge",
     image: require("../assets/images/greenmobile.png"),
-    route: "",
+    route: "Mobile Recharge",
   },
   {
     id: 3,
     title: "Electricity",
     image: require("../assets/images/greenelectricity.png"),
-    route: "",
+    route: "Electricity Bill",
   },
   {
     id: 4,
     title: "Water",
     image: require("../assets/images/greenwater.png"),
-    route: "",
+    route: "Water Bill",
   },
   {
     id: 5,
     title: "Gas Cylinder",
     image: require("../assets/images/greengas.png"),
-    route: "",
+    route: "Book Gas Cylinder",
   },
   {
     id: 6,
     title: "Loan Payment",
     image: require("../assets/images/greenhand.png"),
-    route: "",
+    route: "Loan Payment",
   },
   {
     id: 7,
     title: "DTH",
     image: require("../assets/images/greendish.png"),
-    route: "",
+    route: "Recharge DTH",
   },
   {
     id: 8,
     title: "House Rent",
     image: require("../assets/images/greenhouse.png"),
-    route: "",
+    route: "Rent Payment",
   },
 ];
 
 const PremiumPlans = () => {
+  const navigation = useNavigation();
+
+  const handlePress = (route) => {
+    navigation.navigate(`${route}`);
+  };
   return (
     <View style={styles.contianer}>
       <Text style={[styles.header, { marginLeft: 15 }]}>Premium Plans</Text>
       <View style={styles.planContainer}>
-        <ImageBackground
+        <LinearGradient
+          colors={["#48C9A1", "#199E75"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
           style={styles.backImage}
           source={require("../assets/images/frame7.png")}
         >
-          <Text style={[styles.text, { fontSize: 16, color: "#FBFF35" }]}>
+          <Text style={[styles.bold, { fontSize: 15, color: "#FBFF35" }]}>
             Monthly Parking
           </Text>
-          <Text style={[styles.text, { fontSize: 9, color: "white" }]}>
+          <Text style={[styles.text, { fontSize: 8, color: "white" }]}>
             Dedicated parking available near you.
           </Text>
           <View
             style={{
-              display: "flex",
               flexDirection: "row",
               alignItems: "center",
               gap: 3,
@@ -86,7 +95,7 @@ const PremiumPlans = () => {
             }}
           >
             <View style={styles.button}>
-              <Text style={[styles.text, { fontSize: 8 }]}>Explore Now</Text>
+              <Text style={[styles.bold, { fontSize: 8 }]}>Explore Now</Text>
               <FontAwesomeIcon
                 style={{ maxWidth: 10, marginBottom: 1 }}
                 icon="arrow-right-long"
@@ -94,34 +103,46 @@ const PremiumPlans = () => {
             </View>
             <Image
               style={{
-                maxWidth: 50,
-                maxHeight: 48,
-                marginTop: -15,
-                marginLeft: 10,
+                width: 40,
+                height: 45,
+                marginTop: -10,
+                marginLeft: 5,
               }}
               source={require("../assets/images/group1.png")}
             />
           </View>
-        </ImageBackground>
-        <ImageBackground
+        </LinearGradient>
+        <LinearGradient
+          colors={["#48C9A1", "#199E75"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
           style={styles.backImage}
-          source={require("../assets/images/frame6.png")}
         >
-          <Text style={[styles.text, { fontSize: 16, color: "#FBFF35" }]}>
+          <Text style={[styles.bold, { fontSize: 15, color: "#FBFF35" }]}>
             Elite Car Wash
           </Text>
-          <Text style={[styles.text, { fontSize: 9, color: "white" }]}>
+          <Text style={[styles.text, { fontSize: 8, color: "white" }]}>
             Elite car grooming at your doorstep.
           </Text>
 
           <View style={[styles.button, { marginTop: 8 }]}>
-            <Text style={[styles.text, { fontSize: 8 }]}>Explore Now</Text>
+            <Text style={[styles.bold, { fontSize: 8 }]}>Explore Now</Text>
             <FontAwesomeIcon
               style={{ maxWidth: 10, marginBottom: 1 }}
               icon="arrow-right-long"
             />
           </View>
-        </ImageBackground>
+          <Image
+            style={{
+              width: 55,
+              height: 35,
+              position: "absolute",
+              right: -8,
+              bottom: 10,
+            }}
+            source={require("../assets/images/group2.png")}
+          />
+        </LinearGradient>
       </View>
       <View style={styles.serviceContainer}>
         <Text style={[styles.header, { marginLeft: 10 }]}>
@@ -156,26 +177,32 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   header: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins_500Medium",
   },
   planContainer: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     width: "100%",
   },
   backImage: {
-    width: 160,
-    height: 103,
+    width: 155,
+    height: 110,
     display: "flex",
     alignItems: "flex-start",
+    justifyContent: "space-evenly",
     paddingHorizontal: 15,
-    paddingVertical: 5,
+    paddingVertical: 10,
+    borderRadius: 15,
+    overflow: "hidden",
   },
   text: {
     fontFamily: "Poppins_400Regular",
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
   },
   button: {
     width: 80,
@@ -200,7 +227,7 @@ const styles = StyleSheet.create({
     width: "25%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     marginVertical: 10,
     gap: 8,
   },
