@@ -30,7 +30,11 @@ const FailedTrans = () => {
 
   return (
     <ScrollView
-      contentContainerStyle={{ alignItems: "center", paddingBottom: 40 }}
+      contentContainerStyle={{
+        alignItems: "center",
+        paddingBottom: 40,
+        backgroundColor: "#FFF",
+      }}
     >
       <View style={[styles.greenCircle]}></View>
       <View style={styles.headerContainer}>
@@ -406,7 +410,7 @@ export default FailedTrans;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 100,
+    height: 80,
     width: "100%",
     backgroundColor: "#E3E3E3",
     paddingHorizontal: 18,

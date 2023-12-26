@@ -83,7 +83,14 @@ const Notification2 = () => {
 
   if (hideHeader) {
     return (
-      <View style={{ flex: 1, alignItems: "center", gap: 15 }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          gap: 15,
+          backgroundColor: "#FFF",
+        }}
+      >
         <View style={styles.headerContainer}>
           <Image
             style={{ width: 23, height: 23 }}
@@ -240,7 +247,7 @@ export default Notification2;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 90,
+    height: 80,
     width: "100%",
     backgroundColor: "#1A9E75",
     paddingHorizontal: 18,
@@ -258,6 +265,7 @@ const styles = StyleSheet.create({
     gap: 10,
     flexDirection: "row",
     alignItems: "center",
+    elevation: 3,
   },
   imageContainer: {
     height: 45,

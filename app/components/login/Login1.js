@@ -145,7 +145,12 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_500Medium",
     color: "#393939",
   },
-  bold: { fontFamily: "Poppins_600SemiBold", color: "#FFF", paddingTop: 2 },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#FFF",
+    paddingTop: 2,
+    fontSize: 16,
+  },
   input: {
     width: "100%",
     height: 40,

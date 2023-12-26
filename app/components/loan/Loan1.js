@@ -88,7 +88,14 @@ const Loan1 = () => {
   ];
 
   return (
-    <View style={{ alignItems: "center", gap: 15, flex: 1 }}>
+    <View
+      style={{
+        alignItems: "center",
+        gap: 15,
+        flex: 1,
+        backgroundColor: "#FFF",
+      }}
+    >
       <View style={{ width: "90%" }}>
         <Text style={[styles.text, { fontSize: 16 }]}>Select Lender</Text>
       </View>
@@ -100,6 +107,7 @@ const Loan1 = () => {
         contentContainerStyle={{
           alignItems: "center",
           gap: 15,
+          paddingBottom: 20,
         }}
       >
         {searchKey.length !== 0
@@ -174,11 +182,12 @@ const styles = StyleSheet.create({
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",

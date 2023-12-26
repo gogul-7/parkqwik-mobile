@@ -155,10 +155,10 @@ const Close3 = () => {
       </View>
       <Animated.Text
         style={[
-          styles.text,
+          styles.bold,
           {
-            color: "white",
-            fontSize: 18,
+            color: "#FFF",
+            fontSize: 20,
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -172,8 +172,7 @@ const Close3 = () => {
         style={[
           styles.text,
           {
-            color: "white",
-            fontSize: 12,
+            color: "#FFF",
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -194,7 +193,9 @@ const Close3 = () => {
           },
         ]}
       >
-        <Text style={[styles.text, { color: "#1A9E75" }]}>View Details</Text>
+        <Text style={[styles.bold, { color: "#1A9E75", paddingTop: 2 }]}>
+          View Details
+        </Text>
       </Animated.View>
       {enable && (
         <View
@@ -206,13 +207,20 @@ const Close3 = () => {
               styles.button,
               {
                 backgroundColor: "#1A9E75",
-                width: "95%",
+                width: "100%",
                 position: "absolute",
                 bottom: 30,
               },
             ]}
           >
-            <Text style={[styles.text, { color: "white" }]}>Done</Text>
+            <Text
+              style={[
+                styles.bold,
+                { color: "#FFF", fontSize: 16, paddingTop: 2 },
+              ]}
+            >
+              Done
+            </Text>
           </Pressable>
         </View>
       )}
@@ -246,7 +254,7 @@ const styles = StyleSheet.create({
   circle3: {
     width: 85,
     height: 85,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 150,
     position: "absolute",
     display: "flex",
@@ -256,11 +264,15 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   button: {
     width: 120,
     height: 40,
     marginTop: 30,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     display: "flex",
     alignItems: "center",

@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     display: "flex",
     gap: 8,
+    elevation: 3,
   },
   header: {
     fontSize: 16,
@@ -159,9 +160,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#F0FFFA",
     borderWidth: 1,
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins_500Medium",
     fontSize: 12,
     color: "#1A9E75",
+    paddingTop: 2,
   },
   button: {
     display: "flex",

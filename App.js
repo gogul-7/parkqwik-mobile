@@ -89,6 +89,7 @@ import Helmet from "./app/pages/Helmet";
 import RoadAssistance from "./app/pages/RoadAssistance";
 import EvParking from "./app/pages/EvParking";
 import CarShop from "./app/pages/CarShop";
+import Fuel from "./app/pages/Fuel";
 
 library.add(
   faBars,
@@ -202,6 +203,7 @@ export default function App() {
             <Stack.Screen name="Helmet" component={Helmet} />
             <Stack.Screen name="Road Assistance" component={RoadAssistance} />
             <Stack.Screen name="Shop" component={CarShop} />
+            <Stack.Screen name="Fuel" component={Fuel} />
           </Stack.Navigator>
         </NavigationContainer>
       </AppContextProvider>
@@ -210,7 +212,7 @@ export default function App() {
 }
 function HomeScreen() {
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ paddingBottom: 25 }}>
       <Home />
     </ScrollView>
   );

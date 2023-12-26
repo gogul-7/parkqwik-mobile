@@ -8,6 +8,9 @@ import Insurance2 from "../components/insurance/Insurance2";
 import Insurance3 from "../components/insurance/Insurance3";
 import Insurance4 from "../components/insurance/Insurance4";
 import Insurance5 from "../components/insurance/Insurance5";
+import Insurance7 from "../components/insurance/Insurance7";
+import Insurance8 from "../components/insurance/Insurance8";
+import Insurance9 from "../components/insurance/Insurance9";
 
 const InsuranceStack = createStackNavigator();
 
@@ -72,6 +75,25 @@ const Insurance = () => {
         name="insurance5"
         component={Insurance5}
       />
+      <InsuranceStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Checkout"} />;
+          },
+        }}
+        name="insurance7"
+        component={Insurance7}
+      />
+      <InsuranceStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Payment Options"} />;
+          },
+        }}
+        name="insurance8"
+        component={Insurance8}
+      />
+      <InsuranceStack.Screen name="insurance9" component={Insurance9} />
     </InsuranceStack.Navigator>
   );
 };
@@ -100,8 +122,8 @@ const Header = ({ title }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 100,
-    paddingTop: 45,
+    height: 80,
+    paddingTop: 20,
     backgroundColor: "#1A9E75",
     paddingHorizontal: 15,
     display: "flex",

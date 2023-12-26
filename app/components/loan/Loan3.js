@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Modal from "react-native-modal";
 
 const Loan3 = () => {
   const navigation = useNavigation();
@@ -21,15 +22,12 @@ const Loan3 = () => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={[styles.text, { color: "#1B9D76", fontSize: 20 }]}>
-          ₹ 9000
+        <Text style={[{ color: "#1B9D76", fontSize: 24 }]}>
+          ₹ <Text style={[styles.headerText, { color: "#1B9D76" }]}>9000</Text>
         </Text>
-        <Text style={[styles.text, { color: "#8E8E8E", fontSize: 14 }]}>
+        <Text style={[styles.headerText, { color: "#8E8E8E", fontSize: 12 }]}>
           Due Date:
-          <Text style={[styles.text, { color: "black", fontSize: 16 }]}>
-            {" "}
-            12 Sep 23
-          </Text>
+          <Text style={[styles.headerText, { fontSize: 14 }]}> 12 Sep 23</Text>
         </Text>
         <Pressable
           onPress={() => setToggle(true)}
@@ -42,7 +40,7 @@ const Loan3 = () => {
         >
           <Text
             style={[
-              styles.text,
+              styles.headerText,
               {
                 color: "#1B9D76",
                 fontSize: 12,
@@ -51,7 +49,7 @@ const Loan3 = () => {
           >
             More Info
           </Text>
-          <FontAwesomeIcon size={13} color="#1B9D76" icon={"angle-down"} />
+          <FontAwesomeIcon size={10} color="#1B9D76" icon={"angle-down"} />
         </Pressable>
       </View>
       <View
@@ -64,7 +62,7 @@ const Loan3 = () => {
         }}
       >
         <Pressable onPress={handlePress} style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Continue</Text>
+          <Text style={[styles.bold, { color: "#FFF" }]}>Continue</Text>
         </Pressable>
         <View
           style={{
@@ -83,7 +81,14 @@ const Loan3 = () => {
           />
         </View>
       </View>
-      {toggle && <MoreDetails setToggle={setToggle} />}
+      <Modal
+        isVisible={toggle}
+        useNativeDriver
+        backdropOpacity={0.3}
+        style={styles.backdrop}
+      >
+        <MoreDetails setToggle={setToggle} />
+      </Modal>
     </View>
   );
 };
@@ -94,7 +99,9 @@ const MoreDetails = ({ setToggle }) => {
     <View style={[styles.backdrop, { width, height: height }]}>
       <View style={styles.moreContainer}>
         <View style={[styles.textContainer, { marginBottom: 15 }]}>
-          <Text style={[styles.text, { fontSize: 18 }]}>Loan Details</Text>
+          <Text style={[styles.headerText, { fontSize: 18 }]}>
+            Loan Details
+          </Text>
           <Pressable
             onPress={() => setToggle(false)}
             //   style={{ width: "100%", height: 30, alignItems: "center" }}
@@ -138,18 +145,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 20,
     flex: 1,
+    backgroundColor: "#FFF",
   },
   card: {
-    backgroundColor: "#e3e1e1",
-    height: 170,
+    backgroundColor: "#F4F4F4",
+    height: 163,
     width: "75%",
     alignItems: "center",
     justifyContent: "center",
-    gap: 10,
+    gap: 5,
     borderRadius: 28,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+  },
+  bold: {
+    color: "#FFF",
+    fontSize: 16,
+    fontFamily: "Poppins_600SemiBold",
+    paddingTop: 3,
+  },
+  headerText: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
   },
   button: {
     width: "90%",
@@ -162,15 +180,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   moreContainer: {
-    height: 420,
-    paddingTop: 20,
+    height: 270,
+    paddingTop: 18,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     alignItems: "center",
     padding: 8,
-    gap: 8,
+    gap: 6,
   },
   textContainer: {
     width: "90%",
@@ -179,11 +197,7 @@ const styles = StyleSheet.create({
   },
   text1: { fontFamily: "Poppins_400Regular", color: "#A0A0A0", fontSize: 14 },
   backdrop: {
-    flex: 1,
-    backgroundColor: "rgba(72, 72, 72, 0.83)",
-    position: "absolute",
-    top: -100,
-    zIndex: 5,
+    margin: 0,
     justifyContent: "flex-end",
   },
   line: {

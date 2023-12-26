@@ -94,6 +94,7 @@ const MyProfile = () => {
         paddingTop: 25,
         gap: 15,
         paddingBottom: 20,
+        backgroundColor: "#FFF",
       }}
       style={{ flex: 1 }}
     >
@@ -281,6 +282,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_400Regular",
     paddingTop: 5,
     marginTop: -5,
+    borderColor: "#E5E5E5",
   },
   calendar: {
     position: "absolute",
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "90%",
-    paddingVertical: 3,
+    height: 41,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 14,

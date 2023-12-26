@@ -8,6 +8,7 @@ import {
   Pressable,
   useWindowDimensions,
 } from "react-native";
+import Modal from "react-native-modal";
 
 const PaidChallan = () => {
   const [toggle, setToggle] = useState(false);
@@ -44,8 +45,8 @@ const PaidChallan = () => {
               </Text>
             </View>
             <View style={{ alignItems: "flex-end", marginTop: 15 }}>
-              <Text style={[styles.text, { color: "#1A9E75", fontSize: 15 }]}>
-                ₹ 200
+              <Text style={[{ color: "#1A9E75", fontSize: 16 }]}>
+                ₹ <Text style={styles.bold}>200</Text>
               </Text>
               <View
                 style={{
@@ -54,7 +55,9 @@ const PaidChallan = () => {
                   gap: 3,
                 }}
               >
-                <Text style={[styles.text, { fontSize: 13 }]}>Obstruction</Text>
+                <Text style={[styles.header, { fontSize: 12 }]}>
+                  Obstruction
+                </Text>
                 <Text
                   style={[
                     styles.text,
@@ -86,10 +89,11 @@ const PaidChallan = () => {
                     flexDirection: "row",
                     alignItems: "center",
                     gap: 2,
+                    right: 20,
                   }}
                 >
                   <Text
-                    style={[styles.text, { color: "#1A9E75", fontSize: 12 }]}
+                    style={[styles.header, { color: "#1A9E75", fontSize: 12 }]}
                   >
                     More Info
                   </Text>
@@ -119,15 +123,20 @@ const PaidChallan = () => {
           </ImageBackground>
         </ImageBackground>
       </View>
-      {toggle && <MoreDetails setToggle={setToggle} />}
+      <MoreDetails setToggle={setToggle} toggle={toggle} />
     </View>
   );
 };
 
-const MoreDetails = ({ setToggle }) => {
-  const { width, height } = useWindowDimensions();
+const MoreDetails = ({ setToggle, toggle }) => {
   return (
-    <View style={[styles.backdrop, { width, height }]}>
+    <Modal
+      isVisible={toggle}
+      style={[styles.backdrop]}
+      useNativeDriver
+      backdropOpacity={0.3}
+      onBackdropPress={() => setToggle(false)}
+    >
       <View style={styles.moreContainer}>
         <Pressable
           onPress={() => setToggle(false)}
@@ -161,12 +170,12 @@ const MoreDetails = ({ setToggle }) => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text1}>Challan Amount</Text>
-          <Text style={[styles.text, { fontSize: 16, color: "#1A9E75" }]}>
-            ₹ 600
+          <Text style={{ fontSize: 16, color: "#1A9E75" }}>
+            ₹ <Text style={[styles.header, { color: "#1A9E75" }]}>600</Text>
           </Text>
         </View>
       </View>
-    </View>
+    </Modal>
   );
 };
 
@@ -174,6 +183,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     padding: 15,
+    backgroundColor: "#FFF",
+    flex: 1,
   },
   content: {
     width: "95%",
@@ -188,6 +199,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
   },
   border: {
     borderLeftWidth: 1,
@@ -216,22 +235,18 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   backdrop: {
-    flex: 1,
-    backgroundColor: "rgba(72, 72, 72, 0.83)",
-    position: "absolute",
-    top: -100,
-    zIndex: 5,
+    margin: 0,
     justifyContent: "flex-end",
   },
   moreContainer: {
-    height: 330,
+    height: 261,
     width: "100%",
     backgroundColor: "white",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     alignItems: "center",
     padding: 8,
-    gap: 8,
+    gap: 5,
   },
   text1: { fontFamily: "Poppins_400Regular", color: "#A0A0A0", fontSize: 14 },
   line: {
@@ -241,7 +256,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   textContainer: {
-    width: "85%",
+    width: "88%",
     flexDirection: "row",
     justifyContent: "space-between",
   },

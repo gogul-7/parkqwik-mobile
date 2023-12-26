@@ -43,13 +43,13 @@ const centers = [
 ];
 
 const Rto1 = () => {
-  const [border, setBorder] = useState("#A0A0A0");
+  const [border, setBorder] = useState("#EEE");
   const [search, setSearch] = useState([]);
   const [key, setKey] = useState("");
 
   const handleChange = (text) => {
     setBorder("#1A9E75");
-    if (text.length == 0) setBorder("#A0A0A0");
+    if (text.length == 0) setBorder("#EEE");
     setKey(text);
     setSearch(
       centers.filter((item) =>
@@ -64,6 +64,7 @@ const Rto1 = () => {
         paddingVertical: 15,
         alignItems: "center",
         gap: 10,
+        backgroundColor: "#FFF",
       }}
     >
       <View
@@ -223,6 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 15,
     padding: 15,
+    elevation: 3,
   },
   header: {
     fontFamily: "Poppins_500Medium",

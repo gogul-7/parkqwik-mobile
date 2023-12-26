@@ -11,15 +11,12 @@ const Electricity3 = () => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={[styles.text, { color: "#1B9D76", fontSize: 20 }]}>
-          ₹ 600
+        <Text style={[{ color: "#1B9D76", fontSize: 24 }]}>
+          ₹ <Text style={[styles.headerText, { color: "#1B9D76" }]}>600</Text>
         </Text>
-        <Text style={[styles.text, { color: "#8E8E8E", fontSize: 14 }]}>
+        <Text style={[styles.headerText, { color: "#8E8E8E", fontSize: 12 }]}>
           Due Date:
-          <Text style={[styles.text, { color: "black", fontSize: 16 }]}>
-            {" "}
-            12 Sep 23
-          </Text>
+          <Text style={[styles.headerText, { fontSize: 14 }]}> 12 Sep 23</Text>
         </Text>
       </View>
       <View
@@ -32,7 +29,7 @@ const Electricity3 = () => {
         }}
       >
         <Pressable onPress={handlePress} style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Continue</Text>
+          <Text style={[styles.bold, { color: "#FFF" }]}>Continue</Text>
         </Pressable>
         <View
           style={{
@@ -60,22 +57,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 20,
     flex: 1,
+    backgroundColor: "#FFF",
   },
   card: {
-    backgroundColor: "#e3e1e1",
-    height: 170,
+    backgroundColor: "#F4F4F4",
+    height: 163,
     width: "75%",
     alignItems: "center",
     justifyContent: "center",
-    gap: 10,
+    gap: 5,
     borderRadius: 28,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
+  },
+  bold: {
+    color: "#FFF",
+    fontSize: 16,
+    fontFamily: "Poppins_600SemiBold",
+    paddingTop: 3,
+  },
+  headerText: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
   },
   button: {
     width: "90%",
-    height: 40,
+    height: 41,
     marginTop: 30,
     backgroundColor: "#1A9E75",
     borderRadius: 15,

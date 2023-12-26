@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Helmet2 from "../components/helmet/Helmet2";
 import Helmet1 from "../components/helmet/Helmet1";
+import Helmet3 from "../components/helmet/Helmet3";
 
 const HelmetStack = createStackNavigator();
 
@@ -42,6 +43,7 @@ const Helmet = () => {
           },
         }}
       />
+      <HelmetStack.Screen name="helmet3" component={Helmet3} />
     </HelmetStack.Navigator>
   );
 };
@@ -69,8 +71,8 @@ const Header = ({ title }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 100,
-    paddingTop: 45,
+    height: 80,
+    paddingTop: 20,
     backgroundColor: "#1A9E75",
     paddingHorizontal: 15,
     display: "flex",

@@ -43,7 +43,14 @@ const Mobile2 = () => {
 
   if (contact.length === 0) {
     return (
-      <View style={{ flex: 1, paddingTop: 20, alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          paddingTop: 20,
+          alignItems: "center",
+          backgroundColor: "#FFF",
+        }}
+      >
         <Loader />
         <Text style={[styles.text, { fontSize: 16, color: "#1A9E75" }]}>
           Please Wait..
@@ -55,7 +62,13 @@ const Mobile2 = () => {
   if (contact.length > 0)
     return (
       <View
-        style={{ paddingTop: 20, alignItems: "center", gap: 20, width: "100%" }}
+        style={{
+          paddingTop: 20,
+          alignItems: "center",
+          gap: 20,
+          flex: 1,
+          backgroundColor: "#FFF",
+        }}
       >
         <View
           style={{
@@ -107,7 +120,7 @@ const Mobile2 = () => {
 
                       <Text
                         style={[
-                          styles.text,
+                          styles.header,
                           { fontSize: 12, color: "#8E8E8E" },
                         ]}
                       >
@@ -165,6 +178,9 @@ const styles = StyleSheet.create({
   lottie: {
     width: 100,
     height: 100,
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
   },
   search: { width: 20, height: 20, position: "absolute", left: 25 },
   contactContainer: {

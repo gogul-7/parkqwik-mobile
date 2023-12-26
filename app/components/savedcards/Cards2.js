@@ -81,6 +81,7 @@ const Cards2 = () => {
       style={{
         flex: 1,
         alignItems: "center",
+        backgroundColor: "#FFF",
       }}
     >
       <ScrollView
@@ -142,21 +143,19 @@ const Cards2 = () => {
           style={
             disabled
               ? [
-                  styles.header,
+                  styles.bold,
                   {
                     color: "#9F9F9F",
                     width: "auto",
                     paddingTop: 2,
-                    fontSize: 14,
                   },
                 ]
               : [
-                  styles.header,
+                  styles.bold,
                   {
                     color: "white",
                     width: "auto",
                     paddingTop: 2,
-                    fontSize: 14,
                   },
                 ]
           }
@@ -197,7 +196,8 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: "#1A9E75",
     width: "90%",
-    paddingVertical: 8,
+    height: 41,
+    justifyContent: "center",
     alignItems: "center",
     gap: 10,
     position: "absolute",
@@ -207,7 +207,8 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: "#DFDFDF",
     width: "90%",
-    paddingVertical: 8,
+    height: 41,
+    justifyContent: "center",
     alignItems: "center",
     gap: 10,
     position: "absolute",

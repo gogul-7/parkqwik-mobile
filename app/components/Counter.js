@@ -6,7 +6,6 @@ const Counter = ({ count, setCount }) => {
   return (
     <View
       style={{
-        display: "flex",
         flexDirection: "row",
         gap: 10,
         alignItems: "center",

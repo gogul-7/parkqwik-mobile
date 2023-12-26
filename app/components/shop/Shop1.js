@@ -1,12 +1,10 @@
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
   Image,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -35,7 +33,7 @@ const Shop1 = () => {
       name: "Car Covers",
       image: require("../assets/logos/cover.png"),
       width: 52,
-      height: 25.86,
+      height: 45,
     },
     {
       id: "4",
@@ -56,7 +54,7 @@ const Shop1 = () => {
       name: "Chargers",
       image: require("../assets/logos/charger.png"),
       width: 50,
-      height: 33.33,
+      height: 40,
     },
     {
       id: "7",
@@ -77,7 +75,7 @@ const Shop1 = () => {
       name: "Cushions",
       image: require("../assets/logos/cushions.png"),
       width: 50,
-      height: 39.3,
+      height: 48,
     },
   ];
   const Deals = [
@@ -85,21 +83,21 @@ const Shop1 = () => {
       offer: "20",
       image: require("../assets/logos/Autofit.png"),
       name: "AUTOFIT",
-      detail: "Double Quilted Car \n Cushion Combo Set",
+      detail: "Double Quilted Car Cushion Combo Set",
       rate: "220",
     },
     {
       offer: "37",
       image: require("../assets/logos/aroma.png"),
       name: "Aromahpure",
-      detail: "Premium car perfume \n fragrance flakes",
+      detail: "Premium car perfume fragrance flakes",
       rate: "199",
     },
     {
       offer: "20",
       image: require("../assets/logos/Autofit.png"),
       name: "AUTOFIT",
-      detail: "Double Quilted Car \n Cushion Combo Set",
+      detail: "Double Quilted Car Cushion Combo Set",
       rate: "220",
     },
   ];
@@ -107,31 +105,58 @@ const Shop1 = () => {
     {
       offer: "24",
       image: require("../assets/logos/ERH.png"),
-      height: 75,
-      width: 125,
+      height: 99,
+      width: 99,
       name: "ERH India",
-      detail: "Car Tweeter (Pack of 1 \n Pair)",
+      detail: "Car Tweeter (Pack of 1 Pair)",
       rate: "320",
     },
     {
       offer: "15",
       image: require("../assets/logos/brocade.png"),
       name: "ERH India",
-      detail: "Car Tweeter (Pack of 1 \n Pair)",
+      detail: "Car Tweeter (Pack of 1 Pair)",
       width: 99,
       height: 99,
       rate: "320",
     },
+    {
+      offer: "20",
+      image: require("../assets/logos/Autofit.png"),
+      name: "AUTOFIT",
+      detail: "Double Quilted Car Cushion Combo Set",
+      rate: "220",
+      width: 99,
+      height: 99,
+    },
   ];
   return (
-    <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
-      <ScrollView>
+    <View
+      style={{
+        backgroundColor: "#FFF",
+        flex: 1,
+      }}
+    >
+      <ScrollView
+        contentContainerStyle={{
+          alignItems: "center",
+          paddingTop: 20,
+          gap: 15,
+          paddingBottom: 30,
+        }}
+      >
         <Text style={styles.title}>Categories</Text>
         <View
-          style={{ flexDirection: "row", gap: 8, flexWrap: "wrap", left: 20 }}
+          style={{
+            flexDirection: "row",
+            gap: 8,
+            flexWrap: "wrap",
+            width: "100%",
+            justifyContent: "center",
+          }}
         >
           {Categories.map((category) => (
-            <View style={styles.container}>
+            <View key={category.id} style={styles.container}>
               <Image
                 source={category.image}
                 style={{ width: category.width, height: category.height }}
@@ -147,19 +172,24 @@ const Shop1 = () => {
         </View>
         <View style={styles.viewmore}>
           <Text style={{ fontFamily: "Poppins_500Medium", color: "#1A9E75" }}>
-            View More{" "}
+            View More
           </Text>
-          <FontAwesomeIcon icon={"angle-down"} color="#1A9E75" />
+          <FontAwesomeIcon icon={"angle-down"} color="#1A9E75" size={14} />
         </View>
         <Text style={styles.title}>Deals Of the Day</Text>
-        <View style={{ flexDirection: "row", gap: 8, left: 20 }}>
-          {Deals.map((deal) => (
-            <View style={styles.deal}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 15, gap: 10 }}
+        >
+          {Deals.map((deal, index) => (
+            <View key={index} style={styles.deal}>
               <View style={styles.deal1}>
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    width: "95%",
                   }}
                 >
                   <Text
@@ -172,9 +202,9 @@ const Shop1 = () => {
                     {deal.offer}% off
                   </Text>
                   <Image
-                    style={{ width: 16.67, height: 15.29 }}
+                    style={{ width: 20, height: 20 }}
                     source={require("../assets/logos/favorite.png")}
-                  ></Image>
+                  />
                 </View>
                 <Image
                   source={deal.image}
@@ -182,16 +212,15 @@ const Shop1 = () => {
                     width: 109,
                     height: 109,
                     alignSelf: "center",
-                    top: 10,
+                    top: 5,
                   }}
                 ></Image>
               </View>
               <Text
                 style={{
-                  left: 15,
-                  top: 8,
                   fontFamily: "Poppins_500Medium",
-                  color: "white",
+                  color: "#FFF",
+                  width: "85%",
                 }}
               >
                 {deal.name}
@@ -200,35 +229,38 @@ const Shop1 = () => {
                 style={{
                   fontSize: 10,
                   fontFamily: "Poppins_400Regular",
-                  left: 15,
-                  top: 10,
-                  color: "white",
+                  color: "#FFF",
+                  width: "85%",
+                  marginTop: -10,
                 }}
               >
                 {deal.detail}
               </Text>
               <View
                 style={{
-                  marginTop: 25,
-                  left: 15,
                   flexDirection: "row",
-                  gap: 10,
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "85%",
                 }}
               >
                 <Text
                   style={{
-                    fontFamily: "Poppins_500Medium",
                     fontSize: 16,
-                    color: "white",
+                    color: "#FFF",
+                    paddingTop: 4,
                   }}
                 >
-                  ₹ {deal.rate}
+                  ₹{" "}
+                  <Text style={{ fontFamily: "Poppins_500Medium" }}>
+                    {deal.rate}
+                  </Text>
                 </Text>
                 <TouchableOpacity
                   style={{
                     width: 70,
                     height: 24,
-                    backgroundColor: "white",
+                    backgroundColor: "#FFF",
                     borderRadius: 13,
                     justifyContent: "center",
                   }}
@@ -239,6 +271,7 @@ const Shop1 = () => {
                       fontSize: 12,
                       color: "#1A9E75",
                       alignSelf: "center",
+                      paddingTop: 2,
                     }}
                   >
                     Buy Now
@@ -247,94 +280,108 @@ const Shop1 = () => {
               </View>
             </View>
           ))}
-        </View>
+        </ScrollView>
         <LinearGradient
           colors={["#6568F1", "#8C8EFF"]}
           start={{ x: 0.0, y: 0.5 }}
           end={{ x: 1.0, y: 0.5 }}
           locations={[0.211, 0.7187]}
           style={{
-            width: 328,
+            width: "90%",
             height: 136,
-            marginTop: 25,
+            marginTop: 15,
             borderRadius: 10,
-            padding: 20,
-            alignSelf: "center",
+            padding: 15,
+            gap: 8,
           }}
         >
           <Text
             style={{
               fontFamily: "Poppins_500Medium",
-              color: "white",
-              fontSize: 16,
+              color: "#FFF",
+              fontSize: 15,
+              width: "60%",
             }}
           >
-            Lemon Car Freshner {"\n"}Get at 50% Off
+            Lemon Car Freshner Get at 50% Off
+          </Text>
+
+          <Text style={{ fontSize: 19, color: "#FFF", marginTop: -10 }}>
+            ₹{" "}
+            <Text
+              style={{
+                textDecorationLine: "line-through",
+                fontSize: 20,
+                color: "#FFF",
+              }}
+            >
+              897
+            </Text>
+            <Text style={{ fontSize: 20, color: "#1BFF68" }}> ₹448</Text>
           </Text>
           <View
-            style={{ width: 150, height: 30, flexDirection: "row", gap: 10 }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
           >
-            <Text style={{ fontSize: 20, color: "white" }}>
-              ₹{" "}
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 10,
+                paddingVertical: 3,
+                backgroundColor: "#FFF",
+                borderRadius: 15,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Text
                 style={{
-                  textDecorationLine: "line-through",
-                  fontSize: 20,
-                  color: "white",
+                  fontFamily: "Poppins_600SemiBold",
+                  fontSize: 12,
+                  color: "#6568F1",
+                  paddingTop: 2,
                 }}
               >
-                897
+                Buy Now
               </Text>
+            </TouchableOpacity>
+            <Text
+              style={{
+                fontFamily: "Poppins_500Medium",
+                fontSize: 12,
+                color: "#FFF",
+              }}
+            >
+              Offer valid till 10:28:30
             </Text>
-            <Text style={{ fontSize: 20, color: "#1BFF68" }}>₹448</Text>
           </View>
           <Image
             source={require("../assets/logos/ambipure.png")}
-            style={{ width: 117, height: 59, left: 180, bottom: 70 }}
-          ></Image>
-
-          <TouchableOpacity
             style={{
-              width: 77,
-              height: 28,
-              backgroundColor: "white",
-              bottom: 60,
-              borderRadius: 15,
-              alignItems: "center",
-              justifyContent: "center",
+              width: 117,
+              height: 59,
+              position: "absolute",
+              right: 20,
+              top: 30,
             }}
-          >
-            <Text
-              style={{
-                fontFamily: "Poppins_600SemiBold",
-                fontSize: 12,
-                color: "#6568F1",
-              }}
-            >
-              Buy Now
-            </Text>
-          </TouchableOpacity>
-          <Text
-            style={{
-              bottom: 90,
-              left: 160,
-              fontFamily: "Poppins_500Medium",
-              fontSize: 12,
-              color: "white",
-            }}
-          >
-            Offer valid till 10:28:30
-          </Text>
+          />
         </LinearGradient>
         <Text style={styles.title}>New Arrivals</Text>
-        <View style={{ flexDirection: "row", gap: 8, left: 20 }}>
-          {Arrivals.map((arrival) => (
-            <View style={styles.deal}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 15, gap: 10 }}
+        >
+          {Arrivals.map((deal, index) => (
+            <View key={index} style={styles.deal}>
               <View style={styles.deal1}>
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    width: "95%",
                   }}
                 >
                   <Text
@@ -344,66 +391,69 @@ const Shop1 = () => {
                       color: "#1A9E75",
                     }}
                   >
-                    {arrival.offer}% off
+                    {deal.offer}% off
                   </Text>
                   <Image
-                    style={{ width: 16.67, height: 15.29 }}
+                    style={{ width: 20, height: 20 }}
                     source={require("../assets/logos/favorite.png")}
-                  ></Image>
+                  />
                 </View>
                 <Image
-                  source={arrival.image}
+                  source={deal.image}
                   style={{
-                    width: arrival.width,
-                    height: arrival.height,
+                    width: deal.width,
+                    height: deal.height,
+
                     alignSelf: "center",
-                    top: 10,
+                    top: 5,
                   }}
                 ></Image>
               </View>
               <Text
                 style={{
-                  left: 15,
-                  top: 8,
                   fontFamily: "Poppins_500Medium",
-                  color: "white",
+                  color: "#FFF",
+                  width: "85%",
                 }}
               >
-                {arrival.name}
+                {deal.name}
               </Text>
               <Text
                 style={{
                   fontSize: 10,
                   fontFamily: "Poppins_400Regular",
-                  left: 15,
-                  top: 10,
-                  color: "white",
+                  color: "#FFF",
+                  width: "85%",
+                  marginTop: -10,
                 }}
               >
-                {arrival.detail}
+                {deal.detail}
               </Text>
               <View
                 style={{
-                  marginTop: 25,
-                  left: 15,
                   flexDirection: "row",
-                  gap: 10,
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "85%",
                 }}
               >
                 <Text
                   style={{
-                    fontFamily: "Poppins_500Medium",
                     fontSize: 16,
-                    color: "white",
+                    color: "#FFF",
+                    paddingTop: 4,
                   }}
                 >
-                  ₹ {arrival.rate}
+                  ₹{" "}
+                  <Text style={{ fontFamily: "Poppins_500Medium" }}>
+                    {deal.rate}
+                  </Text>
                 </Text>
                 <TouchableOpacity
                   style={{
                     width: 70,
                     height: 24,
-                    backgroundColor: "white",
+                    backgroundColor: "#FFF",
                     borderRadius: 13,
                     justifyContent: "center",
                   }}
@@ -414,6 +464,7 @@ const Shop1 = () => {
                       fontSize: 12,
                       color: "#1A9E75",
                       alignSelf: "center",
+                      paddingTop: 2,
                     }}
                   >
                     Buy Now
@@ -422,9 +473,9 @@ const Shop1 = () => {
               </View>
             </View>
           ))}
-        </View>
+        </ScrollView>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -432,28 +483,27 @@ export default Shop1;
 
 const styles = StyleSheet.create({
   title: {
-    paddingTop: 23,
-    marginBottom: 8,
     fontFamily: "Poppins_500Medium",
     fontSize: 16,
-    color: "black",
-    left: 20,
+    color: "#393939",
+    width: "90%",
   },
   name: {
     fontFamily: "Poppins_400Regular",
-    color: "black",
-    marginTop: 9,
+    color: "#393939",
+    fontSize: 12,
+    position: "absolute",
+    bottom: 10,
   },
   container: {
     width: 104,
     height: 104,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     alignItems: "center",
-    justifyContent: "center",
+    paddingVertical: 20,
     shadowColor: "black",
-    elevation: 5,
+    elevation: 3,
     borderRadius: 14,
-    marginTop: 15,
   },
   image: {
     width: 109,
@@ -461,10 +511,10 @@ const styles = StyleSheet.create({
     resizeMode: "stretch",
   },
   viewmore: {
-    width: 312,
+    width: "85%",
+    marginTop: 15,
     height: 40,
     borderWidth: 1,
-    marginTop: 30,
     borderRadius: 8,
     borderColor: "#1A9E75",
     justifyContent: "center",
@@ -472,20 +522,24 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#F0FFFA",
     flexDirection: "row",
+    gap: 5,
   },
   deal: {
     width: 146,
     height: 265,
     borderRadius: 15,
     backgroundColor: "#1A9E75",
+    alignItems: "center",
+    gap: 10,
   },
   deal1: {
     width: 146,
     height: 155,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderColor: "#1A9E75",
     borderWidth: 1,
     borderRadius: 15,
     padding: 5,
+    alignItems: "center",
   },
 });

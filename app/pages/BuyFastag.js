@@ -38,13 +38,15 @@ const Header = () => {
             gap: 8,
           }}
         >
-          <View style={styles.circle}>
-            <Image
-              style={{ maxWidth: 25, maxHeight: 25 }}
-              source={require("../assets/images/greencar.png")}
-            />
+          <View style={styles.circle1}>
+            <View style={styles.circle}>
+              <Image
+                style={{ maxWidth: 25, maxHeight: 25 }}
+                source={require("../assets/images/greencar.png")}
+              />
+            </View>
           </View>
-          <Text style={[styles.text, { fontSize: 9 }]}>Vehicle Details</Text>
+          <Text style={[styles.text, { fontSize: 10 }]}>Vehicle Details</Text>
         </View>
         <View
           style={
@@ -52,7 +54,7 @@ const Header = () => {
               ? [styles.line, { marginLeft: -10, opacity: 0.5 }]
               : [styles.line, { marginLeft: -10 }]
           }
-        ></View>
+        />
         <View
           style={
             headerNum < 2
@@ -60,13 +62,15 @@ const Header = () => {
               : { display: "flex", alignItems: "center", gap: 8 }
           }
         >
-          <View style={styles.circle}>
-            <Image
-              style={{ maxWidth: 25, maxHeight: 25 }}
-              source={require("../assets/images/greenlocation.png")}
-            />
+          <View style={styles.circle1}>
+            <View style={styles.circle}>
+              <Image
+                style={{ maxWidth: 25, maxHeight: 25 }}
+                source={require("../assets/images/greenlocation.png")}
+              />
+            </View>
           </View>
-          <Text style={[styles.text, { fontSize: 9 }]}>Location</Text>
+          <Text style={[styles.text, { fontSize: 10 }]}>Location</Text>
         </View>
         <View
           style={
@@ -80,10 +84,13 @@ const Header = () => {
               : { display: "flex", alignItems: "center", gap: 8 }
           }
         >
-          <View style={styles.circle}>
-            <FontAwesomeIcon size={25} icon="money-bills" color="#1A9E75" />
+          <View style={styles.circle1}>
+            <View style={styles.circle}>
+              <FontAwesomeIcon size={25} icon="money-bills" color="#1A9E75" />
+            </View>
           </View>
-          <Text style={[styles.text, { fontSize: 9 }]}>Payment</Text>
+
+          <Text style={[styles.text, { fontSize: 10 }]}>Payment</Text>
         </View>
       </View>
     );
@@ -102,11 +109,19 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 15,
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins_500Medium",
   },
-  circle: {
+  circle1: {
     height: 40,
     width: 40,
+    borderRadius: 40,
+    backgroundColor: "#rgba(0, 157, 109, 0.20)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  circle: {
+    height: 37,
+    width: 37,
     backgroundColor: "white",
     borderRadius: 50,
     display: "flex",

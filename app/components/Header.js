@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, Image } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
 import AppContext from "../context/AppContext";
@@ -17,15 +17,22 @@ const Header = ({ title }) => {
       return (
         <View style={styles.headerContainer}>
           <Pressable onPress={handlePress}>
-            <FontAwesomeIcon color="white" size={20} icon="arrow-left-long" />
+            <Image
+              style={{ width: 24, height: 24 }}
+              source={require("../assets/images/arrowleft.png")}
+            />
           </Pressable>
+          <Text style={styles.text}>{title}</Text>
         </View>
       );
     else {
       return (
         <View style={styles.headerContainer}>
           <Pressable onPress={handlePress}>
-            <FontAwesomeIcon color="white" size={20} icon="arrow-left-long" />
+            <Image
+              style={{ width: 24, height: 24 }}
+              source={require("../assets/images/arrowleft.png")}
+            />
           </Pressable>
           <Text style={styles.text}>{headerName ? headerName : title}</Text>
         </View>
@@ -36,14 +43,14 @@ const Header = ({ title }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 60,
+    height: 80,
     paddingTop: 20,
     backgroundColor: "#1A9E75",
-    paddingHorizontal: 15,
+    paddingHorizontal: 13,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 12,
   },
   text: {
     color: "white",

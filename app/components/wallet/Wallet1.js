@@ -41,9 +41,13 @@ const Wallet1 = () => {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 15 }}>
+    <View style={{ flex: 1, paddingTop: 15, backgroundColor: "#FFF" }}>
       <ScrollView
-        contentContainerStyle={{ alignItems: "center", gap: 15 }}
+        contentContainerStyle={{
+          alignItems: "center",
+          gap: 15,
+          paddingBottom: 50,
+        }}
         style={{ width: "100%", flex: 1 }}
       >
         <View style={styles.container}>
@@ -94,7 +98,7 @@ const Wallet1 = () => {
                 style={styles.button}
               >
                 <Text style={{ color: "white" }}>
-                  ₹ <Text style={styles.text}>{item.amnt}</Text>
+                  ₹ <Text style={styles.header}>{item.amnt}</Text>
                 </Text>
               </TouchableOpacity>
             ))}
@@ -286,6 +290,7 @@ const Wallet1 = () => {
               width: "90%",
               marginTop: 10,
               backgroundColor: "#F0FFFA",
+              elevation: 0,
             },
           ]}
         >
@@ -308,11 +313,11 @@ const Wallet1 = () => {
           <TouchableOpacity
             style={[
               styles.button,
-              { width: 160, borderRadius: 14, height: 35 },
+              { width: 160, borderRadius: 14, height: 41 },
             ]}
             onPress={handleContinue}
           >
-            <Text style={[styles.text, { color: "white" }]}>
+            <Text style={[styles.bold, { color: "white", fontSize: 16 }]}>
               Proceed To Pay
             </Text>
           </TouchableOpacity>
@@ -363,6 +368,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    elevation: 3,
   },
   bannerContainer: {
     display: "flex",
@@ -381,7 +387,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 30,
-    elevation: 3,
+    elevation: 10,
   },
   bannerContainer: {
     paddingLeft: "5%",

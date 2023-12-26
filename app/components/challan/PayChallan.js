@@ -43,15 +43,17 @@ const PayChallan = () => {
 
   return (
     <ScrollView>
-      <View style={{ alignItems: "center", padding: 15, gap: 20 }}>
+      <View
+        style={{
+          alignItems: "center",
+          padding: 15,
+          gap: 20,
+          backgroundColor: "#FFF",
+        }}
+      >
         <View style={styles.container}>
-          <Text style={[styles.text, { fontSize: 16 }]}>Check Challan</Text>
-          <Text
-            style={[
-              styles.text,
-              { color: "#A0A0A0", fontSize: 13, width: "90%" },
-            ]}
-          >
+          <Text style={[styles.header, { fontSize: 16 }]}>Check Challan</Text>
+          <Text style={[styles.text, { color: "#A0A0A0", width: "90%" }]}>
             Enter your vehicle number and check your challans
           </Text>
           <View style={styles.inputContainer}>
@@ -61,7 +63,7 @@ const PayChallan = () => {
               placeholderTextColor="#1A9E75"
             />
             <Pressable onPress={handlePress} style={styles.button}>
-              <Text style={[styles.text, { color: "white", fontSize: 13 }]}>
+              <Text style={[styles.bold, { color: "#FFF", paddingTop: 2 }]}>
                 Check
               </Text>
             </Pressable>
@@ -69,7 +71,7 @@ const PayChallan = () => {
         </View>
 
         <View style={{ width: "100%", gap: 10 }}>
-          <Text style={[styles.text, { fontSize: 16 }]}>How it works?</Text>
+          <Text style={[styles.header, { fontSize: 16 }]}>How it works?</Text>
           <View
             style={{
               flexDirection: "row",
@@ -84,14 +86,14 @@ const PayChallan = () => {
                   source={require("../assets/images/greenlicense.png")}
                 />
               </View>
-              <Text style={[styles.text, { fontSize: 14 }]}>Step 1</Text>
+              <Text style={[styles.header]}>Step 1</Text>
               <Text
                 style={[
                   styles.text,
                   {
                     color: "#A0A0A0",
                     fontSize: 10,
-                    width: "90%",
+                    width: "80%",
                     textAlign: "center",
                   },
                 ]}
@@ -112,7 +114,7 @@ const PayChallan = () => {
                   source={require("../assets/images/greendocument.png")}
                 />
               </View>
-              <Text style={[styles.text, { fontSize: 14 }]}>Step 2</Text>
+              <Text style={[styles.header]}>Step 2</Text>
               <Text
                 style={[
                   styles.text,
@@ -146,7 +148,7 @@ const PayChallan = () => {
                   source={require("../assets/images/greenpayment.png")}
                 />
               </View>
-              <Text style={[styles.text, { fontSize: 14 }]}>Step 3</Text>
+              <Text style={[styles.header]}>Step 3</Text>
               <Text
                 style={[
                   styles.text,
@@ -164,11 +166,11 @@ const PayChallan = () => {
           </View>
         </View>
         <View style={styles.container}>
-          <Text style={[styles.text, { fontSize: 16 }]}>Traffic Fines</Text>
+          <Text style={[styles.header, { fontSize: 16 }]}>Traffic Fines</Text>
           <Text
             style={[
               styles.text,
-              { color: "#A0A0A0", fontSize: 13, width: "90%" },
+              { color: "#A0A0A0", marginBottom: 5, width: "90%" },
             ]}
           >
             Select your state to see traffic fines
@@ -205,11 +207,13 @@ const PayChallan = () => {
           <Text style={[styles.text, { color: "white", fontSize: 17 }]}>
             Challan Payments
           </Text>
-          <Text style={[styles.text, { color: "white", fontSize: 10 }]}>
+          <Text style={[styles.text, { color: "white", fontSize: 11 }]}>
             Pay using UPI, Debit & Credit Cards
           </Text>
           <View style={styles.buttonSmall}>
-            <Text style={[styles.text, { fontSize: 10 }]}>Invite Now</Text>
+            <Text style={[styles.bold, { fontSize: 10, paddingTop: 1 }]}>
+              Invite Now
+            </Text>
           </View>
           <Image
             style={styles.image}
@@ -251,10 +255,17 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 15,
     gap: 5,
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -262,27 +273,27 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: "#1A9E75",
-    height: 45,
+    height: 39,
+    paddingTop: 2,
     flex: 1,
     paddingLeft: 10,
     borderRadius: 8,
     backgroundColor: "#F0FFFA",
     borderWidth: 1,
-    fontFamily: "Poppins_400Regular",
-    fontSize: 13,
+    fontFamily: "Poppins_500Medium",
+    fontSize: 12,
   },
   button: {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#1A9E75",
-    height: 45,
+    height: 39,
     borderRadius: 8,
     paddingHorizontal: 15,
-    paddingVertical: 10,
   },
   circle: {
-    width: 70,
-    height: 70,
+    width: 65,
+    height: 65,
     borderRadius: 70,
     backgroundColor: "#F0FFFA",
     alignItems: "center",
@@ -305,9 +316,9 @@ const styles = StyleSheet.create({
   },
   buttonSmall: {
     backgroundColor: "white",
-    width: 80,
-    height: 30,
-    padding: 5,
+    width: 71,
+    height: 24,
+
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",

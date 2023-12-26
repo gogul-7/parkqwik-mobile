@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 10,
     marginTop: 15,
+    elevation: 3,
   },
   gridItem: {
     width: "25%",

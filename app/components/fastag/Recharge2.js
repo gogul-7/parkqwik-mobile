@@ -55,16 +55,25 @@ const Recharge2 = () => {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 15 }}>
+    <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       <ScrollView
-        contentContainerStyle={{ alignItems: "center", gap: 15 }}
-        style={{ width: "100%", flex: 1 }}
+        contentContainerStyle={{
+          paddingTop: 18,
+          alignItems: "center",
+          gap: 15,
+          paddingBottom: 80,
+        }}
       >
         <View style={styles.greenCard}>
-          <FontAwesomeIcon icon={"car"} color="#1A9E75" size={25} />
+          <Image
+            style={{ maxWidth: 38, maxHeight: 37 }}
+            source={require("../assets/images/greencar2.png")}
+          />
           <View style={{ flex: 1, justifyContent: "center", height: "100%" }}>
-            <Text style={[styles.text, { color: "#1A9E75" }]}>{num}</Text>
-            <Text style={[styles.text, { fontSize: 10 }]}>Hyundai Exter</Text>
+            <Text style={[styles.bold, { color: "#1A9E75", marginBottom: -4 }]}>
+              {num}
+            </Text>
+            <Text style={[styles.header, { fontSize: 10 }]}>Hyundai Exter</Text>
           </View>
         </View>
         <View style={styles.container}>
@@ -82,7 +91,7 @@ const Recharge2 = () => {
             { flexDirection: "column", alignItems: "flex-start", gap: 10 },
           ]}
         >
-          <Text style={[styles.text, { fontSize: 16 }]}>
+          <Text style={[styles.header, { fontSize: 16 }]}>
             Enter Recharge Amount
           </Text>
           <TextInput
@@ -105,8 +114,11 @@ const Recharge2 = () => {
                 key={item.id}
                 style={styles.button}
               >
-                <Text style={{ color: "white" }}>
-                  ₹ <Text style={styles.text}>{item.amnt}</Text>
+                <Text style={{ color: "white", fontWeight: 500 }}>
+                  ₹{" "}
+                  <Text style={[styles.header, { color: "#FFF" }]}>
+                    {item.amnt}
+                  </Text>
                 </Text>
               </TouchableOpacity>
             ))}
@@ -147,7 +159,14 @@ const Recharge2 = () => {
           </View>
         </View>
         <View style={{ width: "90%" }}>
-          <Text style={[styles.text, { fontSize: 16 }]}>Payment Summary</Text>
+          <Text
+            style={[
+              styles.header,
+              { fontSize: 16, marginBottom: -5, marginTop: 5 },
+            ]}
+          >
+            Payment Summary
+          </Text>
         </View>
         <View
           style={[
@@ -176,7 +195,10 @@ const Recharge2 = () => {
           >
             <Text style={[styles.text, { color: "#1A9E75" }]}>Promo Code</Text>
             <Text style={{ color: "#1A9E75" }}>
-              - ₹ <Text style={styles.text}>{value * (1 / 10)}</Text>
+              - ₹{" "}
+              <Text style={[styles.text, { color: "#1A9E75" }]}>
+                {value * (1 / 10)}
+              </Text>
             </Text>
           </View>
           <View style={styles.border}></View>
@@ -188,22 +210,20 @@ const Recharge2 = () => {
               marginTop: 3,
             }}
           >
-            <Text style={styles.text}>Total Amount</Text>
+            <Text style={styles.header}>Total Amount</Text>
             <Text>
-              ₹ <Text style={styles.text}>{value - (value * 1) / 10}</Text>
+              ₹ <Text style={styles.header}>{value - (value * 1) / 10}</Text>
             </Text>
           </View>
         </View>
       </ScrollView>
       <View style={styles.payment}>
-        <Text style={[{ fontSize: 20, width: "50%" }]}>
-          ₹ {value - (value * 1) / 10}
-        </Text>
+        <Text style={[{ width: "50%" }]}>₹ {value - (value * 1) / 10}</Text>
         <TouchableOpacity
           style={[styles.button, { width: 160, borderRadius: 14, height: 35 }]}
           onPress={handleContinue}
         >
-          <Text style={[styles.text, { color: "white" }]}>Proceed To Pay</Text>
+          <Text style={[styles.bold, { color: "white" }]}>Proceed To Pay</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -219,17 +239,23 @@ const styles = StyleSheet.create({
     borderColor: "#1A9E75",
     borderWidth: 1,
     alignItems: "center",
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     flexDirection: "row",
-    gap: 15,
+    gap: 10,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold", color: "#393939" },
   input: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#A0A0A0",
+    borderColor: "#E5E5E5",
     borderRadius: 9,
     height: 40,
     paddingLeft: 15,
@@ -247,6 +273,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
+    elevation: 3,
   },
   bannerContainer: {
     display: "flex",
@@ -265,7 +292,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 30,
-    elevation: 3,
+    elevation: 10,
   },
   button: {
     width: 65,
@@ -278,9 +305,10 @@ const styles = StyleSheet.create({
   },
   border: {
     borderBottomWidth: 2,
-    borderColor: "#e3e3e3",
+    borderColor: "#F5F5F5",
     width: "100%",
     height: 2,
+    marginVertical: 5,
   },
 });
 

@@ -50,7 +50,13 @@ const Booking1 = () => {
 
   return (
     <ScrollView
-      contentContainerStyle={{ paddingTop: 20, gap: 10, alignItems: "center" }}
+      contentContainerStyle={{
+        paddingTop: 20,
+        gap: 10,
+        alignItems: "center",
+        backgroundColor: "#FFF",
+        flex: 1,
+      }}
     >
       <View
         style={{ width: "90%", justifyContent: "center", marginBottom: 10 }}
@@ -200,6 +206,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     gap: 15,
+    elevation: 3,
   },
   row: {
     flexDirection: "row",
@@ -208,7 +215,7 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#A0A0A0",
+    borderColor: "#EEE",
     borderRadius: 9,
     height: 40,
     paddingLeft: 35,

@@ -53,16 +53,16 @@ const ActivateFast1 = () => {
           />
         </View>
       </ImageBackground>
-      <Text style={styles.text}>Point your camera on barcode</Text>
+      <Text style={[styles.bold]}>Point your camera on barcode</Text>
       <Image
         source={require("../assets/images/fastagimage.png")}
         style={{ maxHeight: 100, maxWidth: 200, marginTop: 20 }}
       />
-      <Text style={[styles.text, { width: "60%", textAlign: "center" }]}>
+      <Text style={[styles.header, { width: "60%", textAlign: "center" }]}>
         Scan barcode given on the right side of the FASTag
       </Text>
       <Pressable style={styles.button} onPress={handlePress}>
-        <Text style={styles.text}>Next</Text>
+        <Text style={[styles.bold, { paddingTop: 2 }]}>Next</Text>
       </Pressable>
     </View>
   );
@@ -91,6 +91,11 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontFamily: "Poppins_400Regular",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#FFF",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold", color: "#FFF", fontSize: 16 },
   button: {
     width: "85%",
     height: 40,

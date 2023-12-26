@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 const Gas2 = () => {
-  const [borderColor, setBorder] = useState("#A0A0A0");
+  const [borderColor, setBorder] = useState("#E5E5E5");
   const [disable, setDisable] = useState(true);
   const [alert, setAlert] = useState(false);
   const [active, setActive] = useState(false);
@@ -21,10 +21,15 @@ const Gas2 = () => {
   const navigation = useNavigation();
 
   const handleChange = (value) => {
-    setBorder("#1A9E75");
-    setDisable(false);
-    setValue(value);
-    setAlert(false);
+    if (value.length === 0) {
+      setBorder("#E5E5E5");
+      setDisable(true);
+    } else {
+      setBorder("#1A9E75");
+      setDisable(false);
+      setValue(value);
+      setAlert(false);
+    }
   };
 
   const handlePress = () => {
@@ -41,10 +46,16 @@ const Gas2 = () => {
 
   return (
     <View
-      style={{ alignItems: "center", flex: 1, gap: 10, paddingVertical: 15 }}
+      style={{
+        alignItems: "center",
+        flex: 1,
+        gap: 10,
+        paddingVertical: 15,
+        backgroundColor: "#FFF",
+      }}
     >
       <View style={{ width: "90%", gap: 10 }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>
+        <Text style={[styles.header, { fontSize: 16 }]}>
           Mobile Number / LPG ID
         </Text>
         <TextInput
@@ -87,8 +98,8 @@ const Gas2 = () => {
           <Text
             style={
               disable
-                ? [styles.text, { color: "#9F9F9F" }]
-                : [styles.text, { color: "white" }]
+                ? [styles.bold, { color: "#9F9F9F" }]
+                : [styles.bold, { color: "#FFF" }]
             }
           >
             Continue
@@ -164,7 +175,7 @@ const Popup = ({ setActive }) => {
           </View>
         </View>
         <Pressable onPress={() => setActive(false)} style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Done</Text>
+          <Text style={[styles.text, { color: "#FFF" }]}>Done</Text>
         </Pressable>
       </View>
     </View>
@@ -176,7 +187,7 @@ const styles = StyleSheet.create({
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     flexDirection: "row",
     alignItems: "center",
@@ -190,6 +201,11 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold", fontSize: 16, paddingTop: 2 },
   input: {
     width: "100%",
     borderWidth: 1,
@@ -198,7 +214,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     position: "relative",
     fontFamily: "Poppins_400Regular",
-    fontSize: 13,
     paddingTop: 3,
   },
   button: {
@@ -233,7 +248,7 @@ const styles = StyleSheet.create({
   activeContainer: {
     height: 360,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     alignItems: "center",
@@ -258,7 +273,7 @@ const styles = StyleSheet.create({
   circle3: {
     width: 50,
     height: 50,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 150,
     position: "absolute",
     display: "flex",

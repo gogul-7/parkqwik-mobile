@@ -37,8 +37,8 @@ const Navbar = () => {
           </Pressable>
           <View style={styles.navContent}>
             <View style={styles.weclomeContainer}>
-              <Text style={styles.text}>Hi, Krishna</Text>
-              <Text style={[styles.text, { fontSize: 10, marginTop: -5 }]}>
+              <Text style={styles.header}>Hi, Krishna</Text>
+              <Text style={[styles.header, { fontSize: 10, marginTop: -5 }]}>
                 Welcome !
               </Text>
             </View>
@@ -48,7 +48,7 @@ const Navbar = () => {
                 source={require("../assets/images/whitelocation.png")}
               />
               <View style={styles.underline}>
-                <Text style={[styles.text, { marginLeft: -1, height: 18 }]}>
+                <Text style={[styles.header, { marginLeft: -1, height: 18 }]}>
                   Chennai
                 </Text>
               </View>
@@ -59,6 +59,7 @@ const Navbar = () => {
                 <FontAwesomeIcon
                   icon="fa-regular fa-bell"
                   style={styles.text}
+                  size={16}
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -117,6 +118,14 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontFamily: "Poppins_400Regular",
+  },
+  header: {
+    color: "white",
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: {
+    color: "white",
+    fontFamily: "Poppins_600SemiBold",
   },
   navContent: {
     flex: 1,

@@ -11,9 +11,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Modal from "react-native-modal";
 
 const Water2 = () => {
-  const [borderColor, setBorder] = useState("#A0A0A0");
+  const [borderColor, setBorder] = useState("#E5E5E5");
   const [disable, setDisable] = useState(true);
   const [alert, setAlert] = useState(false);
   const [active, setActive] = useState(false);
@@ -21,10 +22,15 @@ const Water2 = () => {
   const navigation = useNavigation();
 
   const handleChange = (value) => {
-    setBorder("#1A9E75");
-    setDisable(false);
-    setValue(value);
-    setAlert(false);
+    if (value.length === 0) {
+      setBorder("#E5E5E5");
+      setDisable(true);
+    } else {
+      setBorder("#1A9E75");
+      setDisable(false);
+      setValue(value);
+      setAlert(false);
+    }
   };
 
   const handlePress = () => {
@@ -41,10 +47,16 @@ const Water2 = () => {
 
   return (
     <View
-      style={{ alignItems: "center", flex: 1, gap: 10, paddingVertical: 15 }}
+      style={{
+        alignItems: "center",
+        flex: 1,
+        gap: 10,
+        paddingVertical: 15,
+        backgroundColor: "#FFF",
+      }}
     >
       <View style={{ width: "90%", gap: 10 }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>RR Number</Text>
+        <Text style={[styles.header]}>RR Number</Text>
         <TextInput
           onChangeText={(value) => handleChange(value)}
           placeholder="Enter a valid RR Number"
@@ -77,8 +89,8 @@ const Water2 = () => {
           <Text
             style={
               disable
-                ? [styles.text, { color: "#9F9F9F" }]
-                : [styles.text, { color: "white" }]
+                ? [styles.bold, { color: "#9F9F9F" }]
+                : [styles.bold, { color: "#FFF" }]
             }
           >
             Continue
@@ -101,62 +113,71 @@ const Water2 = () => {
           />
         </View>
       </View>
-      {active && <Popup setActive={setActive} />}
+      <Modal
+        style={styles.backdrop}
+        backdropOpacity={0.3}
+        useNativeDriver
+        isVisible={active}
+      >
+        <Popup setActive={setActive} />
+      </Modal>
     </View>
   );
 };
 
 const Popup = ({ setActive }) => {
-  const { width, height } = useWindowDimensions();
   return (
-    <View style={[styles.backdrop, { width, height }]}>
-      <View style={styles.activeContainer}>
-        <Pressable
-          style={{ position: "absolute", top: 20, right: 20 }}
-          onPress={() => setActive(false)}
-        >
-          <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={22} />
-        </Pressable>
-        <View
-          style={{
-            height: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <View style={[styles.circle1]}></View>
-          <View style={[styles.circle2]}></View>
-          <View style={[styles.circle3]}>
-            <Image
-              style={{
-                width: 30,
-                height: 18,
-              }}
-              source={require("../assets/images/check.png")}
-            />
-          </View>
-        </View>
-        <Text style={[styles.text, { color: "#1A9E75", fontSize: 18 }]}>
-          Your Bill Is Already Paid
-        </Text>
-        <View style={styles.container}>
+    <View style={styles.activeContainer}>
+      <Pressable
+        style={{ position: "absolute", top: 20, right: 20 }}
+        onPress={() => setActive(false)}
+      >
+        <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={22} />
+      </Pressable>
+      <View
+        style={{
+          height: 100,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <View style={[styles.circle1]}></View>
+        <View style={[styles.circle2]}></View>
+        <View style={[styles.circle3]}>
           <Image
-            style={styles.image}
-            source={require("../assets/images/bws.png")}
+            style={{
+              width: 30,
+              height: 18,
+            }}
+            source={require("../assets/images/check.png")}
           />
-          <View>
-            <Text style={[styles.text, { color: "#A0A0A0", fontSize: 12 }]}>
-              RR Number: M1AEJ2653
-            </Text>
-            <Text style={[styles.text, { fontSize: 13, width: "70%" }]}>
-              Bangalore Water Supply Sewerage Board (BWSSB)
-            </Text>
-          </View>
         </View>
-        <Pressable onPress={() => setActive(false)} style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Done</Text>
-        </Pressable>
       </View>
+      <Text style={[styles.bold, { color: "#1A9E75", fontSize: 14 }]}>
+        Your Bill Is Already Paid
+      </Text>
+      <View style={[styles.container, { width: "93%" }]}>
+        <Image
+          style={styles.image}
+          source={require("../assets/images/bws.png")}
+        />
+        <View>
+          <Text style={[styles.bold, { color: "#A0A0A0", fontSize: 12 }]}>
+            RR Number: M1AEJ2653
+          </Text>
+          <Text style={[styles.header, { fontSize: 14, width: "70%" }]}>
+            Bangalore Water Supply Sewerage Board (BWSSB)
+          </Text>
+        </View>
+      </View>
+      <Pressable
+        onPress={() => setActive(false)}
+        style={[styles.button, { position: "absolute", bottom: 15 }]}
+      >
+        <Text style={[styles.bold, { color: "#FFF", paddingTop: 2 }]}>
+          Done
+        </Text>
+      </Pressable>
     </View>
   );
 };
@@ -166,7 +187,7 @@ const styles = StyleSheet.create({
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     flexDirection: "row",
     alignItems: "center",
@@ -179,6 +200,17 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Poppins_400Regular",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+    fontSize: 16,
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#393939",
+    fontSize: 16,
+    paddingTop: 2,
   },
   input: {
     width: "100%",
@@ -213,17 +245,13 @@ const styles = StyleSheet.create({
     pointerEvents: "none",
   },
   backdrop: {
-    flex: 1,
-    backgroundColor: "rgba(72, 72, 72, 0.83)",
-    position: "absolute",
-    top: -200,
-    zIndex: 5,
+    margin: 0,
     justifyContent: "flex-end",
   },
   activeContainer: {
     height: 360,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     alignItems: "center",
@@ -248,7 +276,7 @@ const styles = StyleSheet.create({
   circle3: {
     width: 50,
     height: 50,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 150,
     position: "absolute",
     display: "flex",

@@ -13,10 +13,16 @@ const Rent1 = () => {
 
   return (
     <View
-      style={{ flex: 1, alignItems: "center", marginVertical: 15, gap: 10 }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        paddingVertical: 15,
+        gap: 10,
+        backgroundColor: "#FFF",
+      }}
     >
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>Transfer Money To</Text>
+        <Text style={[styles.header]}>Transfer Money To</Text>
       </View>
       <View style={{ width: "90%" }}>
         <RadioButton.Group
@@ -50,7 +56,7 @@ const Rent1 = () => {
       <View
         style={{
           position: "absolute",
-          bottom: 0,
+          bottom: 10,
           width: "100%",
           alignItems: "center",
           gap: 10,
@@ -80,6 +86,12 @@ const Rent1 = () => {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+    fontSize: 16,
   },
   content: {
     width: "100%",
@@ -88,6 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "white",
     marginBottom: 10,
+    elevation: 3,
   },
 });
 

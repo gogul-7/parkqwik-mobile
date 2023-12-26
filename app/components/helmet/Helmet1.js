@@ -6,19 +6,63 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
+import Modal from "react-native-modal";
+import WheelPickerExpo from "react-native-wheel-picker-expo";
 
 const Helmet1 = () => {
+  const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [dateArray, setDateArray] = useState([]);
+  const [hourArray, setHourArray] = useState([]);
+  const [minArray, setMinArray] = useState([]);
   const navigation = useNavigation();
   const handleNavigate = () => {
     navigation.navigate("helmet2");
   };
+  const formatDate = (date) => {
+    const options = { weekday: "short", day: "numeric", month: "short" };
+    const newDate = new Date(date).toLocaleDateString("en-US", options);
+    return newDate.slice(0, 3) + newDate.slice(4);
+  };
+
+  const generateArray = () => {
+    const today = new Date();
+    const dateArray = ["Today"];
+    const newHours = [];
+    const newMinutes = [];
+
+    for (let i = 1; i <= 20; i++) {
+      const nextDate = new Date(today);
+      nextDate.setDate(today.getDate() + i);
+      const formattedDate = formatDate(nextDate);
+      dateArray.push(formattedDate);
+    }
+
+    for (let i = 1; i <= 24; i++) {
+      const formattedHours = i < 10 ? `0${i}` : `${i}`;
+      newHours.push(formattedHours);
+    }
+
+    for (let i = 0; i <= 60; i++) {
+      const formattedMinutes = i < 10 ? `0${i}` : `${i}`;
+      newMinutes.push(formattedMinutes);
+    }
+    setDateArray(dateArray);
+    setHourArray(newHours);
+    setMinArray(newMinutes);
+  };
+
+  useEffect(() => {
+    generateArray();
+  }, []);
   return (
     <View
       style={{
         alignItems: "center",
+        backgroundColor: "#FFF",
       }}
     >
       <ScrollView
@@ -69,6 +113,7 @@ const Helmet1 = () => {
                 style={{ flexDirection: "row", alignItems: "center", gap: 3 }}
               >
                 <Text
+                  onPress={() => setModal(true)}
                   style={[
                     styles.text,
                     {
@@ -96,6 +141,7 @@ const Helmet1 = () => {
                 style={{ flexDirection: "row", alignItems: "center", gap: 3 }}
               >
                 <Text
+                  onPress={() => setModal2(true)}
                   style={[
                     styles.text,
                     {
@@ -498,6 +544,351 @@ const Helmet1 = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <Modal
+        isVisible={modal}
+        backdropColor="#B7B7B7"
+        style={{ margin: 0, justifyContent: "flex-end" }}
+        useNativeDriver
+        useNativeDriverForBackdrop
+      >
+        <View style={styles.modalContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setModal(false);
+            }}
+            style={{
+              height: 30,
+              width: "90%",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#FFF",
+            }}
+          >
+            <View style={styles.line} />
+          </TouchableOpacity>
+          <View
+            style={{
+              width: "82%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              backgroundColor: "#FFF",
+            }}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                  fontSize: 16,
+                },
+              ]}
+            >
+              Select start Date
+            </Text>
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                  fontSize: 16,
+
+                  width: "25%",
+                },
+              ]}
+            >
+              Time
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "75%",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: -40,
+              zIndex: -10,
+            }}
+          >
+            <WheelPickerExpo
+              height={230}
+              width={100}
+              selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+              initialSelectedIndex={1}
+              haptics
+              items={dateArray.map((name) => ({
+                label: (
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: "Poppins_400Regular",
+                      color: "#393939",
+                      paddingTop: 2,
+                    }}
+                  >
+                    {name}
+                  </Text>
+                ),
+                value: { name },
+              }))}
+              onChange={() => {}}
+            />
+
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <WheelPickerExpo
+                height={230}
+                width={36}
+                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+                initialSelectedIndex={5}
+                haptics
+                items={hourArray.map((name) => ({
+                  label: (
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontFamily: "Poppins_400Regular",
+                        color: "#393939",
+                        paddingTop: 2,
+                      }}
+                    >
+                      {name}
+                    </Text>
+                  ),
+                  value: { name },
+                }))}
+                onChange={() => {}}
+              />
+
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  color: "#000",
+                  paddingTop: 2,
+                }}
+              >
+                :
+              </Text>
+              <WheelPickerExpo
+                height={230}
+                width={36}
+                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+                initialSelectedIndex={30}
+                haptics
+                items={minArray.map((name) => ({
+                  label: (
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontFamily: "Poppins_400Regular",
+                        color: "#393939",
+                        paddingTop: 2,
+                      }}
+                    >
+                      {name}
+                    </Text>
+                  ),
+                  value: { name },
+                }))}
+                onChange={() => {}}
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: 110,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#fff",
+              width: "100%",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                setModal(false);
+              }}
+              style={styles.button4}
+            >
+              <Text style={[styles.bold, { fontSize: 16, color: "#FFF" }]}>
+                Done
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        isVisible={modal2}
+        backdropColor="#B7B7B7"
+        style={{ margin: 0, justifyContent: "flex-end" }}
+        useNativeDriver
+        useNativeDriverForBackdrop
+      >
+        <View style={styles.modalContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setModal2(false);
+            }}
+            style={{
+              height: 30,
+              width: "90%",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#FFF",
+            }}
+          >
+            <View style={styles.line} />
+          </TouchableOpacity>
+          <View
+            style={{
+              width: "82%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              backgroundColor: "#FFF",
+            }}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                  fontSize: 16,
+                },
+              ]}
+            >
+              Select End Date
+            </Text>
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                  fontSize: 16,
+                  width: "25%",
+                },
+              ]}
+            >
+              Time
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "75%",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: -40,
+              zIndex: -10,
+            }}
+          >
+            <WheelPickerExpo
+              height={230}
+              width={100}
+              selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+              initialSelectedIndex={1}
+              haptics
+              items={dateArray.map((name) => ({
+                label: (
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: "Poppins_400Regular",
+                      color: "#393939",
+                      paddingTop: 2,
+                    }}
+                  >
+                    {name}
+                  </Text>
+                ),
+                value: { name },
+              }))}
+              onChange={() => {}}
+            />
+
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <WheelPickerExpo
+                height={230}
+                width={36}
+                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+                initialSelectedIndex={6}
+                haptics
+                items={hourArray.map((name) => ({
+                  label: (
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontFamily: "Poppins_400Regular",
+                        color: "#393939",
+                        paddingTop: 2,
+                      }}
+                    >
+                      {name}
+                    </Text>
+                  ),
+                  value: { name },
+                }))}
+                onChange={() => {}}
+              />
+
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  color: "#000",
+                  paddingTop: 2,
+                }}
+              >
+                :
+              </Text>
+              <WheelPickerExpo
+                height={230}
+                width={36}
+                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+                initialSelectedIndex={30}
+                haptics
+                items={minArray.map((name) => ({
+                  label: (
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontFamily: "Poppins_400Regular",
+                        color: "#393939",
+                        paddingTop: 2,
+                      }}
+                    >
+                      {name}
+                    </Text>
+                  ),
+                  value: { name },
+                }))}
+                onChange={() => {}}
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: 110,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#fff",
+              width: "100%",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => setModal2(false)}
+              style={styles.button4}
+            >
+              <Text style={[styles.bold, { fontSize: 16, color: "#FFF" }]}>
+                Done
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -511,6 +902,7 @@ const styles = StyleSheet.create({
     width: "90%",
     overflow: "hidden",
     alignItems: "center",
+    elevation: 3,
   },
   header: {
     fontFamily: "Poppins_500Medium",
@@ -548,5 +940,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 7,
     borderRadius: 14,
+  },
+  button4: {
+    paddingVertical: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 14,
+    backgroundColor: "#1A9E75",
+    marginTop: 25,
+    width: "90%",
+  },
+  modalContainer: {
+    width: "100%",
+    height: 300,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    backgroundColor: "#FFF",
+    alignItems: "center",
   },
 });

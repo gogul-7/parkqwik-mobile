@@ -217,14 +217,14 @@ const styles = StyleSheet.create({
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     display: "flex",
     gap: 8,
+    elevation: 3,
   },
   header: {
     fontSize: 16,
-
     fontFamily: "Poppins_500Medium",
   },
   discContainer: {

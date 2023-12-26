@@ -28,10 +28,16 @@ const Rent2 = () => {
 
   return (
     <View
-      style={{ flex: 1, alignItems: "center", paddingVertical: 15, gap: 5 }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        paddingVertical: 15,
+        gap: 5,
+        backgroundColor: "#FFF",
+      }}
     >
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>Recipient UPI ID</Text>
+        <Text style={[styles.header, { fontSize: 16 }]}>Recipient UPI ID</Text>
       </View>
       <TextInput
         onChangeText={(value) => handleChange(value)}
@@ -39,7 +45,7 @@ const Rent2 = () => {
         style={[styles.input]}
       />
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>Mobile Number</Text>
+        <Text style={[styles.header, { fontSize: 16 }]}>Mobile Number</Text>
       </View>
       <TextInput
         onChangeText={(value) => handleChange(value)}
@@ -47,7 +53,7 @@ const Rent2 = () => {
         style={[styles.input]}
       />
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>
+        <Text style={[styles.header, { fontSize: 16 }]}>
           Upload Rental Agreement
         </Text>
       </View>
@@ -64,17 +70,24 @@ const Rent2 = () => {
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 3 }}
             >
-              <Text style={[styles.text, { color: "#1A9E75" }]}>Uploaded</Text>
-              <FontAwesomeIcon color="#1A9E75" size={12} icon="fa-check" />
+              <Text style={[styles.header, { color: "#1A9E75" }]}>
+                Uploaded
+              </Text>
+              <FontAwesomeIcon
+                color="#1A9E75"
+                size={12}
+                icon="fa-check"
+                style={{ marginBottom: 2 }}
+              />
             </View>
             <TouchableOpacity
               onPress={() => setUpload(false)}
               style={[
                 styles.rcContainer,
-                { borderRadius: 15, width: 70, height: 25 },
+                { borderRadius: 15, width: 60, height: 25 },
               ]}
             >
-              <Text style={[styles.text, { color: "#1A9E75", fontSize: 12 }]}>
+              <Text style={[styles.header, { color: "#1A9E75", fontSize: 10 }]}>
                 Change
               </Text>
             </TouchableOpacity>
@@ -85,7 +98,7 @@ const Rent2 = () => {
               style={{ color: "#1A9E75" }}
               icon="fa-arrow-up-from-bracket"
             />
-            <Text style={[styles.text, { color: "#1A9E75", fontSize: 12 }]}>
+            <Text style={[styles.header, { color: "#1A9E75", fontSize: 12 }]}>
               Upload
             </Text>
           </TouchableOpacity>
@@ -94,7 +107,7 @@ const Rent2 = () => {
       <View
         style={{
           position: "absolute",
-          bottom: 10,
+          bottom: 20,
           width: "100%",
           alignItems: "center",
           gap: 10,
@@ -107,29 +120,13 @@ const Rent2 = () => {
           <Text
             style={
               disable
-                ? [styles.text, { color: "#9F9F9F" }]
-                : [styles.text, { color: "white" }]
+                ? [styles.bold, { color: "#9F9F9F" }]
+                : [styles.bold, { color: "#FFF" }]
             }
           >
             Continue
           </Text>
         </TouchableOpacity>
-        <View
-          style={{
-            flexDirection: "row",
-            alignContent: "center",
-            justifyContent: "center",
-            gap: 5,
-          }}
-        >
-          <Text style={[styles.text, { fontSize: 12, marginTop: 4 }]}>
-            Secured by Bharat BillPay
-          </Text>
-          <Image
-            style={{ width: 48, height: 24 }}
-            source={require("../assets/images/bps.png")}
-          />
-        </View>
       </View>
     </View>
   );
@@ -138,6 +135,17 @@ const Rent2 = () => {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#FFF",
+    paddingTop: 2,
+    fontSize: 16,
   },
   input: {
     width: "90%",
@@ -147,9 +155,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     position: "relative",
     fontFamily: "Poppins_400Regular",
-    fontSize: 13,
     paddingTop: 3,
-    borderColor: "#A0A0A0",
+    borderColor: "#E5E5E5",
     marginBottom: 8,
   },
   rcContainer: {

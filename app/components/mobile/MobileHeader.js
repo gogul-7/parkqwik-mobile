@@ -20,8 +20,17 @@ const MobileHeader = ({ name }) => {
             source={require("../assets/images/airtel.png")}
           />
           <View>
-            <Text style={[styles.text, { width: "70%" }]}>82000 89270</Text>
-            <Text style={[styles.text, { color: "#A0A0A0", fontSize: 12 }]}>
+            <Text
+              style={[
+                styles.headerText,
+                { fontSize: 16, marginBottom: -4, marginTop: 3 },
+              ]}
+            >
+              82000 89270
+            </Text>
+            <Text
+              style={[styles.headerText, { color: "#A0A0A0", fontSize: 12 }]}
+            >
               Prepaid - Tamil Nadu
             </Text>
           </View>
@@ -35,26 +44,39 @@ const MobileHeader = ({ name }) => {
     );
   else if (name === "mobile4")
     return (
-      <View style={[styles.header, { height: 110, backgroundColor: null }]}>
-        <View style={styles.container}>
+      <View style={[styles.header, { height: 110, backgroundColor: "#FFF" }]}>
+        <View style={[styles.container, { elevation: 1 }]}>
           <Image
             style={styles.image}
             source={require("../assets/images/airtel.png")}
           />
           <View>
-            <Text style={[styles.text, { width: "70%" }]}>82000 89270</Text>
-            <Text style={[styles.text, { color: "#A0A0A0", fontSize: 12 }]}>
+            <Text
+              style={[
+                styles.headerText,
+                { fontSize: 16, marginBottom: -4, marginTop: 3 },
+              ]}
+            >
+              82000 89270
+            </Text>
+            <Text
+              style={[styles.headerText, { color: "#A0A0A0", fontSize: 12 }]}
+            >
               Prepaid - Tamil Nadu
             </Text>
           </View>
           <View style={styles.line}></View>
           <View style={styles.amount}>
-            <Text style={styles.text}>{`₹ ${amount}`}</Text>
-            <Pressable onPress={handlePress}>
-              <Text style={[styles.text, { color: "#1A9E75", fontSize: 11 }]}>
-                Change Plan
-              </Text>
-            </Pressable>
+            <Text style={{ color: "#393939", fontSize: 16, marginBottom: -5 }}>
+              ₹ <Text style={styles.headerText}>{amount}</Text>
+            </Text>
+
+            <Text
+              onPress={handlePress}
+              style={[styles.headerText, { color: "#1A9E75", fontSize: 10 }]}
+            >
+              Change Plan
+            </Text>
           </View>
         </View>
       </View>
@@ -82,6 +104,11 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_400Regular",
     fontSize: 13,
   },
+  headerText: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   image: {
     width: 35,
     height: 35,
@@ -109,6 +136,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     position: "absolute",
     right: 10,
+    marginRight: 4,
   },
 });
 

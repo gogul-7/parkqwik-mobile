@@ -35,7 +35,13 @@ const Notification1 = () => {
   };
   return (
     <View
-      style={{ flex: 1, alignItems: "center", paddingVertical: 15, gap: 10 }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        paddingVertical: 15,
+        gap: 10,
+        backgroundColor: "#FFF",
+      }}
     >
       {data.map((item) => (
         <Pressable
@@ -79,6 +85,7 @@ const styles = StyleSheet.create({
     gap: 10,
     flexDirection: "row",
     alignItems: "center",
+    elevation: 3,
   },
   imageContainer: {
     height: 45,

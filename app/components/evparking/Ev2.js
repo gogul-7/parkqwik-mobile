@@ -7,6 +7,7 @@ const Ev2 = () => {
     <View
       style={{
         alignItems: "center",
+        backgroundColor: "#FFF",
       }}
     >
       <ScrollView
@@ -30,7 +31,7 @@ const Ev2 = () => {
               width: "100%",
             }}
           >
-            <Text style={[styles.header, { color: "white", paddingTop: 2 }]}>
+            <Text style={[styles.header, { color: "#FFF", paddingTop: 2 }]}>
               Elite Car Parking
             </Text>
             <View
@@ -40,7 +41,7 @@ const Ev2 = () => {
                 source={require("../assets/images/whitelocation.png")}
                 style={{ width: 15, height: 18 }}
               />
-              <Text style={[styles.header, { color: "white", paddingTop: 2 }]}>
+              <Text style={[styles.header, { color: "#FFF", paddingTop: 2 }]}>
                 Ramapuram
               </Text>
             </View>
@@ -429,7 +430,7 @@ const Ev2 = () => {
           flexDirection: "row",
           justifyContent: "space-between",
           paddingHorizontal: 25,
-          backgroundColor: "white",
+          backgroundColor: "#FFF",
           alignItems: "center",
           position: "absolute",
           bottom: 0,
@@ -454,7 +455,7 @@ const Ev2 = () => {
             style={[
               styles.bold,
               {
-                color: "white",
+                color: "#FFF",
                 fontSize: 16,
               },
             ]}
@@ -472,10 +473,11 @@ export default Ev2;
 const styles = StyleSheet.create({
   container: {
     borderRadius: 15,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     width: "90%",
     overflow: "hidden",
     alignItems: "center",
+    elevation: 3,
   },
   header: {
     fontFamily: "Poppins_500Medium",

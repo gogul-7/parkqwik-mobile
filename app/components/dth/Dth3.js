@@ -162,7 +162,7 @@ const Dth3 = () => {
     setType(value);
   };
   return (
-    <View style={{ gap: 15, alignItems: "center" }}>
+    <View style={{ gap: 15, alignItems: "center", backgroundColor: "#FFF" }}>
       <View
         style={{
           height: 80,
@@ -305,13 +305,12 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#A0A0A0",
+    borderColor: "#EEE",
     borderRadius: 9,
     height: 40,
     paddingLeft: 35,
     position: "relative",
     fontFamily: "Poppins_400Regular",
-    fontSize: 13,
     paddingTop: 3,
   },
   search: { width: 20, height: 20, position: "absolute", left: 10 },
@@ -339,10 +338,11 @@ const styles = StyleSheet.create({
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     marginBottom: 15,
     gap: 8,
+    elevation: 3,
   },
   topPart: {
     flexDirection: "row",

@@ -231,7 +231,7 @@ export default Booking3;
 const styles = StyleSheet.create({
   backGround: {
     flex: 1,
-    paddingTop: 60,
+    paddingTop: 40,
     alignItems: "center",
     gap: 20,
     paddingBottom: 40,

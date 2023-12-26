@@ -26,10 +26,16 @@ const Rent3 = () => {
 
   return (
     <View
-      style={{ flex: 1, alignItems: "center", paddingVertical: 15, gap: 5 }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        paddingVertical: 15,
+        gap: 5,
+        backgroundColor: "#FFF",
+      }}
     >
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>
+        <Text style={[styles.header, { fontSize: 16 }]}>
           Recipient Account Number
         </Text>
       </View>
@@ -39,7 +45,7 @@ const Rent3 = () => {
         style={[styles.input]}
       />
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>IFSC Code</Text>
+        <Text style={[styles.header, { fontSize: 16 }]}>IFSC Code</Text>
       </View>
       <TextInput
         onChangeText={(value) => handleChange(value)}
@@ -47,7 +53,7 @@ const Rent3 = () => {
         style={[styles.input]}
       />
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>
+        <Text style={[styles.header, { fontSize: 16 }]}>
           Account Holder’s Name
         </Text>
       </View>
@@ -57,7 +63,7 @@ const Rent3 = () => {
         style={[styles.input]}
       />
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>
+        <Text style={[styles.header, { fontSize: 16 }]}>
           Upload Rental Agreement
         </Text>
       </View>
@@ -74,17 +80,24 @@ const Rent3 = () => {
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 3 }}
             >
-              <Text style={[styles.text, { color: "#1A9E75" }]}>Uploaded</Text>
-              <FontAwesomeIcon color="#1A9E75" size={12} icon="fa-check" />
+              <Text style={[styles.header, { color: "#1A9E75" }]}>
+                Uploaded
+              </Text>
+              <FontAwesomeIcon
+                color="#1A9E75"
+                size={12}
+                icon="fa-check"
+                style={{ marginBottom: 2 }}
+              />
             </View>
             <TouchableOpacity
               onPress={() => setUpload(false)}
               style={[
                 styles.rcContainer,
-                { borderRadius: 15, width: 70, height: 25 },
+                { borderRadius: 15, width: 60, height: 25 },
               ]}
             >
-              <Text style={[styles.text, { color: "#1A9E75", fontSize: 12 }]}>
+              <Text style={[styles.header, { color: "#1A9E75", fontSize: 10 }]}>
                 Change
               </Text>
             </TouchableOpacity>
@@ -95,7 +108,7 @@ const Rent3 = () => {
               style={{ color: "#1A9E75" }}
               icon="fa-arrow-up-from-bracket"
             />
-            <Text style={[styles.text, { color: "#1A9E75", fontSize: 12 }]}>
+            <Text style={[styles.header, { color: "#1A9E75", fontSize: 12 }]}>
               Upload
             </Text>
           </TouchableOpacity>
@@ -104,7 +117,7 @@ const Rent3 = () => {
       <View
         style={{
           position: "absolute",
-          bottom: 10,
+          bottom: 20,
           width: "100%",
           alignItems: "center",
           gap: 10,
@@ -117,8 +130,8 @@ const Rent3 = () => {
           <Text
             style={
               disable
-                ? [styles.text, { color: "#9F9F9F" }]
-                : [styles.text, { color: "white" }]
+                ? [styles.bold, { color: "#9F9F9F" }]
+                : [styles.bold, { color: "#FFF" }]
             }
           >
             Continue
@@ -132,6 +145,17 @@ const Rent3 = () => {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#FFF",
+    paddingTop: 2,
+    fontSize: 16,
   },
   input: {
     width: "90%",

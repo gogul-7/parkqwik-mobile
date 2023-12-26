@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
+import Modal from "react-native-modal";
 
 const dataPacks = [
   {
@@ -143,6 +144,7 @@ const Mobile3 = () => {
   const [searchKey, setSearchKey] = useState();
   const [type, setType] = useState("recommended");
   const [active, setActive] = useState(false);
+  const [more, setMore] = useState(false);
   const [selected, setSelected] = useState("");
 
   const handleChange = (text) => {
@@ -158,7 +160,7 @@ const Mobile3 = () => {
     setType(value);
   };
   return (
-    <View style={{ gap: 15, alignItems: "center" }}>
+    <View style={{ gap: 15, alignItems: "center", backgroundColor: "#FFF" }}>
       <View
         style={{
           height: 80,
@@ -183,25 +185,25 @@ const Mobile3 = () => {
             onPress={() => handlePress("recommended")}
             style={type === "recommended" && styles.selected}
           >
-            <Text style={styles.text}>Recommended</Text>
+            <Text style={styles.headerText}>Recommended</Text>
           </Pressable>
           <Pressable
             onPress={() => handlePress("unlimited")}
             style={type === "unlimited" && styles.selected}
           >
-            <Text style={styles.text}>Unlimited</Text>
+            <Text style={styles.headerText}>Unlimited</Text>
           </Pressable>
           <Pressable
             onPress={() => handlePress("cricket")}
             style={type === "cricket" && styles.selected}
           >
-            <Text style={styles.text}>Cricket Packs</Text>
+            <Text style={styles.headerText}>Cricket Packs</Text>
           </Pressable>
         </View>
       )}
       <ScrollView
         style={{ width: "100%", height: 400 }}
-        contentContainerStyle={{ alignItems: "center" }}
+        contentContainerStyle={{ alignItems: "center", paddingBottom: 30 }}
       >
         {searchKey
           ? dataPacks
@@ -216,13 +218,13 @@ const Mobile3 = () => {
                     <View>
                       <Text
                         style={[
-                          styles.text,
+                          styles.headerText,
                           { color: "#8E8E8E", fontSize: 12 },
                         ]}
                       >
                         Validity
                       </Text>
-                      <Text style={styles.text}>{item.validity}</Text>
+                      <Text style={styles.headerText}>{item.validity}</Text>
                     </View>
                     <Text style={[styles.text, { fontSize: 20 }]}>
                       ₹ {item.amount}
@@ -260,16 +262,22 @@ const Mobile3 = () => {
                     <View>
                       <Text
                         style={[
-                          styles.text,
+                          styles.headerText,
                           { color: "#8E8E8E", fontSize: 12 },
                         ]}
                       >
                         Validity
                       </Text>
-                      <Text style={styles.text}>{item.validity}</Text>
+                      <Text style={styles.headerText}>{item.validity}</Text>
                     </View>
-                    <Text style={[styles.text, { fontSize: 20 }]}>
-                      ₹ {item.amount}
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: 500,
+                        color: "#393939",
+                      }}
+                    >
+                      ₹ <Text style={[styles.headerText]}>{item.amount}</Text>
                     </Text>
                   </View>
                   <View
@@ -285,7 +293,12 @@ const Mobile3 = () => {
                         ? `${item.details.slice(0, 60)}...`
                         : item.details}
                       {item.details.length > 60 && (
-                        <Text style={styles.greentext}>See More</Text>
+                        <Text
+                          style={styles.greentext}
+                          // onPress={() => setMore([...more, item.id])}
+                        >
+                          See More
+                        </Text>
                       )}
                     </Text>
                     <FontAwesomeIcon icon={"angle-right"} color="#1A9E75" />
@@ -293,7 +306,14 @@ const Mobile3 = () => {
                 </Pressable>
               ))}
       </ScrollView>
-      {active && <Popup setActive={setActive} selected={selected} />}
+      <Modal
+        style={styles.backdrop}
+        useNativeDriver
+        isVisible={active}
+        backdropOpacity={0.4}
+      >
+        <Popup setActive={setActive} selected={selected} />
+      </Modal>
     </View>
   );
 };
@@ -306,49 +326,57 @@ const Popup = ({ setActive, selected }) => {
   const data = dataPacks.find((item) => item.amount === selected);
 
   const handlePack = () => {
+    setActive(false);
     setAmount(data.amount);
     navigation.navigate("mobile4");
   };
   return (
-    <View style={[styles.backdrop, { width }]}>
-      <View style={styles.activeContainer}>
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexDirection: "row",
-            width: "100%",
-          }}
+    <View style={styles.activeContainer}>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          width: "100%",
+        }}
+      >
+        <Text style={[styles.headerText, { fontSize: 18 }]}>Plan Details</Text>
+        <Pressable
+          onPress={() => setActive(false)}
+          style={{ marginBottom: 10 }}
         >
-          <Text style={[styles.text, { fontSize: 18 }]}>Plan Details</Text>
-          <Pressable onPress={() => setActive(false)}>
-            <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={22} />
-          </Pressable>
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexDirection: "row",
-            width: "100%",
-            marginTop: 15,
-          }}
-        >
-          <View>
-            <Text style={[styles.text, { color: "#8E8E8E", fontSize: 12 }]}>
-              Validity
-            </Text>
-            <Text style={[styles.text]}>{data.validity}</Text>
-          </View>
-          <Text style={[styles.text, { fontSize: 18 }]}>₹ {data.amount}</Text>
-        </View>
-        <View style={{ width: "100%", marginTop: 15 }}>
-          <Text style={[styles.text]}>{data.details}</Text>
-        </View>
-        <Pressable onPress={handlePack} style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Proceed To Pay</Text>
+          <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={22} />
         </Pressable>
       </View>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          width: "100%",
+          marginTop: 15,
+        }}
+      >
+        <View>
+          <Text style={[styles.headerText, { color: "#8E8E8E", fontSize: 12 }]}>
+            Validity
+          </Text>
+          <Text style={[styles.headerText]}>{data.validity}</Text>
+        </View>
+        <Text style={{ fontSize: 20, color: "#393939" }}>
+          ₹<Text style={styles.headerText}> {data.amount}</Text>
+        </Text>
+      </View>
+      <View style={{ width: "100%", marginTop: 15 }}>
+        <Text style={[styles.text]}>{data.details}</Text>
+      </View>
+      <Pressable onPress={handlePack} style={styles.button}>
+        <Text
+          style={[styles.bold, { color: "#FFF", paddingTop: 2, fontSize: 16 }]}
+        >
+          Proceed To Pay
+        </Text>
+      </Pressable>
     </View>
   );
 };
@@ -361,15 +389,19 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     height: 40,
     paddingLeft: 35,
-    position: "relative",
     fontFamily: "Poppins_400Regular",
-    fontSize: 13,
     paddingTop: 3,
   },
   search: { width: 20, height: 20, position: "absolute", left: 10 },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
+  headerText: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold", color: "#393939" },
   greentext: {
     fontFamily: "Poppins_400Regular",
     color: "#1A9E75",
@@ -382,7 +414,9 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   selected: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 3,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
     paddingBottom: 3,
     borderBottomColor: "#1A9E75",
   },
@@ -391,10 +425,11 @@ const styles = StyleSheet.create({
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     marginBottom: 15,
     gap: 8,
+    elevation: 2,
   },
   topPart: {
     flexDirection: "row",
@@ -405,27 +440,22 @@ const styles = StyleSheet.create({
     borderBottomColor: "#E6E6E6",
   },
   backdrop: {
-    flex: 1,
-    backgroundColor: "rgba(72, 72, 72, 0.83)",
-    position: "absolute",
-    zIndex: 5,
     justifyContent: "flex-end",
-    height: "100%",
+    margin: 0,
   },
   activeContainer: {
-    height: 310,
+    height: 284,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     alignItems: "center",
     padding: 20,
-    paddingTop: 30,
     gap: 5,
   },
   button: {
-    width: "95%",
-    height: 40,
+    width: "100%",
+    height: 45,
     marginTop: 30,
     backgroundColor: "#1A9E75",
     borderRadius: 15,
@@ -433,7 +463,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
-    bottom: 40,
+    bottom: 25,
   },
 });
 

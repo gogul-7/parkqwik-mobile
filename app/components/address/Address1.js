@@ -68,6 +68,8 @@ const Address1 = () => {
         alignItems: "center",
         gap: 10,
         paddingBottom: 30,
+        backgroundColor: "#FFF",
+        flex: 1,
       }}
       style={{ paddingTop: 15 }}
     >
@@ -209,6 +211,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",

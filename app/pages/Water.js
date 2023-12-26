@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Water1 from "../components/water/Water1";
 import WaterHeader from "../components/water/WaterHeader";
@@ -6,10 +6,19 @@ import Water2 from "../components/water/Water2";
 import Water3 from "../components/water/Water3";
 import WaterPay from "../components/water/WaterPay";
 import WaterSuccess from "../components/water/WaterSuccess";
+import { useNavigation } from "@react-navigation/native";
+import AppContext from "../context/AppContext";
 
 const WaterStack = createStackNavigator();
 
 const Water = () => {
+  const { setHideHeader } = useContext(AppContext);
+  useEffect(() => {
+    setHideHeader(true);
+    return () => {
+      setHideHeader(false);
+    };
+  });
   return (
     <WaterStack.Navigator
       screenOptions={{

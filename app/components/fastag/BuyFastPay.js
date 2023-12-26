@@ -62,7 +62,7 @@ const BuyFastPay = () => {
   });
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
+    <View style={{ flex: 1, alignItems: "center", backgroundColor: "#FFF" }}>
       <Animated.View
         style={[
           styles.greenCircle,
@@ -147,10 +147,10 @@ const BuyFastPay = () => {
       </View>
       <Animated.Text
         style={[
-          styles.text,
+          styles.bold,
           {
             color: "white",
-            fontSize: 18,
+            fontSize: 20,
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -158,14 +158,13 @@ const BuyFastPay = () => {
           },
         ]}
       >
-        Payment Successful
+        Recharge Successful
       </Animated.Text>
       <Animated.Text
         style={[
           styles.text,
           {
             color: "white",
-            fontSize: 12,
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -186,56 +185,79 @@ const BuyFastPay = () => {
           },
         ]}
       >
-        <Text style={[styles.text, { color: "#1A9E75" }]}>View Details</Text>
+        <Text style={[styles.bold, { color: "#1A9E75", paddingTop: 2 }]}>
+          View Details
+        </Text>
       </Animated.View>
       {enable && (
-        <View style={{ marginTop: 70, width: "90%", alignItems: "center" }}>
-          <Text
-            style={[
-              styles.text,
-              { color: "#1A9E75", width: 150, textAlign: "center" },
-            ]}
-          >
-            Your FASTag Will Deliver On 20 Sep 23
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: 40,
-              justifyContent: "space-between",
-              width: "90%",
-              alignItems: "center",
-            }}
-          >
-            <View>
-              <Text style={[styles.text, { fontSize: 18 }]}>
-                Delivery Address
-              </Text>
-              <Text
-                style={[
-                  styles.text,
-                  { fontSize: 14, marginTop: 10, width: 200 },
-                ]}
-              >
-                NO.20, Anna Street, Near Water Tank, Perungudi, Chennai - 600096
-              </Text>
-            </View>
-            <View style={styles.change}>
-              <Text style={[styles.text, { color: "#1A9E75", fontSize: 11 }]}>
-                Change
-              </Text>
+        <>
+          <View style={{ marginTop: 60, width: "90%", alignItems: "center" }}>
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#1A9E75",
+                  width: "55%",
+                  textAlign: "center",
+                  fontSize: 16,
+                },
+              ]}
+            >
+              Your FASTag Will Deliver On 20 Sep 23
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 15,
+                justifyContent: "space-between",
+                width: "100%",
+                alignItems: "center",
+                backgroundColor: "#FFF",
+                elevation: 3,
+                padding: 15,
+                borderRadius: 10,
+              }}
+            >
+              <View>
+                <Text style={[styles.header, { fontSize: 16 }]}>
+                  Delivery Address
+                </Text>
+                <Text
+                  style={[
+                    styles.text,
+                    { fontSize: 14, marginTop: 10, width: 200 },
+                  ]}
+                >
+                  NO.20, Anna Street, Near Water Tank, Perungudi, Chennai -
+                  600096
+                </Text>
+              </View>
+              <View style={styles.change}>
+                <Text
+                  style={[styles.header, { color: "#1A9E75", fontSize: 10 }]}
+                >
+                  Change
+                </Text>
+              </View>
             </View>
           </View>
           <Pressable
             onPress={handleDone}
             style={[
               styles.button,
-              { backgroundColor: "#1A9E75", width: "95%" },
+              {
+                backgroundColor: "#1A9E75",
+                width: "90%",
+                position: "absolute",
+                bottom: 25,
+              },
             ]}
           >
-            <Text style={[styles.text, { color: "white" }]}>Done</Text>
+            <Text style={[styles.bold, { color: "#FFF", fontSize: 16 }]}>
+              Done
+            </Text>
           </Pressable>
-        </View>
+        </>
       )}
     </View>
   );
@@ -257,6 +279,10 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     position: "absolute",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   circle2: {
     width: 112,
     height: 112,
@@ -295,7 +321,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F0FFFA",
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 3,
   },
 });
 

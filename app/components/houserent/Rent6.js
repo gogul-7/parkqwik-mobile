@@ -155,10 +155,10 @@ const Rent6 = () => {
       </View>
       <Animated.Text
         style={[
-          styles.text,
+          styles.bold,
           {
             color: "white",
-            fontSize: 18,
+            fontSize: 20,
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -173,7 +173,6 @@ const Rent6 = () => {
           styles.text,
           {
             color: "white",
-            fontSize: 12,
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -194,7 +193,9 @@ const Rent6 = () => {
           },
         ]}
       >
-        <Text style={[styles.text, { color: "#1A9E75" }]}>View Details</Text>
+        <Text style={[styles.bold, { color: "#1A9E75", paddingTop: 2 }]}>
+          View Details
+        </Text>
       </Animated.View>
       {enable && (
         <View
@@ -205,7 +206,7 @@ const Rent6 = () => {
               style={{ height: 22, width: 22 }}
               source={require("../assets/images/gift.png")}
             />
-            <Text style={[styles.text, { color: "#1A9E75", paddingTop: 4 }]}>
+            <Text style={[styles.header, { color: "#1A9E75", paddingTop: 2 }]}>
               Reward Earned
             </Text>
             <FontAwesomeIcon
@@ -226,7 +227,9 @@ const Rent6 = () => {
               },
             ]}
           >
-            <Text style={[styles.text, { color: "white" }]}>Done</Text>
+            <Text style={[styles.bold, { color: "#FFF", fontSize: 16 }]}>
+              Done
+            </Text>
           </Pressable>
         </View>
       )}
@@ -270,6 +273,10 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   button: {
     width: 120,
     height: 40,
@@ -289,9 +296,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F0FFFA",
     paddingHorizontal: 10,
-    paddingVertical: 8,
+    height: 40,
     marginTop: 30,
     gap: 5,
+  },
+  loaderCard: {
+    width: 262,
+    height: 226,
+    backgroundColor: "white",
+    borderRadius: 16,
+    elevation: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 15,
   },
 });
 

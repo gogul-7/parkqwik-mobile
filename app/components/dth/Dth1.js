@@ -47,11 +47,16 @@ const Dth1 = () => {
   ];
 
   return (
-    <View style={{ alignItems: "center", gap: 15, flex: 1 }}>
+    <View
+      style={{
+        alignItems: "center",
+        gap: 15,
+        flex: 1,
+        backgroundColor: "#FFF",
+      }}
+    >
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>
-          Select Your DTH Operator
-        </Text>
+        <Text style={[styles.header]}>Select Your DTH Operator</Text>
       </View>
 
       {searchKey.length !== 0
@@ -128,14 +133,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
   image: {
     width: 35,
     height: 35,
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+    fontSize: 16,
+  },
+  bold: { fontFamily: "Poppins_600SemiBold", color: "#393939" },
 });
 
 export default Dth1;

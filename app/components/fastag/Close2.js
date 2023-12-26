@@ -27,7 +27,7 @@ const Close2 = () => {
         width: "100%",
       }}
     >
-      <Text style={[styles.text, { fontSize: 16, width: "90%" }]}>
+      <Text style={[styles.header, { fontSize: 16, width: "90%" }]}>
         Select a reason for closing your FASTag
       </Text>
       <RadioButton.Group
@@ -130,7 +130,11 @@ const Close2 = () => {
         </View>
       </RadioButton.Group>
       <TouchableOpacity style={styles.button} onPress={handleContinue}>
-        <Text style={[styles.text, { color: "white" }]}>Continue</Text>
+        <Text
+          style={[styles.bold, { color: "#FFF", fontSize: 16, paddingTop: 2 }]}
+        >
+          Continue
+        </Text>
       </TouchableOpacity>
       {popup && <Popup setPopup={setPopup} />}
     </View>
@@ -155,7 +159,7 @@ const Popup = ({ setPopup }) => {
             marginBottom: 15,
           }}
         >
-          <Text style={[styles.text, { fontSize: 18 }]}>Close FASTag</Text>
+          <Text style={[styles.header, { fontSize: 18 }]}>Close FASTag</Text>
           <TouchableOpacity onPress={() => setPopup(false)}>
             <FontAwesomeIcon
               style={{ color: "#1A9E75", marginRight: 5 }}
@@ -179,9 +183,9 @@ const Popup = ({ setPopup }) => {
             marginTop: 10,
           }}
         >
-          <Text style={[styles.text]}>Refundable Amount</Text>
-          <Text style={{ fontSize: 20 }}>
-            ₹<Text style={[styles.text]}>100</Text>
+          <Text style={[styles.header]}>Refundable Amount</Text>
+          <Text style={{ fontSize: 20, fontWeight: 500 }}>
+            ₹ <Text style={[styles.header]}>100</Text>
           </Text>
         </View>
         <TouchableOpacity
@@ -191,7 +195,9 @@ const Popup = ({ setPopup }) => {
           ]}
           onPress={handlePress}
         >
-          <Text style={[styles.text, { color: "white" }]}>Close FASTag</Text>
+          <Text style={[styles.bold, { color: "#FFF", fontSize: 16 }]}>
+            Close FASTag
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -226,11 +232,15 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     height: 370,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     padding: 20,
     display: "flex",
     gap: 8,
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
 });
 
 export default Close2;

@@ -3,7 +3,15 @@ import React from "react";
 
 const Help3 = () => {
   return (
-    <View style={{ alignItems: "center", paddingTop: 15, gap: 10 }}>
+    <View
+      style={{
+        alignItems: "center",
+        paddingTop: 15,
+        gap: 10,
+        backgroundColor: "#FFF",
+        flex: 1,
+      }}
+    >
       <View style={styles.container}>
         <Image
           style={{ width: 25, height: 25 }}
@@ -73,6 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",

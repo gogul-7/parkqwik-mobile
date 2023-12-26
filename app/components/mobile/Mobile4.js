@@ -57,10 +57,10 @@ const Mobile4 = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ backgroundColor: "#FFF" }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.content}>
-          <Text style={[styles.text]}>Preferred Payment Option</Text>
+          <Text style={[styles.header]}>Preferred Payment Option</Text>
           <Pressable
             onPress={() => setChecked(!checked)}
             style={{
@@ -92,14 +92,19 @@ const Mobile4 = () => {
           </Pressable>
           <View style={{ width: "100%", alignItems: "center", marginTop: 15 }}>
             <View style={[styles.button, { width: 200 }]}>
-              <Text style={[styles.text, { color: "white" }]}>
-                Pay ₹ 600 In Single Click{" "}
+              <Text
+                style={[
+                  styles.header,
+                  { fontSize: 14, color: "#FFF", paddingTop: 2 },
+                ]}
+              >
+                Pay ₹ 100 In Single Click{" "}
               </Text>
             </View>
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={[styles.text]}>UPI</Text>
+          <Text style={[styles.header]}>UPI</Text>
           {data.map((item) => (
             <RadioButton.Group
               onValueChange={(newValue) => setValue(newValue)}
@@ -146,7 +151,7 @@ const Mobile4 = () => {
           ))}
         </View>
         <View style={[styles.content, { marginBottom: 100 }]}>
-          <Text style={[styles.text]}>Cards</Text>
+          <Text style={[styles.header]}>Cards</Text>
           <Pressable
             onPress={() => setCheckedCard(!checkedCard)}
             style={{
@@ -179,9 +184,18 @@ const Mobile4 = () => {
       </ScrollView>
 
       <View style={styles.payment}>
-        <Text style={[{ fontSize: 20, width: "50%" }]}>{`₹ ${amount}`}</Text>
+        <Text style={[{ fontSize: 20, color: "#393939", paddingTop: 3 }]}>
+          ₹ <Text style={[styles.header, { fontSize: 20 }]}>{amount}</Text>
+        </Text>
         <Pressable style={styles.button} onPress={handleContinue}>
-          <Text style={[styles.text, { color: "white" }]}>Proceed To Pay</Text>
+          <Text
+            style={[
+              styles.bold,
+              { color: "#FFF", fontSize: 16, paddingTop: 2 },
+            ]}
+          >
+            Continue
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -192,19 +206,21 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     alignItems: "center",
+    paddingTop: 20,
     gap: 15,
   },
   content: {
     width: "90%",
     padding: 15,
     borderRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",
   },
   button: {
-    width: 150,
+    width: 178,
     height: 40,
     backgroundColor: "#1A9E75",
     borderRadius: 15,
@@ -214,7 +230,7 @@ const styles = StyleSheet.create({
   },
   payment: {
     position: "absolute",
-    height: 80,
+    height: 60,
     backgroundColor: "white",
     bottom: 0,
     width: "100%",
@@ -222,9 +238,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 30,
-    elevation: 3,
+    paddingHorizontal: 20,
+    elevation: 10,
+    shadowOffset: {
+      width: 0,
+      height: 70,
+    },
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+    fontSize: 16,
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
 });
 
 export default Mobile4;

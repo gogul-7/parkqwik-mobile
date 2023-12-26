@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Modal from "react-native-modal";
 
 const centers = [
   {
@@ -53,16 +54,16 @@ const centers = [
 ];
 
 const Pucc1 = () => {
-  const [border, setBorder] = useState("#A0A0A0");
+  const [border, setBorder] = useState("#EEE");
   const [search, setSearch] = useState([]);
   const [key, setKey] = useState("");
   const [toggle, setToggle] = useState(false);
-  const [toggleId, setToggleId] = useState(0);
+  const [toggleId, setToggleId] = useState(1);
   const [selected, setSelected] = useState("All");
 
   const handleChange = (text) => {
     setBorder("#1A9E75");
-    if (text.length == 0) setBorder("#A0A0A0");
+    if (text.length == 0) setBorder("#EEE");
     setKey(text);
     setSearch(
       centers.filter(
@@ -89,9 +90,10 @@ const Pucc1 = () => {
         paddingTop: 15,
         alignItems: "center",
         gap: 10,
+        backgroundColor: "#FFF",
       }}
     >
-      {toggle && <Popup id={toggleId} toggle={setToggle} />}
+      <Popup id={toggleId} toggle={toggle} setToggle={setToggle} />
       <View
         style={{
           width: "100%",
@@ -379,11 +381,10 @@ const Pucc1 = () => {
 
 export default Pucc1;
 
-const Popup = ({ id, toggle }) => {
-  const { height } = useWindowDimensions();
+const Popup = ({ id, toggle, setToggle }) => {
   const details = centers.find((item) => item.id == id);
   return (
-    <View style={[styles.backDrop, { height: height - 80 }]}>
+    <Modal isVisible={toggle} style={[styles.backDrop]}>
       <View style={styles.popContainer}>
         <Text style={[styles.header, { width: "80%" }]}>{details.name}</Text>
         <Text
@@ -430,6 +431,9 @@ const Popup = ({ id, toggle }) => {
             alignItems: "center",
             flex: 1,
             justifyContent: "space-evenly",
+            position: "absolute",
+            bottom: 20,
+            alignSelf: "center",
           }}
         >
           <View style={styles.button1}>
@@ -447,12 +451,12 @@ const Popup = ({ id, toggle }) => {
         </View>
         <Pressable
           style={{ position: "absolute", right: 20, top: 20 }}
-          onPress={() => toggle(false)}
+          onPress={() => setToggle(false)}
         >
           <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={22} />
         </Pressable>
       </View>
-    </View>
+    </Modal>
   );
 };
 
@@ -474,6 +478,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 15,
     padding: 15,
+    elevation: 3,
   },
   bold: {
     fontFamily: "Poppins_600SemiBold",
@@ -481,6 +486,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: "Poppins_500Medium",
+    color: "#393939",
   },
   highlighted: {
     fontFamily: "Poppins_500Medium",
@@ -489,6 +495,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
   downPart: {
     flexDirection: "row",
@@ -510,16 +517,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   backDrop: {
-    flex: 1,
-    backgroundColor: "rgba(72, 72, 72, 0.83)",
-    position: "absolute",
-    width: "100%",
-    zIndex: 5,
+    margin: 0,
     justifyContent: "flex-end",
   },
   popContainer: {
     backgroundColor: "white",
-    height: 230,
+    height: 220,
     width: "100%",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,

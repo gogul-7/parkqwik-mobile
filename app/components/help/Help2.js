@@ -35,7 +35,7 @@ const Help2 = () => {
 
   if (category === "fastag") {
     return (
-      <View style={{ alignItems: "center", flex: 1 }}>
+      <View style={{ alignItems: "center", flex: 1, backgroundColor: "#FFF" }}>
         <ScrollView
           contentContainerStyle={{
             alignItems: "center",
@@ -211,6 +211,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
+    elevation: 2,
   },
   inputContainer: {
     width: "90%",
@@ -226,13 +227,14 @@ const styles = StyleSheet.create({
     height: 45,
     paddingStart: 38,
     paddingTop: 5,
+    elevation: 2,
   },
   clip: {
     width: 23,
     height: 23,
     position: "absolute",
     left: 10,
-    zIndex: 10,
+    zIndex: 15,
   },
   button: {
     width: 44,

@@ -323,9 +323,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text: {
-    fontFamily: "Poppins_400Regular",
-  },
+
   bannerContainer: {
     paddingLeft: "5%",
   },
@@ -357,7 +355,7 @@ const Slider = () => {
           start={{ x: 0.85, y: 1.0 }}
           end={{ x: 0.15, y: 0.0 }}
           locations={[0.1761, 0.8652]}
-          style={styles.banner}
+          style={[styles.banner]}
         >
           <Text
             style={[

@@ -70,7 +70,7 @@ const Crime3 = () => {
   });
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
+    <View style={{ flex: 1, alignItems: "center", backgroundColor: "#FFF" }}>
       <Animated.View
         style={[
           styles.greenCircle,

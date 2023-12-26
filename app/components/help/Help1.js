@@ -144,6 +144,7 @@ const Help1 = () => {
         paddingTop: 15,
         gap: 15,
         paddingBottom: 30,
+        backgroundColor: "#FFF",
       }}
     >
       <Text style={[styles.header, { fontSize: 16, width: "90%" }]}>
@@ -227,6 +228,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: "row",
     flexWrap: "wrap",
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",

@@ -18,10 +18,18 @@ const Rent4 = () => {
     navigation.navigate("rent5");
   };
   return (
-    <View style={{ flex: 1, gap: 25, alignItems: "center", paddingTop: 80 }}>
-      <Text style={[styles.text, { fontSize: 16 }]}>Enter Amount</Text>
+    <View
+      style={{
+        flex: 1,
+        gap: 25,
+        alignItems: "center",
+        paddingTop: 80,
+        backgroundColor: "#FFF",
+      }}
+    >
+      <Text style={[styles.header, { fontSize: 16 }]}>Enter Amount</Text>
       <View style={styles.card}>
-        <Text style={{ color: "#1B9D76", fontSize: 28 }}>₹</Text>
+        <Text style={{ color: "#1B9D76", fontSize: 24 }}>₹</Text>
         <TextInput
           onChangeText={(text) => setValue(text)}
           keyboardType="numeric"
@@ -38,7 +46,7 @@ const Rent4 = () => {
         }}
       >
         <TouchableOpacity onPress={handlePress} style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Continue</Text>
+          <Text style={[styles.bold, { color: "#FFF" }]}>Continue</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -48,10 +56,21 @@ const Rent4 = () => {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#FFF",
+    paddingTop: 2,
+    fontSize: 16,
   },
   card: {
     height: 80,
-    backgroundColor: "#e3e1e1",
+    backgroundColor: "#F4F4F4",
     borderRadius: 28,
     width: "70%",
     flexDirection: "row",
@@ -61,12 +80,12 @@ const styles = StyleSheet.create({
   },
   input: {
     justifyContent: "center",
-    fontSize: 28,
+    fontSize: 24,
     color: "#1B9D76",
   },
   button: {
     width: "90%",
-    height: 40,
+    height: 41,
     marginTop: 30,
     backgroundColor: "#1A9E75",
     borderRadius: 15,

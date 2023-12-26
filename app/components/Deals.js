@@ -57,19 +57,21 @@ const Deals = () => {
           style={styles.image}
           source={require("../assets/images/frame4.png")}
         >
-          <Text style={[styles.text, { fontSize: 18, color: "#FBFF35" }]}>
+          <Text style={[styles.header, { fontSize: 18, color: "#FBFF35" }]}>
             Get 25% off
           </Text>
           <Text
             style={[
-              styles.text,
+              styles.header,
               { fontSize: 8, color: "white", marginTop: -5 },
             ]}
           >
             on your first car wash
           </Text>
           <View style={styles.button}>
-            <Text style={{ fontWeight: "600", fontSize: 12 }}>Book Now</Text>
+            <Text style={[styles.bold, { fontSize: 10, paddingTop: 2 }]}>
+              Book Now
+            </Text>
           </View>
         </ImageBackground>
         <ImageBackground
@@ -128,19 +130,21 @@ const Deals = () => {
           style={styles.image}
           source={require("../assets/images/frame9.png")}
         >
-          <Text style={[styles.text, { fontSize: 18, color: "#FBFF35" }]}>
+          <Text style={[styles.header, { fontSize: 18, color: "#FBFF35" }]}>
             Get 25% off
           </Text>
           <Text
             style={[
-              styles.text,
+              styles.header,
               { fontSize: 8, color: "white", marginTop: -5 },
             ]}
           >
             on your first car wash
           </Text>
           <View style={styles.button}>
-            <Text style={{ fontWeight: "600", fontSize: 12 }}>Book Now</Text>
+            <Text style={[styles.bold, { fontSize: 10, paddingTop: 2 }]}>
+              Book Now
+            </Text>
           </View>
         </ImageBackground>
       </ScrollView>
@@ -189,7 +193,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   button: {
     width: 70,
     height: 25,
@@ -212,6 +222,7 @@ const styles = StyleSheet.create({
     display: "flex",
     gap: 8,
     marginTop: 20,
+    elevation: 3,
   },
   discContainer: {
     flexDirection: "row",

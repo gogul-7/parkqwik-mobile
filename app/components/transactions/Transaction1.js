@@ -47,7 +47,14 @@ const Transaction1 = () => {
   };
 
   return (
-    <View style={{ paddingTop: 15, alignItems: "center", gap: 15 }}>
+    <View
+      style={{
+        paddingTop: 15,
+        alignItems: "center",
+        gap: 15,
+        backgroundColor: "#FFF",
+      }}
+    >
       <View
         style={{ width: "90%", justifyContent: "center", marginBottom: 10 }}
       >
@@ -120,11 +127,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 15,
+    elevation: 3,
   },
   input: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#A0A0A0",
+    borderColor: "#EEE",
     borderRadius: 9,
     height: 40,
     paddingLeft: 35,

@@ -54,21 +54,27 @@ const Header = ({ title }) => {
           source={require("../assets/images/arrowleft.png")}
         />
       </Pressable>
-      <Text style={{ color: "white" }}>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 90,
-    paddingTop: 50,
+    height: 80,
+    paddingTop: 20,
     backgroundColor: "#1A9E75",
     paddingHorizontal: 15,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Poppins_600SemiBold",
+    paddingTop: 3,
   },
 });
 

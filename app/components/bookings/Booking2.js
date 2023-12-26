@@ -13,7 +13,15 @@ const Booking2 = () => {
     navigation.navigate("booking3");
   };
   return (
-    <View style={{ paddingTop: 15, alignItems: "center", gap: 10 }}>
+    <View
+      style={{
+        paddingTop: 15,
+        alignItems: "center",
+        gap: 10,
+        backgroundColor: "#FFF",
+        flex: 1,
+      }}
+    >
       <View style={styles.container}>
         <View style={styles.topPart}>
           <View>
@@ -169,6 +177,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     gap: 15,
+    elevation: 3,
   },
   row: {
     flexDirection: "row",

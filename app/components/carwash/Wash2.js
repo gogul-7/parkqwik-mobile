@@ -29,6 +29,7 @@ const Wash2 = () => {
           gap: 10,
           paddingTop: 15,
           paddingBottom: 80,
+          backgroundColor: "#FFF",
         }}
       >
         <Text
@@ -390,6 +391,7 @@ const styles = StyleSheet.create({
     width: "90%",
     overflow: "hidden",
     alignItems: "center",
+    elevation: 3,
   },
   header: {
     fontFamily: "Poppins_500Medium",

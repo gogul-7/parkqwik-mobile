@@ -337,7 +337,7 @@ export default Transaction2;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 100,
+    height: 80,
     width: "100%",
     backgroundColor: "#1A9E75",
     paddingHorizontal: 18,

@@ -23,7 +23,7 @@ const Crime2 = () => {
   const [image, setImage] = useState(null);
   const video = useRef(null);
   const [status, setStatus] = useState({});
-  const [border, setBorder] = useState("#A0A0A0");
+  const [border, setBorder] = useState("#EEE");
   const [vehicleNum, setVehicleNum] = useState("");
   const navigation = useNavigation();
 
@@ -43,7 +43,7 @@ const Crime2 = () => {
   const handleChange = (text) => {
     setBorder("#1A9E75");
     setVehicleNum(text);
-    if (text.length == 0) setBorder("#A0A0A0");
+    if (text.length == 0) setBorder("#EEE");
   };
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const Crime2 = () => {
         paddingTop: 15,
         paddingBottom: 30,
         gap: 10,
+        backgroundColor: "#FFF",
       }}
     >
       <SelectDropdown
@@ -175,15 +176,17 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 15,
     padding: 15,
+    elevation: 3,
   },
   dropdown: {
     width: "90%",
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: "#A0A0A0",
+    borderColor: "#EEE",
     height: 40,
     marginBottom: 5,
     paddingTop: 2,
+    backgroundColor: "#FFF",
   },
   header: {
     fontFamily: "Poppins_500Medium",

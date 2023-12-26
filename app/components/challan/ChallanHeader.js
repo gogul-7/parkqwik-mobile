@@ -65,8 +65,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#1A9E75",
   },
   text: {
-    fontFamily: "Poppins_400Regular",
-    fontSize: 18,
+    fontFamily: "Poppins_500Medium",
+    fontSize: 16,
+    paddingTop: 2,
   },
 });
 

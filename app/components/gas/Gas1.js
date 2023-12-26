@@ -38,9 +38,16 @@ const Gas1 = () => {
   ];
 
   return (
-    <View style={{ alignItems: "center", gap: 15, flex: 1 }}>
+    <View
+      style={{
+        alignItems: "center",
+        gap: 15,
+        flex: 1,
+        backgroundColor: "#FFF",
+      }}
+    >
       <View style={{ width: "90%" }}>
-        <Text style={[styles.text, { fontSize: 16 }]}>
+        <Text style={[styles.header, { fontSize: 16 }]}>
           Select Your LPG Company
         </Text>
       </View>
@@ -113,19 +120,27 @@ const styles = StyleSheet.create({
     width: "90%",
     paddingHorizontal: 15,
     paddingVertical: 15,
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
   image: {
     width: 35,
     height: 35,
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+    fontSize: 16,
+  },
+  bold: { fontFamily: "Poppins_600SemiBold", color: "#393939" },
 });
 
 export default Gas1;

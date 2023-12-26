@@ -37,6 +37,7 @@ const Wash1 = () => {
         paddingTop: 15,
         gap: 20,
         paddingBottom: 30,
+        backgroundColor: "#FFF",
       }}
     >
       <ScrollView
@@ -870,7 +871,11 @@ const Content = ({ selected }) => {
         >
           10k+ Happy Customers
         </Text>
-        <ScrollView horizontal contentContainerStyle={{ gap: 10 }}>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{ gap: 10 }}
+          showsHorizontalScrollIndicator={false}
+        >
           <ImageBackground
             style={{
               width: 225,
@@ -1159,6 +1164,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignItems: "center",
     justifyContent: "space-between",
+    elevation: 3,
   },
   container2: {
     backgroundColor: "#FFF",
@@ -1199,6 +1205,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
+    elevation: 3,
   },
   button3: {
     backgroundColor: "#262626",

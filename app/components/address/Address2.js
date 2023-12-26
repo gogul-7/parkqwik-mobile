@@ -109,6 +109,7 @@ const Address2 = () => {
         paddingTop: 20,
         gap: 15,
         paddingBottom: 20,
+        backgroundColor: "#FFF",
       }}
       style={{ flex: 1 }}
     >
@@ -192,8 +193,8 @@ const Address2 = () => {
       <TouchableOpacity onPress={handleSave} style={styles.button2}>
         <Text
           style={[
-            styles.header,
-            { color: "white", width: "auto", paddingTop: 2, fontSize: 14 },
+            styles.bold,
+            { color: "white", width: "auto", paddingTop: 2, fontSize: 16 },
           ]}
         >
           Save
@@ -252,8 +253,9 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: "#1A9E75",
     width: "90%",
-    paddingVertical: 8,
+    height: 41,
     alignItems: "center",
+    justifyContent: "center",
     gap: 10,
     marginTop: 20,
   },

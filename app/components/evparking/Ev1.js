@@ -16,14 +16,32 @@ import WheelPickerExpo from "react-native-wheel-picker-expo";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { LinearGradient } from "expo-linear-gradient";
 
+const months = [
+  "1 Month",
+  "2 Month",
+  "3 Month",
+  "4 Month",
+  "5 Month",
+  "6 Month",
+  "7 Month",
+  "8 Month",
+  "9 Month",
+  "10 Month",
+  "11 Month",
+  "1 Year",
+];
+
 const Ev1 = () => {
   const [checkout, setCheckout] = useState(false);
-  const [selected, setSelected] = useState("information");
+  const [scheme, setScheme] = useState(false);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
   const [dateArray, setDateArray] = useState([]);
   const [hourArray, setHourArray] = useState([]);
   const [minArray, setMinArray] = useState([]);
+  const [startMonthDate, setStartMonthDate] = useState("Today");
+  const [duration, setDuration] = useState("");
   const [startDate, setStartDate] = useState({
     day: "Today",
     min: "30",
@@ -92,51 +110,80 @@ const Ev1 = () => {
             style={styles.location}
             source={require("../assets/images/whitelocation.png")}
           />
-          <View style={styles.slider}>
+          <TouchableOpacity
+            onPress={() => setScheme(!scheme)}
+            style={styles.slider}
+          >
             <Text style={[styles.header, { color: "white", paddingTop: 2 }]}>
-              Hourly
+              {scheme ? "Monthly" : "Hourly"}
             </Text>
             <View>
               <FontAwesomeIcon icon={"angle-up"} size={10} color="white" />
               <FontAwesomeIcon icon={"angle-down"} size={10} color="white" />
             </View>
+          </TouchableOpacity>
+        </View>
+        {scheme ? (
+          <TouchableOpacity
+            onPress={() => {
+              setModal3(true);
+              setStartMonthDate(dateArray[1]);
+            }}
+            style={{
+              height: 37,
+              width: "90%",
+              backgroundColor: "#FFF",
+              flexDirection: "row",
+              alignItems: "center",
+              paddingHorizontal: 15,
+              marginTop: 5,
+              borderRadius: 4,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={[styles.header, { color: "#1A9E75", paddingTop: 2 }]}>
+              Arrive from:{" "}
+              <Text style={{ color: "#393939" }}>{startMonthDate}</Text>
+            </Text>
+            <FontAwesomeIcon icon={"angle-down"} color="#1A9E75" size={12} />
+          </TouchableOpacity>
+        ) : (
+          <View
+            style={{
+              flexDirection: "row",
+              width: "90%",
+              justifyContent: "space-between",
+              marginTop: 10,
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                setModal(true);
+                setStartDate({ ...startDate, day: dateArray[1] });
+              }}
+              style={styles.dropDown}
+            >
+              <Text
+                style={[styles.text, { paddingTop: 2 }]}
+              >{`${startDate.hr}:${startDate.min} ${startDate.day}`}</Text>
+              <FontAwesomeIcon icon={"angle-down"} color="#1A9E75" size={12} />
+            </TouchableOpacity>
+            <FontAwesomeIcon icon={"arrow-right-long"} color="white" />
+            <TouchableOpacity
+              onPress={() => {
+                setModal2(true);
+                setEndtDate({ ...endtDate, day: dateArray[1] });
+              }}
+              style={styles.dropDown}
+            >
+              <Text
+                style={[styles.text, { paddingTop: 2 }]}
+              >{`${endtDate.hr}:${endtDate.min} ${endtDate.day}`}</Text>
+              <FontAwesomeIcon icon={"angle-down"} color="#1A9E75" size={12} />
+            </TouchableOpacity>
           </View>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "90%",
-            justifyContent: "space-between",
-            marginTop: 10,
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              setModal(true);
-              setStartDate({ ...startDate, day: dateArray[1] });
-            }}
-            style={styles.dropDown}
-          >
-            <Text
-              style={[styles.text, { paddingTop: 2 }]}
-            >{`${startDate.hr}:${startDate.min} ${startDate.day}`}</Text>
-            <FontAwesomeIcon icon={"angle-down"} color="#1A9E75" size={12} />
-          </TouchableOpacity>
-          <FontAwesomeIcon icon={"arrow-right-long"} color="white" />
-          <TouchableOpacity
-            onPress={() => {
-              setModal2(true);
-              setEndtDate({ ...endtDate, day: dateArray[1] });
-            }}
-            style={styles.dropDown}
-          >
-            <Text
-              style={[styles.text, { paddingTop: 2 }]}
-            >{`${endtDate.hr}:${endtDate.min} ${endtDate.day}`}</Text>
-            <FontAwesomeIcon icon={"angle-down"} color="#1A9E75" size={12} />
-          </TouchableOpacity>
-        </View>
+        )}
       </View>
       <ImageBackground
         source={require("../assets/images/map.png")}
@@ -1043,6 +1090,140 @@ const Ev1 = () => {
           </View>
         </View>
       </Modal>
+      <Modal
+        isVisible={modal3}
+        backdropColor="#B7B7B7"
+        style={{ margin: 0, justifyContent: "flex-end" }}
+        useNativeDriver
+        useNativeDriverForBackdrop
+      >
+        <View style={styles.modalContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setModal3(false);
+            }}
+            style={{
+              height: 30,
+              width: "90%",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#FFF",
+            }}
+          >
+            <View style={styles.line} />
+          </TouchableOpacity>
+          <View
+            style={{
+              width: "80%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              backgroundColor: "#FFF",
+            }}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                  fontSize: 16,
+                },
+              ]}
+            >
+              Select start Date
+            </Text>
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                  fontSize: 16,
+                  width: "30%",
+                },
+              ]}
+            >
+              Duration
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "75%",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: -40,
+              zIndex: -10,
+            }}
+          >
+            <WheelPickerExpo
+              height={230}
+              width={100}
+              selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+              initialSelectedIndex={1}
+              haptics
+              items={dateArray.map((name) => ({
+                label: (
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: "Poppins_400Regular",
+                      color: "#393939",
+                      paddingTop: 2,
+                    }}
+                  >
+                    {name}
+                  </Text>
+                ),
+                value: { name },
+              }))}
+              onChange={({ item }) => setStartMonthDate(item.value.name)}
+            />
+
+            <WheelPickerExpo
+              height={230}
+              width={90}
+              selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
+              initialSelectedIndex={1}
+              haptics
+              items={months.map((name) => ({
+                label: (
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: "Poppins_400Regular",
+                      color: "#393939",
+                      paddingTop: 2,
+                    }}
+                  >
+                    {name}
+                  </Text>
+                ),
+                value: { name },
+              }))}
+              onChange={({ item }) => setDuration(item.value.name)}
+            />
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: 110,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#fff",
+              width: "100%",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => setModal3(false)}
+              style={styles.button4}
+            >
+              <Text style={[styles.bold, { fontSize: 16, color: "#FFF" }]}>
+                Done
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -1350,8 +1531,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   headerContainer: {
-    height: 194,
-    paddingTop: 70,
+    height: 174,
+    paddingTop: 50,
     backgroundColor: "#1A9E75",
     gap: 15,
     alignItems: "center",

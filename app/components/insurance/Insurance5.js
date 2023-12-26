@@ -1,64 +1,152 @@
 import {
   Image,
-  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   View,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import Layer from "../assets/logos/Search.png";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Insurance6 from "./Insurance6";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+
+const comprehensive = [
+  {
+    id: 1,
+    logo: require("../assets/logos/oriental.png"),
+    idv: "1,15,193",
+    amount: "2,431",
+    desc: "24X7 Roadside Assistance..",
+    claim: "94",
+  },
+  {
+    id: 2,
+    logo: require("../assets/logos/shriram.png"),
+    idv: "1,00,342",
+    amount: "2,608",
+    desc: "Accidental Damage to the.. ",
+    claim: "96",
+  },
+  {
+    id: 3,
+    logo: require("../assets/logos/kotak.png"),
+    idv: "1,14,736",
+    amount: "2,746",
+    desc: "Accidental Damage to the.. ",
+    claim: "98",
+  },
+  {
+    id: 4,
+    logo: require("../assets/logos/bajaj1.png"),
+    idv: "1,43,775",
+    amount: "3,465",
+    desc: "24X7 Roadside Assistance..",
+    claim: "98.5",
+  },
+];
+
+const thirdparty = [
+  {
+    id: 1,
+    logo: require("../assets/logos/oriental.png"),
+    amount: "2,094",
+  },
+  {
+    id: 2,
+    logo: require("../assets/logos/kotak.png"),
+    amount: "2,094",
+  },
+  {
+    id: 3,
+    logo: require("../assets/logos/bajaj.png"),
+    amount: "2,094",
+  },
+  {
+    id: 4,
+    logo: require("../assets/logos/zuno.png"),
+    amount: "2,094",
+  },
+  {
+    id: 5,
+    logo: require("../assets/logos/royal.png"),
+    amount: "1,994",
+  },
+  {
+    id: 6,
+    logo: require("../assets/logos/reliance.png"),
+    amount: "1,994",
+  },
+];
 
 const Insurance5 = () => {
   const Tab = createMaterialTopTabNavigator();
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
+    <View
+      style={{
+        backgroundColor: "#FFF",
+        alignItems: "center",
+        flex: 1,
+        gap: 15,
+      }}
+    >
       <View
         style={{
           height: 100,
           backgroundColor: "#1A9E75",
           justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
         }}
       >
         <View
           style={{
-            width: 318,
+            width: "90%",
             height: 63,
-            backgroundColor: "white",
-            alignSelf: "center",
+            backgroundColor: "#FFF",
+            flexDirection: "row",
+            alignItems: "center",
             borderRadius: 10,
-            justifyContent: "center",
+            paddingHorizontal: 15,
+            gap: 10,
           }}
         >
           <Image
             source={require("../assets/logos/car1.png")}
-            style={{ width: 37.39, height: 28, left: 20, top: 30 }}
-          ></Image>
-          <Text
-            style={{
-              left: 60,
-              fontFamily: "Poppins_500Medium",
-              color: "black",
-            }}
-          >
-            TN05BM5656
-          </Text>
-          <Text
-            style={{ fontFamily: "Poppins_500Medium", fontSize: 12, left: 60 }}
-          >
-            Maruti Dzire | Diesal | 2017
-          </Text>
+            style={{ width: 37.39, height: 28, marginBottom: 4 }}
+          />
+          <View>
+            <Text
+              style={{
+                fontFamily: "Poppins_500Medium",
+                fontSize: 16,
+                color: "#393939",
+                marginBottom: -3,
+              }}
+            >
+              TN05BM5656
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_500Medium",
+                fontSize: 12,
+                color: "#A0A0A0",
+              }}
+            >
+              Maruti Dzire | Diesal | 2017
+            </Text>
+          </View>
           <View
             style={{
               width: 61,
               height: 25,
-              borderWidth: 1.5,
+              borderWidth: 1,
+              position: "absolute",
+              right: 15,
               borderColor: "#1A9E75",
-              left: 240,
-              bottom: 40,
               borderRadius: 15,
               backgroundColor: "#F0FFFA",
               justifyContent: "center",
@@ -70,6 +158,7 @@ const Insurance5 = () => {
                 color: "#1A9E75",
                 fontFamily: "Poppins_500Medium",
                 fontSize: 10,
+                paddingTop: 1,
               }}
             >
               Change
@@ -84,30 +173,31 @@ const Insurance5 = () => {
           placeholderTextColor="#A0A0A0"
           style={{
             height: 40,
-            width: 328,
+            width: "90%",
             fontFamily: "Poppins_400Regular",
-            top: 4,
+            paddingTop: 3,
           }}
         />
       </View>
       <Tab.Navigator
         initialRouteName="Item1"
+        style={{ width: "100%", height: "100%" }}
         screenOptions={{
-          tabBarPressColor: "white",
+          tabBarPressColor: "#FFF",
           tabBarGap: 0,
           tabBarInactiveTintColor: "black",
           tabBarActiveTintColor: "black",
           tabBarLabelStyle: {
-            fontSize: 11,
+            fontSize: 14,
             textTransform: "none",
             fontFamily: "Poppins_500Medium",
-            top: 5,
-            gap: 5,
+            top: 3,
+            margin: 0,
           },
           tabBarStyle: {
             borderBottomWidth: 1,
             borderBottomColor: "#E6E6E6",
-            shadowColor: "white",
+            shadowColor: "#FFF",
           },
           tabBarIndicatorStyle: { borderWidth: 1, borderColor: "#1A9E75" },
         }}
@@ -120,10 +210,8 @@ const Insurance5 = () => {
             tabBarIndicatorStyle: {
               borderWidth: 2,
               borderColor: "#1A9E75",
-              width: 135,
-              left: 25,
-              borderTopRightRadius: 5,
-              borderTopLeftRadius: 5,
+              borderTopRightRadius: 3,
+              borderTopLeftRadius: 3,
             },
           }}
         />
@@ -137,405 +225,130 @@ const Insurance5 = () => {
               borderColor: "#1A9E75",
               borderTopStartRadius: 5,
               borderTopRightRadius: 5,
-              width: 125,
-              left: 30,
             },
           }}
         />
       </Tab.Navigator>
-    </SafeAreaView>
+    </View>
   );
 };
 const Item1Screen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   return (
-    <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
-      <View style={styles.card}>
-        <View style={{ flexDirection: "row" }}>
-          <Image
-            source={require("../assets/logos/oriental.png")}
-            style={styles.oriental}
-          ></Image>
-          <View style={{ flexDirection: "column" }}>
-            <Text
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              style={{ fontFamily: "Poppins_500Medium" }}
-            >
-              {" "}
-              IDV: ₹ 1,15,193
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Poppins_500Medium",
-                fontSize: 10,
-                color: "#00A638",
-              }}
-            >
-              {" "}
-              94% Claims Settled
-            </Text>
-          </View>
-          <Text style={{ color: "black", fontSize: 20, left: 30 }}>
-            {" "}
-            ₹ 2,431
-          </Text>
-        </View>
-        <Image
-          source={require("../assets/logos/recline.png")}
-          style={{ height: 2, alignSelf: "center", width: 293, top: 10 }}
-        ></Image>
-        <Text
-          style={{
-            top: 20,
-            fontFamily: "Poppins_500Medium",
-            color: "black",
-            right: 5,
+    <ScrollView
+      contentContainerStyle={{
+        backgroundColor: "#FFF",
+        alignItems: "center",
+        paddingBottom: 30,
+        paddingTop: 15,
+        gap: 10,
+      }}
+    >
+      <Insurance6 show={isModalVisible} setShow={setModalVisible} />
+      {comprehensive.map((item) => (
+        <TouchableOpacity
+          key={item.id}
+          onPress={() => {
+            setModalVisible(true);
           }}
+          style={styles.card}
         >
-          24X7 Roadside Assistance..
-          <Text style={{ color: "#1A9E75" }}>See More</Text>
-        </Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.77, height: 12, left: 280 }}
-        ></Image>
-        <Insurance6
-          show={isModalVisible}
-          close={() => setModalVisible(false)}
-        />
-      </View>
+          <View style={{ flexDirection: "row", gap: 10 }}>
+            <Image source={item.logo} style={styles.oriental} />
+            <View>
+              <Text
+                style={[
+                  styles.header,
+                  { fontSize: 12, color: "#8E8E8E", marginBottom: -3 },
+                ]}
+              >
+                IDV: ₹ {item.idv}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Poppins_500Medium",
+                  fontSize: 10,
+                  color: "#00A638",
+                }}
+              >
+                {item.claim}% Claims Settled
+              </Text>
+            </View>
 
-      <View style={styles.card}>
-        <View style={{ flexDirection: "row" }}>
-          <Image
-            source={require("../assets/logos/shriram.png")}
-            style={styles.oriental}
-          ></Image>
-          <View style={{ flexDirection: "column" }}>
-            <Text style={{ fontFamily: "Poppins_500Medium" }}>
-              {" "}
-              IDV: ₹ 1,00,342
+            <Text
+              style={{
+                color: "black",
+                fontSize: 20,
+                position: "absolute",
+                right: 0,
+              }}
+            >
+              ₹ <Text style={styles.header}>{item.amount}</Text>
             </Text>
+          </View>
+          <View style={styles.line} />
+          <View style={{ justifyContent: "center" }}>
             <Text
               style={{
                 fontFamily: "Poppins_500Medium",
-                fontSize: 10,
-                color: "#00A638",
+                color: "#393939",
+                paddingTop: 2,
               }}
             >
-              {" "}
-              96% Claims Settled
+              {item.desc}
+              <Text style={{ color: "#1A9E75" }}>See More</Text>
             </Text>
+            <FontAwesomeIcon
+              style={{ position: "absolute", right: 0 }}
+              icon={"angle-right"}
+              color="#1A9E75"
+            />
           </View>
-          <Text style={{ color: "black", fontSize: 20, left: 30 }}>
-            {" "}
-            ₹ 2,608
-          </Text>
-        </View>
-        <Image
-          source={require("../assets/logos/recline.png")}
-          style={{ height: 2, alignSelf: "center", width: 293, top: 10 }}
-        ></Image>
-        <Text
-          style={{
-            top: 20,
-            fontFamily: "Poppins_500Medium",
-            color: "black",
-            right: 5,
-          }}
-        >
-          Accidental Damage to the..
-          <Text style={{ color: "#1A9E75" }}>See More</Text>
-        </Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.77, height: 12, left: 280 }}
-        ></Image>
-      </View>
-
-      <View style={styles.card}>
-        <View style={{ flexDirection: "row" }}>
-          <Image
-            source={require("../assets/logos/kotak.png")}
-            style={styles.oriental}
-          ></Image>
-          <View style={{ flexDirection: "column" }}>
-            <Text style={{ fontFamily: "Poppins_500Medium" }}>
-              {" "}
-              IDV: ₹ 1,14,736
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Poppins_500Medium",
-                fontSize: 10,
-                color: "#00A638",
-              }}
-            >
-              {" "}
-              98% Claims Settled
-            </Text>
-          </View>
-          <Text style={{ color: "black", fontSize: 20, left: 30 }}>
-            {" "}
-            ₹ 2,746
-          </Text>
-        </View>
-        <Image
-          source={require("../assets/logos/recline.png")}
-          style={{ height: 2, alignSelf: "center", width: 293, top: 10 }}
-        ></Image>
-        <Text
-          style={{
-            top: 20,
-            fontFamily: "Poppins_500Medium",
-            color: "black",
-            right: 5,
-          }}
-        >
-          Accidental Damage to the..
-          <Text style={{ color: "#1A9E75" }}>See More</Text>
-        </Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.77, height: 12, left: 280 }}
-        ></Image>
-      </View>
-
-      <View style={styles.card}>
-        <View style={{ flexDirection: "row" }}>
-          <Image
-            source={require("../assets/logos/bajaj1.png")}
-            style={styles.oriental}
-          ></Image>
-          <View style={{ flexDirection: "column" }}>
-            <Text style={{ fontFamily: "Poppins_500Medium" }}>
-              {" "}
-              IDV: ₹ 1,14,736
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Poppins_500Medium",
-                fontSize: 10,
-                color: "#00A638",
-              }}
-            >
-              {" "}
-              98% Claims Settled
-            </Text>
-          </View>
-          <Text style={{ color: "black", fontSize: 20, left: 30 }}>
-            {" "}
-            ₹ 2,746
-          </Text>
-        </View>
-        <Image
-          source={require("../assets/logos/recline.png")}
-          style={{ height: 2, alignSelf: "center", width: 293, top: 10 }}
-        ></Image>
-        <Text
-          style={{
-            top: 20,
-            fontFamily: "Poppins_500Medium",
-            color: "black",
-            right: 5,
-          }}
-        >
-          Accidental Damage to the..
-          <Text style={{ color: "#1A9E75" }}>See More</Text>
-        </Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.77, height: 12, left: 280 }}
-        ></Image>
-      </View>
-    </SafeAreaView>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 };
 const Item2Screen = () => {
   return (
-    <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
-      <View
-        style={{
-          width: 328,
-          height: 66,
-          backgroundColor: "white",
-          shadowColor: "black",
-          elevation: 10,
-          alignSelf: "center",
-          top: 23,
-          borderRadius: 15,
-          flexDirection: "row",
-          padding: 15,
-          gap: 20,
-          marginBottom: 13,
-        }}
-      >
-        <Image
-          source={require("../assets/logos/oriental.png")}
-          style={{ width: 87, height: 34 }}
-        ></Image>
-        <Text style={{ fontFamily: "Poppins_500Medium", top: 5, fontSize: 12 }}>
-          Third Party
-        </Text>
-        <Text style={{ color: "black", fontSize: 20 }}> ₹ 2,094</Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.4, height: 12, top: 8, left: 5 }}
-        ></Image>
-      </View>
-
-      <View
-        style={{
-          width: 328,
-          height: 66,
-          backgroundColor: "white",
-          shadowColor: "black",
-          elevation: 10,
-          alignSelf: "center",
-          top: 23,
-          borderRadius: 15,
-          flexDirection: "row",
-          padding: 15,
-          gap: 20,
-          marginBottom: 13,
-        }}
-      >
-        <Image
-          source={require("../assets/logos/kotak.png")}
-          style={{ width: 87, height: 34 }}
-        ></Image>
-        <Text style={{ fontFamily: "Poppins_500Medium", top: 5, fontSize: 12 }}>
-          Third Party
-        </Text>
-        <Text style={{ color: "black", fontSize: 20 }}> ₹ 2,094</Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.4, height: 12, top: 8, left: 5 }}
-        ></Image>
-      </View>
-
-      <View
-        style={{
-          width: 328,
-          height: 66,
-          backgroundColor: "white",
-          shadowColor: "black",
-          elevation: 10,
-          alignSelf: "center",
-          top: 23,
-          borderRadius: 15,
-          flexDirection: "row",
-          padding: 15,
-          gap: 20,
-          marginBottom: 13,
-        }}
-      >
-        <Image
-          source={require("../assets/logos/bajaj.png")}
-          style={{ width: 87, height: 34 }}
-        ></Image>
-        <Text style={{ fontFamily: "Poppins_500Medium", top: 5, fontSize: 12 }}>
-          Third Party
-        </Text>
-        <Text style={{ color: "black", fontSize: 20 }}> ₹ 2,094</Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.4, height: 12, top: 8, left: 5 }}
-        ></Image>
-      </View>
-
-      <View
-        style={{
-          width: 328,
-          height: 66,
-          backgroundColor: "white",
-          shadowColor: "black",
-          elevation: 10,
-          alignSelf: "center",
-          top: 23,
-          borderRadius: 15,
-          flexDirection: "row",
-          padding: 15,
-          gap: 20,
-          marginBottom: 13,
-        }}
-      >
-        <Image
-          source={require("../assets/logos/zuno.png")}
-          style={{ width: 87, height: 34 }}
-        ></Image>
-        <Text style={{ fontFamily: "Poppins_500Medium", top: 5, fontSize: 12 }}>
-          Third Party
-        </Text>
-        <Text style={{ color: "black", fontSize: 20 }}> ₹ 2,094</Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.4, height: 12, top: 8, left: 5 }}
-        ></Image>
-      </View>
-
-      <View
-        style={{
-          width: 328,
-          height: 66,
-          backgroundColor: "white",
-          shadowColor: "black",
-          elevation: 10,
-          alignSelf: "center",
-          top: 23,
-          borderRadius: 15,
-          flexDirection: "row",
-          padding: 15,
-          gap: 20,
-          marginBottom: 13,
-        }}
-      >
-        <Image
-          source={require("../assets/logos/royal.png")}
-          style={{ width: 87, height: 34 }}
-        ></Image>
-        <Text style={{ fontFamily: "Poppins_500Medium", top: 5, fontSize: 12 }}>
-          Third Party
-        </Text>
-        <Text style={{ color: "black", fontSize: 20 }}> ₹ 2,094</Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.4, height: 12, top: 8, left: 5 }}
-        ></Image>
-      </View>
-
-      <View
-        style={{
-          width: 328,
-          height: 66,
-          backgroundColor: "white",
-          shadowColor: "black",
-          elevation: 10,
-          alignSelf: "center",
-          top: 23,
-          borderRadius: 15,
-          flexDirection: "row",
-          padding: 15,
-          gap: 20,
-          marginBottom: 13,
-        }}
-      >
-        <Image
-          source={require("../assets/logos/reliance.png")}
-          style={{ width: 87, height: 34 }}
-        ></Image>
-        <Text style={{ fontFamily: "Poppins_500Medium", top: 5, fontSize: 12 }}>
-          Third Party
-        </Text>
-        <Text style={{ color: "black", fontSize: 20 }}> ₹ 2,094</Text>
-        <Image
-          source={require("../assets/logos/chevron.png")}
-          style={{ width: 7.4, height: 12, top: 8, left: 5 }}
-        ></Image>
-      </View>
-    </SafeAreaView>
+    <ScrollView
+      contentContainerStyle={{
+        backgroundColor: "#FFF",
+        alignItems: "center",
+        paddingBottom: 30,
+        paddingTop: 15,
+        gap: 10,
+      }}
+      showsVerticalScrollIndicator={false}
+    >
+      {thirdparty.map((item) => (
+        <View
+          key={item.id}
+          style={[
+            styles.card,
+            { flexDirection: "row", alignItems: "center", gap: 20 },
+          ]}
+        >
+          <Image source={item.logo} style={styles.oriental} />
+          <Text
+            style={[
+              styles.header,
+              { color: "#8E8E8E", fontSize: 12, paddingTop: 2 },
+            ]}
+          >
+            Third Party
+          </Text>
+          <Text style={{ color: "#393939", fontSize: 20, marginTop: 3 }}>
+            ₹ <Text style={[styles.header]}>{item.amount}</Text>
+          </Text>
+          <FontAwesomeIcon
+            style={{ position: "absolute", right: 15 }}
+            icon={"angle-right"}
+            color="#1A9E75"
+          />
+        </View>
+      ))}
+    </ScrollView>
   );
 };
 
@@ -547,15 +360,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#EEEEEE",
-    borderRadius: 15,
+    borderRadius: 9,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    width: 328,
+    width: "90%",
     height: 40,
-    marginLeft: 20,
-    marginTop: 20,
-    marginBottom: 0,
   },
+  text: {
+    fontFamily: "Poppins_400Regular",
+    paddingTop: 2,
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  line: {
+    width: "100%",
+    height: 0.5,
+    backgroundColor: "#E6E6E6",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   searchIcon: {
     width: 20,
     height: 20,
@@ -571,22 +394,18 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     elevation: 10,
     height: "90%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     width: "100%",
     borderTopStartRadius: 30,
     borderTopRightRadius: 30,
     shadowColor: "black",
   },
   card: {
-    width: 328,
-    height: 111,
+    width: "90%",
+    gap: 15,
     borderRadius: 15,
-    backgroundColor: "white",
-    shadowColor: "black",
-    elevation: 10,
-    alignSelf: "center",
-    top: 20,
-    padding: 20,
-    marginBottom: 13,
+    backgroundColor: "#FFF",
+    elevation: 3,
+    padding: 17,
   },
 });

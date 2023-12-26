@@ -1,552 +1,187 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  TouchableWithoutFeedback,
-  ScrollView,
-  Modal,
-  ImageBackground,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-
-import Tan1 from "../assets/images/whitelocation.png";
-
-// fontFamily : "Poppins_400Regular"
-// fontFamily : "Poppins_500Medium"
-// fontFamily : "Poppins_600SemiBold"
-
-import Map1 from "../assets/images/map1.png";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Modal from "react-native-modal";
 
 const Toll2 = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    // The effect logic will be triggered when the button is pressed
-  }, [navigation]); // Adding navigation to the dependency array
-
+  const [modal, setModal] = useState(false);
   return (
-    <ScrollView>
-      <ImageBackground source={Map1} resizeMode="cover" style={styles.main1}>
-        <View>
-          <Modal
-            animationType={"slide"}
-            transparent={true}
-            visible={isModalVisible}
-            onRequestClose={() => {
-              <Text>Modal has been closed</Text>;
-            }}
-          >
-            <SafeAreaView style={styles.modal}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() => {
-                    setModalVisible(!isModalVisible);
-                  }}
-                >
-                  <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" />
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.content2Text2Model}>Tolls In Between</Text>
-
-              <View style={styles.ModelMini}>
-                <Text style={styles.ModelMiniText}>Srikakulam Toll Plaza</Text>
-
-                <Text style={styles.ModelMiniText1}>₹75</Text>
-              </View>
-
-              <View style={styles.ModelMini}>
-                <Text style={styles.ModelMiniText}>Renigunta Toll Plaza</Text>
-
-                <Text style={styles.ModelMiniText1}>₹85</Text>
-              </View>
-
-              <View style={styles.ModelMini}>
-                <Text style={styles.ModelMiniTextG}>Total Amount</Text>
-
-                <Text style={styles.ModelMiniText1G}>₹160</Text>
-              </View>
-
-              <TouchableOpacity
-                style={styles.backButton1}
-                onPress={() => {
-                  setModalVisible(!isModalVisible);
-                }}
-              >
-                <Text style={styles.title}>Close</Text>
-              </TouchableOpacity>
-            </SafeAreaView>
-          </Modal>
+    <View style={{ flex: 1, backgroundColor: "#FFF" }}>
+      <View style={styles.headerContainer}>
+        <View style={styles.input}>
+          <Image
+            style={{ width: 18, height: 18 }}
+            source={require("../assets/images/whitelocation.png")}
+          />
+          <Text style={[styles.text, { color: "white", paddingTop: 3 }]}>
+            Tirupathi
+          </Text>
         </View>
-
-        <View style={styles.inputContainer}>
-          <Image source={Tan1} style={styles.searchIcon} />
-          <TextInput
-            placeholder="Tirupati"
-            placeholderTextColor="#FFFFFF"
-            style={styles.searchIconTextInput}
+      </View>
+      <Image
+        style={{ width: "100%", height: "100%" }}
+        source={require("../assets/images/map3.png")}
+      />
+      <View style={{ position: "absolute", right: 30, bottom: 200, gap: 20 }}>
+        <View style={styles.circle}>
+          <Image
+            style={{ width: 24, height: 23 }}
+            source={require("../assets/images/layer.png")}
           />
         </View>
-
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => {
-            setModalVisible(!isModalVisible);
-          }}
+        <View style={styles.circle}>
+          <FontAwesomeIcon
+            size={20}
+            icon={"diamond-turn-right"}
+            color="#1A9E75"
+          />
+        </View>
+      </View>
+      <TouchableOpacity
+        onPress={() => setModal(true)}
+        style={[styles.button, { bottom: 30, width: "90%" }]}
+      >
+        <Text
+          style={[styles.bold, { color: "#FFF", paddingTop: 2, fontSize: 16 }]}
         >
-          <Text style={styles.title}>Estimate</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-    </ScrollView>
+          Estimate
+        </Text>
+      </TouchableOpacity>
+      <Modal
+        isVisible={modal}
+        backdropOpacity={0.3}
+        useNativeDriver
+        onBackdropPress={() => setModal(false)}
+        style={{ margin: 0, justifyContent: "flex-end" }}
+      >
+        <View style={styles.modal}>
+          <TouchableOpacity
+            onPress={() => setModal(false)}
+            style={{ position: "absolute", right: 20, top: 15 }}
+          >
+            <FontAwesomeIcon size={22} icon={"circle-xmark"} color="#1A9E75" />
+          </TouchableOpacity>
+          <Text style={[styles.header, { fontSize: 16 }]}>
+            Tolls In Between
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "98%",
+              alignItems: "center",
+            }}
+          >
+            <Text style={[styles.text]}>Srikakulam Toll Plaza</Text>
+            <Text style={{ color: "#393939", fontSize: 16, fontWeight: 500 }}>
+              ₹ <Text style={styles.header}>75</Text>
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "98%",
+              alignItems: "center",
+              marginTop: -10,
+            }}
+          >
+            <Text style={[styles.text]}>Renigunta Toll Plaza</Text>
+            <Text style={{ color: "#393939", fontSize: 16, fontWeight: 500 }}>
+              ₹ <Text style={styles.header}>85</Text>
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "98%",
+              alignItems: "center",
+            }}
+          >
+            <Text style={[styles.header, { color: "#00A638", fontSize: 16 }]}>
+              Total Amount
+            </Text>
+            <Text style={{ color: "#00A638", fontSize: 20, fontWeight: 500 }}>
+              ₹ <Text style={[styles.header, { color: "#00A638" }]}>160</Text>
+            </Text>
+          </View>
+          <View style={[styles.button, { bottom: 20 }]}>
+            <Text
+              style={[
+                styles.bold,
+                { color: "#FFF", paddingTop: 2, fontSize: 16 },
+              ]}
+            >
+              Close
+            </Text>
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 };
 
+export default Toll2;
+
 const styles = StyleSheet.create({
-  ModelMini: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-
-    // marginTop : 20
-  },
-  searchIconTextInput: {
-    fontSize: 14,
-    width: 200,
-    fontFamily: "Poppins_400Regular",
-    // fontFamily : "Poppins_500Medium"
-    // fontFamily : "Poppins_600SemiBold"
-  },
-
-  main1: {
-    backgroundColor: "white",
-    height: 800,
-    // zIndex : 1
-  },
-
-  ModelMiniButton: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    width: 150,
-    height: 40,
-    borderRadius: 15,
-    borderColor: "#1A9E75",
-  },
-
-  ModelMiniButton1: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    width: 150,
-    height: 40,
-    borderRadius: 15,
-    borderColor: "#1A9E75",
-    backgroundColor: "#1A9E75",
-  },
-
-  tamil1: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-    top: -45,
-    zIndex: 1,
-    left: 100,
-  },
-  location1: {
-    width: 15,
-    height: 20,
-    resizeMode: "stretch",
-    marginRight: 5,
-    // backgroundColor : "red"
-  },
-  tamil1Text: {
-    fontSize: 12,
-    fontWeight: "500",
-    color: "white",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    //   borderWidth: 1,
-    //   borderColor: 'lightgrey',
-    borderRadius: 4,
-    paddingHorizontal: 15,
-    // paddingVertical: 10,
-    width: 328,
-    marginLeft: 15,
-    //   marginTop : 20,
-    height: 43,
-    fontFamily: "Poppins_400Regular",
-    backgroundColor: "white",
-    opacity: 0.5,
-    top: 65,
-    // fontFamily : "Poppins_500Medium"
-    // fontFamily : "Poppins_600SemiBold"
-  },
-  searchIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
-  },
   input: {
-    flex: 1,
-    fontSize: 13,
-    color: "black",
-  },
-
-  tamil1Text1: {
-    fontSize: 17,
-    fontWeight: "500",
-    marginLeft: 20,
-    marginTop: -50,
-    marginBottom: 20,
-  },
-  inputContainer1: {
+    backgroundColor: "rgba(255, 255, 255, .4)",
+    borderRadius: 4,
+    width: "90%",
+    height: 43,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    borderWidth: 5,
-    borderColor: "rgb(250 250 250)",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    width: 320,
-    marginLeft: 20,
-    height: 80,
-    // marginTop : -70,
-    backgroundColor: "white",
-    position: "relative",
-    top: -105,
+    paddingLeft: 10,
+    gap: 5,
   },
-
-  searchIcon1: {
-    width: 20,
-    height: 20,
-    marginLeft: 10,
-  },
-
-  inputContainer3: {
-    flexDirection: "row",
+  circle: {
+    backgroundColor: "#F0FFFA",
+    width: 41,
+    height: 41,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 5,
+    borderRadius: 41,
+    elevation: 5,
   },
-
-  searchIcon2: {
-    width: 30,
-    height: 20,
-    resizeMode: "stretch",
-  },
-  inputContainer3Text: {
-    fontSize: 10,
-  },
-  searchIconTan: {
-    width: 30,
-    height: 30,
-    resizeMode: "stretch",
-    marginRight: 10,
-  },
-  searchIconTan1: {
-    width: 40,
-    height: 40,
-    resizeMode: "stretch",
-    marginLeft: 10,
-  },
-  tamil1Text2: {
-    fontSize: 15,
-    fontWeight: "500",
-    color: "black",
-  },
-
-  main1Text1: {
-    color: "#A0A0A0",
-    fontSize: 10,
-    fontWeight: "500",
-  },
-
-  main1Text2: {
-    color: "rgb(5,166,90)",
-    fontSize: 10,
-    borderWidth: 1,
-    borderColor: "rgb(5,166,90)",
-    borderRadius: 20,
-    paddingHorizontal: 1,
-    paddingVertical: 5,
-    width: 70,
-    textAlign: "center",
-    marginLeft: 15,
-  },
-  main1Text3: {
-    fontSize: 9,
-    marginLeft: 25,
-    color: "#A0A0A0",
-    marginTop: 5,
-  },
-
-  backButton: {
-    // color: "rgb(5,166,90)",
-    fontSize: 10,
-    borderWidth: 1,
-    borderColor: "rgb(5,166,90)",
-    borderRadius: 15,
-    paddingHorizontal: 1,
-    paddingVertical: 5,
-    width: 330,
-    textAlign: "center",
+  headerContainer: {
     backgroundColor: "#1A9E75",
-    //  marginTop : 310,
-    marginLeft: 15,
-    top: 670,
+    height: 120,
+    paddingBottom: 25,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: "100%",
   },
-
-  backButton1: {
-    // color: "rgb(5,166,90)",
-    fontSize: 10,
-    borderWidth: 1,
-    borderColor: "rgb(5,166,90)",
-    borderRadius: 15,
-    paddingHorizontal: 1,
-    paddingVertical: 5,
-    width: 317,
-    textAlign: "center",
-    backgroundColor: "#1A9E75",
-    marginTop: 10,
-    //  marginLeft :15,
-    //  top: 670
+  modal: {
+    height: 239,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    backgroundColor: "#FFF",
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+    padding: 20,
+    gap: 10,
   },
-
-  title: {
-    color: "white",
-    textAlign: "center",
-    // fontWeight: "500",
-    fontSize: 16,
-    // fontFamily : "Poppins_400Regular"
-    // fontFamily : "Poppins_500Medium"
+  bold: {
     fontFamily: "Poppins_600SemiBold",
   },
-  tabBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  header: {
+    fontFamily: "Poppins_500Medium",
+    color: "#393939",
+  },
+  text: {
+    fontFamily: "Poppins_400Regular",
+    color: "#8E8E8E",
+  },
+  button: {
+    paddingVertical: 6,
     alignItems: "center",
-    backgroundColor: "white",
-    height: 120,
-    paddingHorizontal: 15,
-    marginTop: -40,
-    // backgroundColor : "red",
-    zIndex: -2,
-  },
-  tabBarItem: {
-    // flex: 1,
-    // alignItems: 'center',
-  },
-  tabBarItemText: {
-    fontSize: 13,
-    fontWeight: "bold",
-    color: "black",
-  },
-  content: {
-    // marginLeft : 20,
-    backgroundColor: "white",
-    height: 100,
-  },
-
-  content1: {
-    display: "flex",
-    // alignItems: 'center',
     justifyContent: "center",
-
-    width: 310,
-    // height:220,
-    marginLeft: 20,
-    marginTop: 10,
-    marginBottom: 20,
-    borderRadius: 8, // Adjust the border radius as needed
-    padding: 10, // Adjust the padding as needed
-    shadowColor: "rgba(0, 0, 0, 0.6)", // Shadow color
-    shadowOffset: { width: 0, height: 2 }, // Shadow offset
-    shadowOpacity: 1, // Shadow opacity
-    shadowRadius: 4, // Shadow radius
-    elevation: 5, // Android elevation for shadow
-    backgroundColor: "white",
-    marginTop: 10,
-  },
-  content2: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-
-  content2Text1: {
-    color: "#8E8E8E",
-    fontSize: 10,
-    fontFamily: "Poppins_400Regular",
-    // fontFamily : "Poppins_500Medium"
-    // fontFamily : "Poppins_600SemiBold"
-  },
-
-  content2Text1Model: {
-    color: "#8E8E8E",
-    fontSize: 12,
-    marginTop: 10,
-    fontFamily: "Poppins_400Regular",
-    // fontFamily : "Poppins_500Medium"
-    // fontFamily : "Poppins_600SemiBold"
-  },
-
-  content2Text2: {
-    fontSize: 12,
-    color: "black",
-    // fontWeight : "500",
-    marginTop: 11,
-    // fontFamily : "Poppins_400Regular"
-    fontFamily: "Poppins_500Medium",
-    // fontFamily : "Poppins_600SemiBold"
-
-    // padding :10
-  },
-
-  content2Text2Model: {
-    fontSize: 18,
-    color: "black",
-    // fontWeight : "500",
-    // marginTop : -15,
-    // fontFamily : "Poppins_400Regular"
-    fontFamily: "Poppins_500Medium",
-    top: -25,
-    // fontFamily : "Poppins_600SemiBold"
-
-    // padding :10
-  },
-
-  content2Text3: {
-    // marginLeft : 200,
-    fontSize: 20,
-    color: "black",
-    fontWeight: "500",
-  },
-
-  content2Text2Image: {
-    resizeMode: "stretch",
-    width: 30,
-    height: 30,
-  },
-
-  content2Text2ImageTan2: {
-    resizeMode: "stretch",
-    width: 25,
-    height: 25,
-    marginLeft: 30,
-  },
-
-  content2Text2ImageTan2Model: {
-    resizeMode: "stretch",
-    width: 25,
-    height: 25,
-    // marginLeft : 30
-    left: -10,
-  },
-
-  ModelMiniText: {
-    // color : "#1A9E75",
-    fontFamily: "Poppins_400Regular",
-    fontSize: 14,
-
-    // fontFamily : "Poppins_500Medium"
-    // fontFamily : "Poppins_600SemiBold"
-
-    // fontWeight : "500"
-  },
-
-  ModelMiniText1: {
-    // color : "#1A9E75",
-    // fontFamily : "Poppins_400Regular",
-    fontSize: 16,
-
-    fontFamily: "Poppins_500Medium",
-    // fontFamily : "Poppins_600SemiBold"
-
-    // fontWeight : "500"
-  },
-
-  ModelMiniTextG: {
-    color: "#00A638",
-    // fontFamily : "Poppins_400Regular",
-    fontSize: 16,
-
-    fontFamily: "Poppins_500Medium",
-    // fontFamily : "Poppins_600SemiBold"
-
-    // fontWeight : "500"
-  },
-
-  ModelMiniText1G: {
-    color: "#00A638",
-    // fontFamily : "Poppins_400Regular",
-    fontSize: 20,
-
-    fontFamily: "Poppins_500Medium",
-    // fontFamily : "Poppins_600SemiBold"
-
-    // fontWeight : "500"
-  },
-
-  content2Text2ImageTan3: {
-    resizeMode: "stretch",
-    width: 30,
-    height: 30,
-  },
-
-  content2Text2ImageTan3Model: {
-    resizeMode: "stretch",
-    width: 30,
-    height: 30,
-    left: -5,
-  },
-
-  content3: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
-    // marginTop : 10
-  },
-
-  content2Text4: {
-    color: "#1A9E75",
-  },
-
-  modal: {
-    padding: 20,
-    height: "30%",
-    backgroundColor: "white",
+    borderRadius: 14,
+    backgroundColor: "#1A9E75",
+    position: "absolute",
     width: "100%",
-    borderTopStartRadius: 30,
-    borderTopRightRadius: 30,
-    top: "70%",
+    alignSelf: "center",
   },
 });
-
-export default Toll2;

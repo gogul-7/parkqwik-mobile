@@ -33,28 +33,30 @@ const Replace2 = () => {
         contentContainerStyle={styles.container}
       >
         <View style={styles.inputCotainer}>
-          <Text style={styles.text}>Full Name</Text>
+          <Text style={styles.header}>Full Name</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your full name"
             placeholderTextColor="#AFAFAF"
           />
         </View>
-        <View style={[styles.inputCotainer, { position: "relative" }]}>
-          <Text style={styles.text}>Mobile Number</Text>
-          <Text
-            style={[styles.text, { position: "absolute", top: 39, left: 10 }]}
-          >
-            +91
-          </Text>
-          <TextInput
-            style={[styles.input, { paddingLeft: 40 }]}
-            placeholder="| Enter your mobile number"
-            placeholderTextColor="#AFAFAF"
-          />
+        <View style={[styles.inputCotainer]}>
+          <Text style={styles.header}>Mobile Number</Text>
+          <View style={{ width: "100%", justifyContent: "center" }}>
+            <Text
+              style={[styles.text, { position: "absolute", top: 10, left: 10 }]}
+            >
+              +91
+            </Text>
+            <TextInput
+              style={[styles.input, { paddingLeft: 40 }]}
+              placeholder="| Enter your mobile number"
+              placeholderTextColor="#AFAFAF"
+            />
+          </View>
         </View>
         <View style={styles.inputCotainer}>
-          <Text style={styles.text}>Address Line 1</Text>
+          <Text style={styles.header}>Address Line 1</Text>
           <TextInput
             style={styles.input}
             placeholder="House No / Flat No , Street name"
@@ -62,7 +64,7 @@ const Replace2 = () => {
           />
         </View>
         <View style={styles.inputCotainer}>
-          <Text style={styles.text}>Address Line 2</Text>
+          <Text style={styles.header}>Address Line 2</Text>
           <TextInput
             style={styles.input}
             placeholder="Locality name / Area name"
@@ -70,7 +72,7 @@ const Replace2 = () => {
           />
         </View>
         <View style={styles.inputCotainer}>
-          <Text style={styles.text}>City</Text>
+          <Text style={styles.header}>City</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your city"
@@ -78,7 +80,7 @@ const Replace2 = () => {
           />
         </View>
         <View style={styles.inputCotainer}>
-          <Text style={styles.text}>State</Text>
+          <Text style={styles.header}>State</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your state"
@@ -86,22 +88,31 @@ const Replace2 = () => {
           />
         </View>
         <View style={{ width: "100%", display: "flex", alignItems: "center" }}>
-          <Text style={styles.text}>Or</Text>
+          <Text style={styles.text}>or</Text>
         </View>
         <View style={styles.locationContainer}>
           <Image
             source={require("../assets/images/greenlocation.png")}
-            style={{ width: 22, height: 23, marginBottom: 5 }}
+            style={{ width: 22, height: 23, marginBottom: 3 }}
           />
-          <Text style={[styles.text, { color: "#1A9E75" }]}>
+          <Text style={[styles.header, { fontSize: 14, color: "#1A9E75" }]}>
             Point location through map
           </Text>
         </View>
       </ScrollView>
       <View style={styles.payment}>
-        <Text style={[{ fontSize: 20, width: "50%" }]}>₹ 100</Text>
+        <Text style={[{ fontSize: 20 }]}>
+          ₹ <Text style={[styles.header, { fontSize: 20 }]}>100</Text>
+        </Text>
         <Pressable onPress={handlePress} style={styles.button}>
-          <Text style={[styles.text, { color: "white" }]}>Continue</Text>
+          <Text
+            style={[
+              styles.bold,
+              { color: "#FFF", fontSize: 16, paddingTop: 2 },
+            ]}
+          >
+            Continue
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -114,6 +125,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 20,
     gap: 15,
+    backgroundColor: "#FFF",
   },
   inputCotainer: {
     width: "90%",
@@ -123,6 +135,11 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins_400Regular",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+    fontSize: 16,
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   locationContainer: {
     width: "90%",
     borderWidth: 1,
@@ -137,7 +154,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 5,
     marginTop: -5,
-    paddingTop: 5,
     marginBottom: 100,
   },
   input: {
@@ -147,10 +163,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     borderColor: "#AFAFAF",
+    fontFamily: "Poppins_400Regular",
+    paddingTop: 3,
   },
   payment: {
     position: "absolute",
-    height: 60,
+    height: 63,
     backgroundColor: "white",
     bottom: 0,
     width: "100%",
@@ -158,34 +176,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 30,
-    elevation: 3,
+    paddingHorizontal: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
   },
   button: {
-    width: 150,
+    width: 178,
     height: 40,
     backgroundColor: "#1A9E75",
     borderRadius: 15,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-  backdrop: {
-    position: "absolute",
-    width: "100%",
-    backgroundColor: "rgba(183, 183, 183, 0.7)",
-    zIndex: 5,
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  closeContainer: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    height: "85%",
-    backgroundColor: "white",
-    padding: 20,
-    display: "flex",
-    gap: 8,
   },
 });
 

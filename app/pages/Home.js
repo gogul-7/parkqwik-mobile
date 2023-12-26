@@ -20,9 +20,6 @@ import { useNavigation } from "@react-navigation/native";
 import Hamburger from "../components/Hamburger";
 import AppContext from "../context/AppContext";
 import Modal from "react-native-modal";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-
-const Tab = createMaterialTopTabNavigator();
 
 const services = [
   {
@@ -84,7 +81,7 @@ const services = [
     id: 11,
     title: "Fuel Price",
     image: require("../assets/images/fuel.png"),
-    route: "",
+    route: "Fuel",
   },
   {
     id: 9,
@@ -107,7 +104,7 @@ const otherService = services.filter((item) => item.id >= 9);
 const Home = () => {
   const { ham, setHam } = useContext(AppContext);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       <StatusBar backgroundColor="#1A9E75" barStyle="light-content" />
 
       <Modal
@@ -274,15 +271,15 @@ const styles = StyleSheet.create({
   },
   backImage: {
     height: 128,
-    flex: 1,
+    width: "100%",
     display: "flex",
     alignItems: "center",
+    position: "absolute",
   },
   homeContent: {
     alignItems: "center",
     gap: 25,
-    position: "relative",
-    top: -100,
+    marginTop: 8,
   },
   serviceContainer: {
     width: "90%",
@@ -290,6 +287,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingVertical: 15,
     paddingHorizontal: 10,
+    elevation: 3,
   },
   header: {
     fontSize: 16,

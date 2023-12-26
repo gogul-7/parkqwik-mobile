@@ -6,12 +6,11 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Animated,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import Modal from "react-native-modal";
-import WheelPickerExpo from "react-native-wheel-picker-expo";
-import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const details = [
   {
@@ -54,29 +53,27 @@ const details = [
 const questions = [
   {
     id: 1,
-    question: "Why do I need car insurance?",
+    question: "Is roadside assistance available 24/7?",
     answer:
-      "Car insurance offers financial protection for accidents, theft, or vehicle damage and is often legally mandated, requiring at least basic liability coverage in many places.",
-    height: 65,
-    maxHeight: 180,
+      "Yes, our roadside assistance services are available 24 hours a day, 7 days a week, and 365 days a year, including holidays.",
+    height: 62,
+    maxHeight: 160,
   },
   {
     id: 2,
-    question: "What does car insurance typically cover?",
+    question: "What services does roadside assistance cover?",
     answer:
-      "Car insurance typically covers liability (bodily injury and property damage), collision, comprehensive (non-collision incidents like theft), and uninsured/underinsured motorist incidents.",
+      "Roadside assistance typically covers services such as towing, battery jump-starts, flat tire assistance, fuel delivery, and lockout services.",
     height: 80,
-    maxHeight: 200,
+    maxHeight: 180,
   },
 
   {
     id: 3,
-    question:
-      "Is it necessary to notify my insurance company if I modify my car?",
-    answer:
-      "Modifications can impact coverage; inform your insurer to ensure your policy reflects your vehicle's current state accurately.",
+    question: "How quickly will help arrive in case of a breakdown?",
+    answer: "Within 90 minutes, our team will reach your location",
     height: 80,
-    maxHeight: 180,
+    maxHeight: 140,
   },
 
   ,
@@ -84,60 +81,22 @@ const questions = [
 
 const Road1 = () => {
   const [border, setBorder] = useState("#A0A0A0");
+  const [isOpen, setIsOpen] = useState([]);
   const [key, setKey] = useState("");
-  const [modal, setModal] = useState(false);
-  const [modal2, setModal2] = useState(false);
-  const [dateArray, setDateArray] = useState([]);
-  const [hourArray, setHourArray] = useState([]);
-  const [minArray, setMinArray] = useState([]);
-  const navigation = useNavigation();
-  const [date, setDate] = useState("");
+  const animatedHeight = useRef(
+    details.map(() => new Animated.Value(0))
+  ).current;
 
-  const handleNavigate = () => {
-    setModal(false);
-    setModal2(false);
-    navigation.navigate("valet2");
-  };
-
-  const formatDate = (date) => {
-    const options = { weekday: "short", day: "numeric", month: "short" };
-    const newDate = new Date(date).toLocaleDateString("en-US", options);
-    return newDate.slice(0, 3) + newDate.slice(4);
-  };
-
-  const generateArray = () => {
-    const today = new Date();
-    const dateArray = ["Today"];
-    const newHours = [];
-    const newMinutes = [];
-
-    for (let i = 1; i <= 20; i++) {
-      const nextDate = new Date(today);
-      nextDate.setDate(today.getDate() + i);
-      const formattedDate = formatDate(nextDate);
-      dateArray.push(formattedDate);
-    }
-
-    for (let i = 1; i <= 24; i++) {
-      const formattedHours = i < 10 ? `0${i}` : `${i}`;
-      newHours.push(formattedHours);
-    }
-
-    for (let i = 0; i <= 60; i++) {
-      const formattedMinutes = i < 10 ? `0${i}` : `${i}`;
-      newMinutes.push(formattedMinutes);
-    }
-    setDateArray(dateArray);
-    setHourArray(newHours);
-    setMinArray(newMinutes);
-  };
-
-  useEffect(() => {
-    generateArray();
-  }, []);
-
-  const handleClick = () => {
-    setModal(true);
+  const handleClick = (n) => {
+    const index = details.findIndex((item) => item.id === n);
+    const newIsOpen = [...isOpen];
+    newIsOpen[index] = !newIsOpen[index];
+    setIsOpen(newIsOpen);
+    Animated.timing(animatedHeight[index], {
+      toValue: newIsOpen[index] ? 1 : 0,
+      useNativeDriver: false,
+      duration: 300,
+    }).start();
   };
 
   const handleChange = (text) => {
@@ -152,6 +111,7 @@ const Road1 = () => {
         alignItems: "center",
         gap: 10,
         paddingBottom: 20,
+        backgroundColor: "#FFF",
       }}
     >
       <View
@@ -277,7 +237,7 @@ const Road1 = () => {
             key={item.id}
             style={[styles.container2]}
           >
-            <Image style={styles.banner} source={item.photo} />
+            <Image style={styles.banner2} source={item.photo} />
             <View>
               <Text
                 style={[
@@ -390,23 +350,40 @@ const Road1 = () => {
         </TouchableOpacity>
       </View>
 
+      <Banner />
+      <Text
+        style={[
+          styles.header,
+          {
+            color: "#393939",
+            fontSize: 16,
+            width: "88%",
+            marginTop: 5,
+            marginBottom: -10,
+          },
+        ]}
+      >
+        FAQs
+      </Text>
       <View style={{ width: "100%", gap: 10, alignItems: "center" }}>
         {questions.map((item, index) => (
-          <View
+          <Animated.View
             key={item.id}
             style={[
               styles.container2,
               {
-                paddingVertical: 15,
+                paddingVertical: 13,
+                gap: 20,
                 paddingHorizontal: 15,
                 alignItems: "flex-start",
+                flexDirection: "column",
                 overflow: "hidden",
                 width: "90%",
                 height: 70,
-                // height: animatedHeight[index].interpolate({
-                //   inputRange: [0, 1],
-                //   outputRange: [item.height, item.maxHeight],
-                // }),
+                height: animatedHeight[index].interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [item.height, item.maxHeight],
+                }),
               },
             ]}
           >
@@ -421,7 +398,7 @@ const Road1 = () => {
               <Text
                 style={[
                   styles.text,
-                  { color: "#393939", width: "88%", marginTop: 5 },
+                  { color: "#393939", width: "90%", marginTop: 8 },
                 ]}
               >
                 {item.question}
@@ -431,277 +408,129 @@ const Road1 = () => {
             <Text style={[styles.text, { color: "#A0A0A0" }]}>
               {item.answer}
             </Text>
-          </View>
+          </Animated.View>
         ))}
       </View>
-      <Modal
-        isVisible={modal}
-        backdropColor="#B7B7B7"
-        style={{ margin: 0, justifyContent: "flex-end" }}
-        onBackdropPress={() => setModal(false)}
-        useNativeDriver
-        useNativeDriverForBackdrop
-      >
-        <View style={styles.modalContainer}>
-          <TouchableOpacity
-            onPress={() => setModal(false)}
-            style={{
-              height: 30,
-              width: "90%",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#FFF",
-            }}
-          >
-            <View style={styles.line} />
-          </TouchableOpacity>
-          <Text
-            style={[
-              styles.header,
-              {
-                color: "#393939",
-                fontSize: 16,
-                backgroundColor: "#FFF",
-              },
-            ]}
-          >
-            Select Date For Valet Parking
-          </Text>
-          <View style={{ marginTop: -40, zIndex: -10 }}>
-            <WheelPickerExpo
-              height={230}
-              width={100}
-              selectedStyle={{ borderColor: "#1A9E75", borderWidth: 1 }}
-              initialSelectedIndex={1}
-              haptics
-              items={dateArray.map((name) => ({
-                label: (
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontFamily: "Poppins_400Regular",
-                      color: "#393939",
-                      paddingTop: 2,
-                    }}
-                  >
-                    {name}
-                  </Text>
-                ),
-                value: { name },
-              }))}
-              onChange={({ item }) => setDate(item.value.name)}
-            />
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: 0,
-              height: 110,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#fff",
-              width: "100%",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => setModal2(true)}
-              style={styles.button}
-            >
-              <Text style={[styles.bold, { fontSize: 16, color: "#FFF" }]}>
-                Next
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-      <Modal
-        isVisible={modal2}
-        backdropColor="#B7B7B7"
-        style={{ margin: 0, justifyContent: "flex-end" }}
-        useNativeDriver
-        useNativeDriverForBackdrop
-      >
-        <View style={styles.modalContainer}>
-          <TouchableOpacity
-            onPress={() => setModal2(false)}
-            style={{
-              height: 30,
-              width: "90%",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#FFF",
-            }}
-          >
-            <View style={styles.line} />
-          </TouchableOpacity>
-          <View
-            style={{
-              width: "100%",
-              backgroundColor: "#FFF",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={[
-                styles.header,
-                {
-                  color: "#393939",
-                  fontSize: 16,
-                  backgroundColor: "#FFF",
-                },
-              ]}
-            >
-              Schedule Time
-            </Text>
-          </View>
-          <View
-            style={{
-              marginTop: -40,
-              zIndex: -10,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              width: "70%",
-            }}
-          >
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
-            >
-              <WheelPickerExpo
-                height={230}
-                width={36}
-                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 1 }}
-                initialSelectedIndex={1}
-                haptics
-                items={hourArray.map((name) => ({
-                  label: (
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontFamily: "Poppins_400Regular",
-                        color: "#393939",
-                        paddingTop: 2,
-                      }}
-                    >
-                      {name}
-                    </Text>
-                  ),
-                  value: { name },
-                }))}
-              />
-              <Text
-                style={{
-                  fontFamily: "Poppins_400Regular",
-                  color: "#000",
-                  paddingTop: 2,
-                }}
-              >
-                :
-              </Text>
-              <WheelPickerExpo
-                height={230}
-                width={36}
-                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 1 }}
-                initialSelectedIndex={30}
-                haptics
-                items={minArray.map((name) => ({
-                  label: (
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontFamily: "Poppins_400Regular",
-                        color: "#393939",
-                        paddingTop: 2,
-                      }}
-                    >
-                      {name}
-                    </Text>
-                  ),
-                  value: { name },
-                }))}
-              />
-            </View>
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
-            >
-              <WheelPickerExpo
-                height={230}
-                width={36}
-                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 1 }}
-                initialSelectedIndex={5}
-                haptics
-                items={hourArray.map((name) => ({
-                  label: (
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontFamily: "Poppins_400Regular",
-                        color: "#393939",
-                        paddingTop: 2,
-                      }}
-                    >
-                      {name}
-                    </Text>
-                  ),
-                  value: { name },
-                }))}
-              />
-              <Text
-                style={{
-                  fontFamily: "Poppins_400Regular",
-                  color: "#000",
-                  paddingTop: 2,
-                }}
-              >
-                :
-              </Text>
-              <WheelPickerExpo
-                height={230}
-                width={36}
-                selectedStyle={{ borderColor: "#1A9E75", borderWidth: 1 }}
-                initialSelectedIndex={30}
-                haptics
-                items={minArray.map((name) => ({
-                  label: (
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontFamily: "Poppins_400Regular",
-                        color: "#393939",
-                        paddingTop: 2,
-                      }}
-                    >
-                      {name}
-                    </Text>
-                  ),
-                  value: { name },
-                }))}
-              />
-            </View>
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: 0,
-              height: 110,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#fff",
-              width: "100%",
-            }}
-          >
-            <TouchableOpacity onPress={handleNavigate} style={styles.button}>
-              <Text style={[styles.bold, { fontSize: 16, color: "#FFF" }]}>
-                Continue
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </ScrollView>
   );
 };
 
 export default Road1;
+
+const Banner = () => {
+  return (
+    <ScrollView
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={[styles.bannerContainer, { paddingTop: 15 }]}
+      horizontal
+    >
+      <LinearGradient
+        colors={["#00A657", "#0BB678"]}
+        start={{ x: 0.5, y: 0.0 }}
+        end={{ x: 0.5, y: 1.0 }}
+        locations={[0.1149, 0.923]}
+        style={[styles.banner, { width: 230, marginRight: 10, paddingTop: 15 }]}
+      >
+        <Text
+          style={[
+            styles.header,
+            { color: "white", fontSize: 18, lineHeight: 20 },
+          ]}
+        >
+          Experiencing a car battery drain?
+        </Text>
+        <Text
+          style={[
+            styles.text,
+            { color: "white", fontSize: 10, marginBottom: 10, width: "80%" },
+          ]}
+        >
+          We're here to assist you
+        </Text>
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View style={styles.btn}>
+            <Text
+              style={[
+                styles.bold,
+                { fontSize: 10, color: "black", paddingTop: 2 },
+              ]}
+            >
+              Contact Now
+            </Text>
+          </View>
+        </View>
+        <Image
+          style={{
+            maxWidth: 68,
+            maxHeight: 65,
+            position: "absolute",
+            right: 20,
+            bottom: 20,
+          }}
+          source={require("../assets/images/insurance2.png")}
+        />
+      </LinearGradient>
+      <LinearGradient
+        colors={["#1B53E4", "#268AFF"]}
+        start={{ x: 0.5, y: 0.0 }}
+        end={{ x: 0.5, y: 1.0 }}
+        locations={[0.1149, 0.923]}
+        style={[styles.banner, { width: 230, marginRight: 10 }]}
+      >
+        <Text style={[styles.header, { color: "white", fontSize: 18 }]}>
+          Flat Tyre Troubles?
+        </Text>
+        <Text
+          style={[
+            styles.text,
+            { color: "white", fontSize: 10, width: "60%", marginBottom: 10 },
+          ]}
+        >
+          We are here to roll to your rescue
+        </Text>
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View style={styles.btn}>
+            <Text
+              style={[
+                styles.bold,
+                { fontSize: 10, color: "black", paddingTop: 2 },
+              ]}
+            >
+              Contact Now
+            </Text>
+          </View>
+          <Image
+            style={{
+              maxWidth: 99,
+              maxHeight: 46,
+              marginTop: 5,
+              position: "absolute",
+              right: 0,
+              bottom: 5,
+            }}
+            source={require("../assets/images/insurance3.png")}
+          />
+        </View>
+      </LinearGradient>
+    </ScrollView>
+  );
+};
 
 const Rating = ({ rating }) => {
   const arr = [1, 2, 3, 4, 5];
@@ -746,6 +575,14 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     width: 29,
     height: 4,
+  },
+  btn: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    backgroundColor: "white",
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
   },
   input: {
     width: "90%",
@@ -813,11 +650,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 13,
+    elevation: 3,
   },
-  banner: {
+  banner2: {
     width: 87,
     height: 58,
     borderRadius: 8,
+  },
+  bannerContainer: {
+    paddingLeft: "5%",
+  },
+  banner: {
+    width: 230,
+    height: 130,
+    borderRadius: 15,
+    marginRight: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
   },
   button2: {
     width: "100%",

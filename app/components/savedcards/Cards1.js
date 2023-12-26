@@ -23,6 +23,7 @@ const Cards1 = () => {
         gap: 10,
         paddingBottom: 30,
         paddingTop: 15,
+        backgroundColor: "#FFF",
       }}
     >
       <View style={{ width: "100%", alignItems: "center", gap: 10 }}>
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "90%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 20,
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",
@@ -124,5 +126,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 5,
     alignItems: "center",
+    elevation: 2,
   },
 });

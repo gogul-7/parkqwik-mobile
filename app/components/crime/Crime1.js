@@ -24,6 +24,7 @@ const Crime1 = () => {
         paddingVertical: 15,
         alignItems: "center",
         gap: 20,
+        backgroundColor: "#FFF",
       }}
     >
       <View
@@ -34,6 +35,7 @@ const Crime1 = () => {
             alignItems: "center",
             flexDirection: "row",
             gap: 10,
+            elevation: 0,
           },
         ]}
       >
@@ -125,13 +127,16 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 15,
     backgroundColor: "white",
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
   header: {
     fontFamily: "Poppins_500Medium",
     fontSize: 16,
+    color: "#393939",
   },
   button1: {
     paddingHorizontal: 35,

@@ -142,6 +142,7 @@ const Protocols = () => {
         justifyContent: "center",
         paddingBottom: 30,
         paddingTop: 15,
+        backgroundColor: "#FFF",
       }}
     >
       <SelectDropdown
@@ -162,7 +163,12 @@ const Protocols = () => {
           return <FontAwesomeIcon icon="caret-down" color="#1A9E75" />;
         }}
       />
-      <View style={[styles.container, { backgroundColor: "#F0FFFA", gap: 15 }]}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: "#F0FFFA", gap: 15, elevation: 0 },
+        ]}
+      >
         <Image
           style={{ width: 25, height: 35 }}
           source={require("../assets/images/greentraffic.png")}
@@ -299,6 +305,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     minHeight: 60,
     alignItems: "center",
+    elevation: 3,
   },
   amount: {
     height: "80%",
@@ -314,8 +321,9 @@ const styles = StyleSheet.create({
     width: "90%",
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: "#A0A0A0",
+    borderColor: "#EEE",
     height: 40,
+    backgroundColor: "#FFF",
   },
   text: {
     fontFamily: "Poppins_400Regular",

@@ -70,7 +70,7 @@ const ActivateFast3 = () => {
   });
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
+    <View style={{ flex: 1, alignItems: "center", backgroundColor: "#FFF" }}>
       <Animated.View
         style={[
           styles.greenCircle,
@@ -155,10 +155,10 @@ const ActivateFast3 = () => {
       </View>
       <Animated.Text
         style={[
-          styles.text,
+          styles.bold,
           {
             color: "white",
-            fontSize: 18,
+            fontSize: 20,
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -173,7 +173,6 @@ const ActivateFast3 = () => {
           styles.text,
           {
             color: "white",
-            fontSize: 12,
             opacity: opacity.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 1],
@@ -194,10 +193,20 @@ const ActivateFast3 = () => {
           },
         ]}
       >
-        <Text style={[styles.text, { color: "#1A9E75" }]}>View Details</Text>
+        <Text style={[styles.bold, { color: "#1A9E75", paddingTop: 2 }]}>
+          View Details
+        </Text>
       </Animated.View>
       {enable && (
-        <View style={{ marginTop: 30, width: "90%", alignItems: "center" }}>
+        <View
+          style={{
+            marginTop: 30,
+            width: "90%",
+            alignItems: "center",
+            flex: 1,
+            gap: 10,
+          }}
+        >
           <View
             style={{
               marginTop: 40,
@@ -206,9 +215,12 @@ const ActivateFast3 = () => {
               backgroundColor: "white",
               borderRadius: 15,
               width: "100%",
+              elevation: 3,
             }}
           >
-            <Text style={[styles.text, { fontSize: 18 }]}>FASTag Recharge</Text>
+            <Text style={[styles.header, { fontSize: 16 }]}>
+              FASTag Recharge
+            </Text>
             <Text style={[styles.text, { fontSize: 14, color: "#A0A0A0" }]}>
               Get upto 100% cashback on first 3 Fastag Recharge
             </Text>
@@ -230,7 +242,9 @@ const ActivateFast3 = () => {
                   },
                 ]}
               >
-                <Text style={[styles.text, { color: "white" }]}>Recharge</Text>
+                <Text style={[styles.bold, { color: "white", paddingTop: 2 }]}>
+                  Recharge
+                </Text>
               </Pressable>
             </View>
             <View style={styles.bannerContainer}>
@@ -251,10 +265,17 @@ const ActivateFast3 = () => {
             onPress={handleDone}
             style={[
               styles.button,
-              { backgroundColor: "#1A9E75", width: "95%" },
+              { backgroundColor: "#1A9E75", width: "100%" },
             ]}
           >
-            <Text style={[styles.text, { color: "white" }]}>Done</Text>
+            <Text
+              style={[
+                styles.bold,
+                { color: "white", paddingTop: 2, fontSize: 16 },
+              ]}
+            >
+              Done
+            </Text>
           </Pressable>
         </View>
       )}
@@ -301,7 +322,7 @@ const styles = StyleSheet.create({
   button: {
     width: 120,
     height: 40,
-    marginTop: 30,
+    marginTop: 20,
     backgroundColor: "white",
     borderRadius: 15,
     display: "flex",
@@ -326,9 +347,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#F0FFFA",
     borderWidth: 1,
-    fontFamily: "Poppins_400Regular",
-    fontSize: 12,
+    fontFamily: "Poppins_500Medium",
+    paddingTop: 3,
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   bannerContainer: {
     flexDirection: "row",
     alignItems: "center",

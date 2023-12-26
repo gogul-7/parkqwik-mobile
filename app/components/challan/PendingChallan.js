@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
   Pressable,
 } from "react-native";
+import Modal from "react-native-modal";
 
 const arr = [1, 2];
 
@@ -57,8 +58,8 @@ const PendingChallan = () => {
                 </Text>
               </View>
               <View style={{ alignItems: "flex-end", marginTop: 15 }}>
-                <Text style={[styles.text, { color: "#1A9E75", fontSize: 15 }]}>
-                  ₹ 600
+                <Text style={{ color: "#1A9E75", fontSize: 15 }}>
+                  ₹ <Text style={styles.bold}>600</Text>
                 </Text>
                 <View
                   style={{
@@ -67,7 +68,7 @@ const PendingChallan = () => {
                     gap: 3,
                   }}
                 >
-                  <Text style={[styles.text, { fontSize: 13 }]}>
+                  <Text style={[styles.header, { fontSize: 12 }]}>
                     Obstruction
                   </Text>
                   <Text
@@ -77,7 +78,7 @@ const PendingChallan = () => {
                         fontSize: 9,
                         backgroundColor: "#E44E2D",
                         height: 15,
-                        color: "white",
+                        color: "#FFF",
                         borderRadius: 5,
                         paddingHorizontal: 3,
                       },
@@ -104,7 +105,10 @@ const PendingChallan = () => {
                     }}
                   >
                     <Text
-                      style={[styles.text, { color: "#1A9E75", fontSize: 12 }]}
+                      style={[
+                        styles.header,
+                        { color: "#1A9E75", fontSize: 12 },
+                      ]}
                     >
                       More Info
                     </Text>
@@ -116,7 +120,7 @@ const PendingChallan = () => {
                   </Pressable>
                   <Pressable onPress={handleNavigate} style={styles.button}>
                     <Text
-                      style={[styles.text, { color: "white", fontSize: 9 }]}
+                      style={[styles.text, { color: "#FFF", fontSize: 10 }]}
                     >
                       Pay Now
                     </Text>
@@ -133,7 +137,7 @@ const PendingChallan = () => {
               <Text
                 style={[
                   styles.text,
-                  { color: "white", fontSize: 10, marginTop: 2 },
+                  { color: "#FFF", fontSize: 10, marginTop: 2 },
                 ]}
               >
                 TN246972306251330123
@@ -142,15 +146,20 @@ const PendingChallan = () => {
           </ImageBackground>
         ))}
       </View>
-      {toggle && <MoreDetails setToggle={setToggle} />}
+      <MoreDetails setToggle={setToggle} toggle={toggle} />
     </View>
   );
 };
 
-const MoreDetails = ({ setToggle }) => {
-  const { width, height } = useWindowDimensions();
+const MoreDetails = ({ setToggle, toggle }) => {
   return (
-    <View style={[styles.backdrop, { width, height: height }]}>
+    <Modal
+      isVisible={toggle}
+      style={[styles.backdrop]}
+      useNativeDriver
+      backdropOpacity={0.3}
+      onBackdropPress={() => setToggle(false)}
+    >
       <View style={styles.moreContainer}>
         <Pressable
           onPress={() => setToggle(false)}
@@ -184,12 +193,12 @@ const MoreDetails = ({ setToggle }) => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text1}>Challan Amount</Text>
-          <Text style={[styles.text, { fontSize: 16, color: "#1A9E75" }]}>
-            ₹ 600
+          <Text style={{ fontSize: 16, color: "#1A9E75" }}>
+            ₹ <Text style={[styles.header, { color: "#1A9E75" }]}>600</Text>
           </Text>
         </View>
       </View>
-    </View>
+    </Modal>
   );
 };
 
@@ -198,9 +207,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 15,
     flex: 1,
+    backgroundColor: "#FFF",
   },
   content: {
     width: "95%",
+  },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: {
+    fontFamily: "Poppins_600SemiBold",
   },
   card: {
     width: "100%",
@@ -241,22 +257,18 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   backdrop: {
-    flex: 1,
-    backgroundColor: "rgba(72, 72, 72, 0.83)",
-    position: "absolute",
-    top: -100,
-    zIndex: 5,
+    margin: 0,
     justifyContent: "flex-end",
   },
   moreContainer: {
-    height: 330,
+    height: 261,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     alignItems: "center",
     padding: 8,
-    gap: 8,
+    gap: 5,
   },
   line: {
     width: 30,
@@ -265,7 +277,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   textContainer: {
-    width: "85%",
+    width: "88%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
