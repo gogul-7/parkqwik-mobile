@@ -160,6 +160,7 @@ const Nearby1 = () => {
               onPress={() => {
                 setModal(true);
                 setStartDate({ ...startDate, day: dateArray[1] });
+                setEndtDate({ ...endtDate, hr: hourArray[6] });
               }}
               style={styles.dropDown}
             >
@@ -172,7 +173,6 @@ const Nearby1 = () => {
             <TouchableOpacity
               onPress={() => {
                 setModal2(true);
-                setEndtDate({ ...endtDate, day: dateArray[1] });
               }}
               style={styles.dropDown}
             >
@@ -380,55 +380,6 @@ const Nearby1 = () => {
                 </Text>
               </View>
             </View>
-            {/* <View
-              style={[
-                styles.row,
-                { justifyContent: "space-between", marginTop: 10 },
-              ]}
-            >
-              <TouchableOpacity
-                style={selected === "information" && styles.selectedDiv}
-                onPress={() => setSelected("information")}
-              >
-                <Text
-                  style={
-                    selected === "information"
-                      ? styles.selected
-                      : [styles.text, { color: "#A0A0A0", fontSize: 16 }]
-                  }
-                >
-                  Information
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={selected === "reviews" && styles.selectedDiv}
-                onPress={() => setSelected("reviews")}
-              >
-                <Text
-                  style={
-                    selected === "reviews"
-                      ? styles.selected
-                      : [styles.text, { color: "#A0A0A0", fontSize: 16 }]
-                  }
-                >
-                  Reviews
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={selected === "howitworks" && styles.selectedDiv}
-                onPress={() => setSelected("howitworks")}
-              >
-                <Text
-                  style={
-                    selected === "howitworks"
-                      ? styles.selected
-                      : [styles.text, { color: "#A0A0A0", fontSize: 16 }]
-                  }
-                >
-                  How it works
-                </Text>
-              </TouchableOpacity>
-            </View> */}
 
             <View style={{ width: "100%", height: 460 }}>
               <Tab.Navigator
@@ -616,9 +567,10 @@ const Nearby1 = () => {
                 ),
                 value: { name },
               }))}
-              onChange={({ item }) =>
-                setStartDate({ ...startDate, day: item.value.name })
-              }
+              onChange={({ item }) => {
+                setStartDate({ ...startDate, day: item.value.name });
+                setEndtDate({ ...endtDate, day: item.value.name });
+              }}
             />
 
             <View
@@ -645,9 +597,16 @@ const Nearby1 = () => {
                   ),
                   value: { name },
                 }))}
-                onChange={({ item }) =>
-                  setStartDate({ ...startDate, hr: item.value.name })
-                }
+                onChange={({ item }) => {
+                  setStartDate({ ...startDate, hr: item.value.name });
+                  setEndtDate({
+                    ...endtDate,
+                    hr:
+                      parseInt(item.value.name) + 1 < 10
+                        ? `0${parseInt(item.value.name) + 1}`
+                        : parseInt(item.value.name) + 1,
+                  });
+                }}
               />
 
               <Text
@@ -680,9 +639,10 @@ const Nearby1 = () => {
                   ),
                   value: { name },
                 }))}
-                onChange={({ item }) =>
-                  setStartDate({ ...startDate, min: item.value.name })
-                }
+                onChange={({ item }) => {
+                  setStartDate({ ...startDate, min: item.value.name });
+                  setEndtDate({ ...endtDate, min: item.value.name });
+                }}
               />
             </View>
           </View>

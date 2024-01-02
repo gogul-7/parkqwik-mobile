@@ -6,15 +6,20 @@ import {
   TextInput,
   TouchableOpacity,
   Animated,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { RadioButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
+const types = ["Car/Jeep/Van", "LCV", "Bus/Truck", "HCM/EME"];
+
 const Toll1 = () => {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(true);
+  const [selected, setSelected] = useState("");
   const navigation = useNavigation();
 
   const height = useRef(new Animated.Value(0)).current;
@@ -36,6 +41,8 @@ const Toll1 = () => {
     }).start();
   };
 
+  console.log(open);
+
   const animatedHeight = height.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 125],
@@ -47,110 +54,137 @@ const Toll1 = () => {
   });
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        paddingTop: 20,
-        backgroundColor: "#FFF",
-        gap: 15,
-      }}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
-      <View style={styles.container}>
-        <Text style={[styles.header]}>From</Text>
-        <View style={styles.inputContainer}>
-          <Image
-            style={{
-              width: 16,
-              height: 16,
-            }}
-            source={require("../assets/images/greenlocation.png")}
-          />
-          <TextInput
-            placeholder="Enter starting point"
-            placeholderTextColor={"#AFAFAF"}
-            style={styles.input}
-          />
-        </View>
-        <Text style={[styles.header]}>To</Text>
-        <View style={styles.inputContainer}>
-          <Image
-            style={{
-              width: 16,
-              height: 16,
-            }}
-            source={require("../assets/images/greenlocation.png")}
-          />
-          <TextInput
-            placeholder="Enter destination"
-            placeholderTextColor={"#AFAFAF"}
-            style={styles.input}
-          />
-        </View>
-      </View>
-      <Text style={[styles.header, { width: "90%" }]}>Vehicle Type</Text>
-      <TouchableOpacity
-        style={[styles.inputContainer, { width: "90%" }]}
-        onPress={handleAnimation}
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          paddingTop: 20,
+          backgroundColor: "#FFF",
+          gap: 15,
+        }}
       >
-        <Text style={[styles.text, { color: "#AFAFAF", paddingTop: 2 }]}>
-          Select your vehicle type
-        </Text>
-        <FontAwesomeIcon
-          icon={"angle-down"}
-          style={{
-            color: "#393939",
-            position: "absolute",
-            right: 15,
-          }}
-          size={14}
-        />
-      </TouchableOpacity>
-      <Animated.View
-        style={[
-          styles.card,
-          { height: animatedHeight, padding: animatedPadding },
-        ]}
-      >
-        <Text style={[styles.text, { fontSize: 12 }]}>Car/Jeep/Van</Text>
-        <Text style={[styles.text, { fontSize: 12 }]}>LCV</Text>
-        <Text style={[styles.text, { fontSize: 12 }]}>Bus/Truck</Text>
-        <Text style={[styles.text, { fontSize: 12 }]}>HCM/EME</Text>
-      </Animated.View>
-      <Text style={[styles.header, { width: "90%" }]}>Trip Type</Text>
-      <View style={{ width: "92%", marginTop: -10 }}>
-        <RadioButton.Group
-          onValueChange={(newValue) => setValue(newValue)}
-          value={value}
+        <View style={styles.container}>
+          <Text style={[styles.header]}>From</Text>
+          <View style={styles.inputContainer}>
+            <Image
+              style={{
+                width: 16,
+                height: 16,
+              }}
+              source={require("../assets/images/greenlocation.png")}
+            />
+            <TextInput
+              placeholder="Enter starting point"
+              placeholderTextColor={"#AFAFAF"}
+              style={styles.input}
+            />
+          </View>
+          <Text style={[styles.header]}>To</Text>
+          <View style={styles.inputContainer}>
+            <Image
+              style={{
+                width: 16,
+                height: 16,
+              }}
+              source={require("../assets/images/greenlocation.png")}
+            />
+            <TextInput
+              placeholder="Enter destination"
+              placeholderTextColor={"#AFAFAF"}
+              style={styles.input}
+            />
+          </View>
+        </View>
+        <Text style={[styles.header, { width: "90%" }]}>Vehicle Type</Text>
+        <TouchableOpacity
+          style={[styles.inputContainer, { width: "90%" }]}
+          onPress={handleAnimation}
         >
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ height: 15 }}>
-              <RadioButton value={"one way"} color="#1A9E75" />
-            </View>
-
-            <Text style={[styles.text, { paddingTop: 7, marginLeft: 5 }]}>
-              One Way
+          {selected ? (
+            <Text style={[styles.text, { fontSize: 12 }]}>{selected}</Text>
+          ) : (
+            <Text style={[styles.text, { color: "#AFAFAF", paddingTop: 2 }]}>
+              Select your vehicle type
             </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ height: 15 }}>
-              <RadioButton value={"return"} color="#1A9E75" />
-            </View>
-
-            <Text style={[styles.text, { paddingTop: 7, marginLeft: 5 }]}>
-              Return
+          )}
+          <FontAwesomeIcon
+            icon={"angle-down"}
+            style={{
+              color: "#393939",
+              position: "absolute",
+              right: 15,
+            }}
+            size={14}
+          />
+        </TouchableOpacity>
+        <Animated.View
+          style={[
+            styles.card,
+            { height: animatedHeight, padding: animatedPadding },
+          ]}
+        >
+          {types.map((item) => (
+            <Text
+              onPress={() => {
+                setSelected(item);
+              }}
+              key={item}
+              style={[styles.text, { fontSize: 12 }]}
+            >
+              {item}
             </Text>
-          </View>
-        </RadioButton.Group>
+          ))}
+        </Animated.View>
+        <Text style={[styles.header, { width: "90%" }]}>Trip Type</Text>
+        <View style={{ width: "92%", marginTop: -10 }}>
+          <RadioButton.Group
+            onValueChange={(newValue) => setValue(newValue)}
+            value={value}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ height: 15 }}>
+                <RadioButton
+                  value={"one way"}
+                  color="#1A9E75"
+                  uncheckedColor="#1A9E75"
+                />
+              </View>
+
+              <Text style={[styles.text, { paddingTop: 7, marginLeft: 5 }]}>
+                One Way
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ height: 15 }}>
+                <RadioButton
+                  value={"return"}
+                  color="#1A9E75"
+                  uncheckedColor="#1A9E75"
+                />
+              </View>
+
+              <Text style={[styles.text, { paddingTop: 7, marginLeft: 5 }]}>
+                Return
+              </Text>
+            </View>
+          </RadioButton.Group>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={handleNavigate}>
+          <Text
+            style={[
+              styles.bold,
+              { color: "#FFF", fontSize: 16, paddingTop: 2 },
+            ]}
+          >
+            Continue
+          </Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleNavigate}>
-        <Text
-          style={[styles.bold, { color: "#FFF", fontSize: 16, paddingTop: 2 }]}
-        >
-          Continue
-        </Text>
-      </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -182,7 +216,7 @@ const styles = StyleSheet.create({
     width: "90%",
     backgroundColor: "#FFF",
     borderRadius: 8,
-    marginTop: -15,
+    marginTop: -13,
     gap: 5,
     overflow: "hidden",
   },

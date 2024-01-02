@@ -5,6 +5,10 @@ import AppContext from "../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
 import Ev1 from "../components/evparking/Ev1";
 import Ev2 from "../components/evparking/Ev2";
+import Ev3 from "../components/evparking/Ev3";
+import Ev4 from "../components/evparking/Ev4";
+import Ev5 from "../components/evparking/Ev5";
+import Ev6 from "../components/evparking/Ev6";
 
 const EvStack = createStackNavigator();
 
@@ -34,6 +38,34 @@ const EvParking = () => {
         name="ev2"
         component={Ev2}
       />
+      <EvStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Persnal Details"} />;
+          },
+        }}
+        name="ev3"
+        component={Ev3}
+      />
+      <EvStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Vehicle Details"} />;
+          },
+        }}
+        name="ev4"
+        component={Ev4}
+      />
+      <EvStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Payment Options"} />;
+          },
+        }}
+        name="ev5"
+        component={Ev5}
+      />
+      <EvStack.Screen name="ev6" component={Ev6} />
     </EvStack.Navigator>
   );
 };

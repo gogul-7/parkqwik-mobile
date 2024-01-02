@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 
 const ElectricityHeader = ({ name }) => {
@@ -104,13 +105,19 @@ const ElectricityHeader = ({ name }) => {
             </Text>
             <Text style={styles.headerText}>Tamil Nadu Electricity Board</Text>
           </View>
-          <View style={styles.change}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("electricity1")}
+            style={styles.change}
+          >
             <Text
-              style={[styles.headerText, { color: "#1A9E75", fontSize: 10 }]}
+              style={[
+                styles.headerText,
+                { color: "#1A9E75", fontSize: 10, paddingTop: 1 },
+              ]}
             >
               Change
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -150,13 +157,19 @@ const ElectricityHeader = ({ name }) => {
             </Text>
             <Text style={styles.headerText}>Krishna K</Text>
           </View>
-          <View style={styles.change}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("electricity1")}
+            style={styles.change}
+          >
             <Text
-              style={[styles.headerText, { color: "#1A9E75", fontSize: 10 }]}
+              style={[
+                styles.headerText,
+                { color: "#1A9E75", fontSize: 10, paddingTop: 1 },
+              ]}
             >
               Change
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     );

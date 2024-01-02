@@ -28,7 +28,7 @@ const MyVehicle = () => {
         name="vehicle1"
         options={{
           header: () => {
-            return <Header title={"Checkout"} />;
+            return <Header title={"My Vehicles"} />;
           },
         }}
         component={Vehicle}
@@ -37,7 +37,7 @@ const MyVehicle = () => {
         name="vehicle2"
         options={{
           header: () => {
-            return <Header title={"Checkout"} />;
+            return <Header title={"My Vehicles"} />;
           },
         }}
         component={Vehicle2}

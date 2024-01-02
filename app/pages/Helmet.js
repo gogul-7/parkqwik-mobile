@@ -6,6 +6,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Helmet2 from "../components/helmet/Helmet2";
 import Helmet1 from "../components/helmet/Helmet1";
 import Helmet3 from "../components/helmet/Helmet3";
+import Helmet4 from "../components/helmet/Helmet4";
+import Helmet5 from "../components/helmet/Helmet5";
+import Helmet6 from "../components/helmet/Helmet6";
+import Helmet7 from "../components/helmet/Helmet7";
 
 const HelmetStack = createStackNavigator();
 
@@ -44,6 +48,42 @@ const Helmet = () => {
         }}
       />
       <HelmetStack.Screen name="helmet3" component={Helmet3} />
+      <HelmetStack.Screen
+        name="helmet4"
+        component={Helmet4}
+        options={{
+          header: () => {
+            return <Header title={"Personal Details"} />;
+          },
+        }}
+      />
+      <HelmetStack.Screen
+        name="helmet5"
+        component={Helmet5}
+        options={{
+          header: () => {
+            return <Header title={"Vehicle Details"} />;
+          },
+        }}
+      />
+      <HelmetStack.Screen
+        name="helmet6"
+        component={Helmet6}
+        options={{
+          header: () => {
+            return <Header title={"Select Address"} />;
+          },
+        }}
+      />
+      <HelmetStack.Screen
+        name="helmet7"
+        component={Helmet7}
+        options={{
+          header: () => {
+            return <Header title={"Select Address"} />;
+          },
+        }}
+      />
     </HelmetStack.Navigator>
   );
 };

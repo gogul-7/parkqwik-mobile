@@ -11,6 +11,10 @@ import Insurance5 from "../components/insurance/Insurance5";
 import Insurance7 from "../components/insurance/Insurance7";
 import Insurance8 from "../components/insurance/Insurance8";
 import Insurance9 from "../components/insurance/Insurance9";
+import Insurance10 from "../components/insurance/Insurance10";
+import Insurance11 from "../components/insurance/Insurance11";
+import Insurance12 from "../components/insurance/Insurance12";
+import Insurance13 from "../components/insurance/Insurance13";
 
 const InsuranceStack = createStackNavigator();
 
@@ -94,6 +98,42 @@ const Insurance = () => {
         component={Insurance8}
       />
       <InsuranceStack.Screen name="insurance9" component={Insurance9} />
+      <InsuranceStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Personal Details"} />;
+          },
+        }}
+        name="insurance10"
+        component={Insurance10}
+      />
+      <InsuranceStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Add vehicle Details"} />;
+          },
+        }}
+        name="insurance11"
+        component={Insurance11}
+      />
+      <InsuranceStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Select Address"} />;
+          },
+        }}
+        name="insurance12"
+        component={Insurance12}
+      />
+      <InsuranceStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Add Address"} />;
+          },
+        }}
+        name="insurance13"
+        component={Insurance13}
+      />
     </InsuranceStack.Navigator>
   );
 };

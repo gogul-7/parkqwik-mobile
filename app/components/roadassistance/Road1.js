@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Animated,
+  Linking,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -97,6 +98,16 @@ const Road1 = () => {
       useNativeDriver: false,
       duration: 300,
     }).start();
+  };
+
+  const handleDialPress = () => {
+    const phoneUrl = `tel:${8428428833}`;
+
+    if (Linking.canOpenURL(phoneUrl)) {
+      Linking.openURL(phoneUrl);
+    } else {
+      console.warn("Cannot open phone dialer");
+    }
   };
 
   const handleChange = (text) => {
@@ -232,11 +243,7 @@ const Road1 = () => {
 
       <View style={{ width: "90%", gap: 5 }}>
         {details.map((item) => (
-          <TouchableOpacity
-            onPress={handleClick}
-            key={item.id}
-            style={[styles.container2]}
-          >
+          <TouchableOpacity key={item.id} style={[styles.container2]}>
             <Image style={styles.banner2} source={item.photo} />
             <View>
               <Text
@@ -263,24 +270,22 @@ const Road1 = () => {
               </Text>
               <Rating rating={item.rating} />
             </View>
-            <TouchableOpacity
-              style={{ position: "absolute", right: 55, bottom: 25 }}
-            >
-              <FontAwesomeIcon
-                icon={"phone"}
-                size={18}
-                color="rgba(26, 158, 117, 1)"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ position: "absolute", right: 20, bottom: 25 }}
-            >
+            <View style={{ position: "absolute", right: 55, bottom: 25 }}>
+              <TouchableOpacity onPress={handleDialPress}>
+                <FontAwesomeIcon
+                  icon={"phone"}
+                  size={18}
+                  color="rgba(26, 158, 117, 1)"
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={{ position: "absolute", right: 20, bottom: 25 }}>
               <FontAwesomeIcon
                 icon={"diamond-turn-right"}
                 size={20}
                 color="rgba(26, 158, 117, 1)"
               />
-            </TouchableOpacity>
+            </View>
           </TouchableOpacity>
         ))}
       </View>

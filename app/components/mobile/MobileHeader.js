@@ -85,7 +85,8 @@ const MobileHeader = ({ name }) => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 120,
+    height: 100,
+    paddingBottom: 5,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#1A9E75",

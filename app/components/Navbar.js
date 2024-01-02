@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "white",
     borderStyle: "dashed",
+    paddingBottom: 1,
   },
 });
 

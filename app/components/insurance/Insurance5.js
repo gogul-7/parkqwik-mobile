@@ -12,6 +12,7 @@ import Layer from "../assets/logos/Search.png";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Insurance6 from "./Insurance6";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigation } from "@react-navigation/native";
 
 const comprehensive = [
   {
@@ -83,7 +84,7 @@ const thirdparty = [
 
 const Insurance5 = () => {
   const Tab = createMaterialTopTabNavigator();
-
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -139,7 +140,8 @@ const Insurance5 = () => {
               Maruti Dzire | Diesal | 2017
             </Text>
           </View>
-          <View
+          <TouchableOpacity
+            onPress={() => navigation.navigate("insurance1")}
             style={{
               width: 61,
               height: 25,
@@ -163,7 +165,7 @@ const Insurance5 = () => {
             >
               Change
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.inputContainer}>

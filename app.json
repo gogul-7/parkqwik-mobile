@@ -62,7 +62,7 @@
       }
     },
     "owner": "gogulcp3",
-    "runtimeVersion": "exposdk:47.0.0",
+    "runtimeVersion": "exposdk:49.0.13",
     "updates": {
       "url": "https://u.expo.dev/9a4cbd12-ff01-4170-a2db-de92d2b92c9b"
     }

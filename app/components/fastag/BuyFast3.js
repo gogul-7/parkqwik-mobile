@@ -57,7 +57,7 @@ const BuyFast3 = () => {
   }, []);
 
   return (
-    <View>
+    <View style={{ backgroundColor: "#FFF" }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.content}>
           <Text style={[styles.header, { fontSize: 16 }]}>
@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     backgroundColor: "white",
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",

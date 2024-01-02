@@ -26,632 +26,644 @@ const Wash1 = () => {
   const [modal, setModal] = useState(false);
 
   const handlePress = (amount) => {
-    setPlan(amount);
     setModal(true);
+    setPlan(amount);
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        alignItems: "center",
-        paddingTop: 15,
-        gap: 20,
-        paddingBottom: 30,
-        backgroundColor: "#FFF",
-      }}
-    >
+    <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       <ScrollView
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.bannerContainer}
-        horizontal
+        contentContainerStyle={{
+          alignItems: "center",
+          paddingTop: 15,
+          gap: 20,
+          paddingBottom: 30,
+        }}
       >
-        <LinearGradient
-          colors={["#1B5FE4", "#268AFF"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.banner}
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.bannerContainer}
+          horizontal
         >
-          <Text
-            style={[
-              styles.text,
-              { color: "white", fontSize: 18, lineHeight: 20 },
-            ]}
+          <LinearGradient
+            colors={["#1B5FE4", "#268AFF"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.banner}
           >
-            Get Your Car Wash Today
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              { color: "white", fontSize: 12, marginBottom: 10, width: "80%" },
-            ]}
-          >
-            Starting @ ₹ 399/-
-          </Text>
-          <View
-            style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <View style={styles.button}>
-              <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
-                Book Now
-              </Text>
-            </View>
-            <Image
+            <Text
+              style={[
+                styles.text,
+                { color: "white", fontSize: 18, lineHeight: 20 },
+              ]}
+            >
+              Get Your Car Wash Today
+            </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "white",
+                  fontSize: 12,
+                  marginBottom: 10,
+                  width: "80%",
+                },
+              ]}
+            >
+              Starting @ ₹ 399/-
+            </Text>
+            <View
               style={{
-                maxWidth: 80,
-                maxHeight: 55,
-                position: "absolute",
-                right: 8,
-                bottom: 15,
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
-              source={require("../assets/images/carwash.png")}
-            />
-          </View>
-        </LinearGradient>
-        <LinearGradient
-          colors={["#EF663B", "#FFA360"]}
-          start={{ x: 0.0, y: 0.0 }}
-          end={{ x: 1.0, y: 1.0 }}
-          style={styles.banner}
+            >
+              <View style={styles.button}>
+                <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
+                  Book Now
+                </Text>
+              </View>
+              <Image
+                style={{
+                  maxWidth: 80,
+                  maxHeight: 55,
+                  position: "absolute",
+                  right: 8,
+                  bottom: 15,
+                }}
+                source={require("../assets/images/carwash.png")}
+              />
+            </View>
+          </LinearGradient>
+          <LinearGradient
+            colors={["#EF663B", "#FFA360"]}
+            start={{ x: 0.0, y: 0.0 }}
+            end={{ x: 1.0, y: 1.0 }}
+            style={styles.banner}
+          >
+            <Text style={[styles.text, { color: "white", fontSize: 16 }]}>
+              Get Expert Car Polishing
+            </Text>
+            <Text
+              style={[
+                styles.text,
+                { color: "white", fontSize: 9, width: "70%", marginBottom: 10 },
+              ]}
+            >
+              Get exciting rewards on your Car Wash!
+            </Text>
+            <View
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <View style={styles.button2}>
+                <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
+                  Book Now
+                </Text>
+              </View>
+              <Image
+                style={{ maxWidth: 90, maxHeight: 20, marginTop: 5 }}
+                source={require("../assets/images/fastag.png")}
+              />
+            </View>
+          </LinearGradient>
+        </ScrollView>
+        <TouchableOpacity
+          onPress={() => handlePress(99)}
+          style={styles.container}
         >
-          <Text style={[styles.text, { color: "white", fontSize: 16 }]}>
-            Get Expert Car Polishing
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              { color: "white", fontSize: 9, width: "70%", marginBottom: 10 },
-            ]}
-          >
-            Get exciting rewards on your Car Wash!
-          </Text>
-          <View
-            style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <View style={styles.button2}>
-              <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
-                Book Now
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Image
+              style={{ maxWidth: 25, maxHeight: 25, marginTop: 5 }}
+              source={require("../assets/images/greenwash.png")}
+            />
+            <Text style={[styles.text, { color: "#393939", paddingTop: 3 }]}>
+              Book Your Car Wash
+            </Text>
+          </View>
+          <FontAwesomeIcon icon={"angle-right"} color="#1A9E75" />
+        </TouchableOpacity>
+        <Text
+          style={[
+            styles.header,
+            { color: "#393939", fontSize: 16, width: "90%" },
+          ]}
+        >
+          Premium Plans
+        </Text>
+        <View style={{ width: "100%", alignItems: "center", gap: 13 }}>
+          <View style={[styles.planContainer, { backgroundColor: "#FFF5DE" }]}>
+            <LinearGradient
+              colors={["#FFB70A", "#DC9C03"]}
+              start={{ x: 0.0, y: 0.5 }}
+              end={{ x: 1.0, y: 0.5 }}
+              style={styles.gradient}
+            >
+              <Text
+                style={[
+                  styles.header,
+                  { color: "#FFF", fontSize: 12, paddingBottom: 3 },
+                ]}
+              >
+                Daily Wash
+              </Text>
+            </LinearGradient>
+            <View
+              style={{
+                flexDirection: "row",
+
+                width: "100%",
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Exterior Shines
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: -10,
+                }}
+              >
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Wax Coating
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: -10,
+                }}
+              >
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Interior Cleaning
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                source={require("../assets/images/priority.png")}
+              />
+              <Text
+                style={[
+                  styles.header,
+                  {
+                    color: "#00A638",
+                    fontSize: 10,
+                  },
+                ]}
+              >
+                Alloy Cleans
               </Text>
             </View>
-            <Image
-              style={{ maxWidth: 90, maxHeight: 20, marginTop: 5 }}
-              source={require("../assets/images/fastag.png")}
-            />
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#393939",
+                  fontSize: 12,
+                  marginTop: 5,
+                },
+              ]}
+            >
+              Everything Standard + Everyday Exteri..{" "}
+              <Text style={{ color: "#1A9E75" }}>See More</Text>
+            </Text>
+            <Text style={{ fontSize: 18, color: "#393939" }}>
+              ₹{" "}
+              <Text style={styles.header}>
+                999
+                <Text style={{ color: "#A0A0A0", fontSize: 10 }}>
+                  /per Month
+                </Text>
+              </Text>
+            </Text>
+            <TouchableOpacity
+              onPress={() => handlePress(999)}
+              style={styles.button3}
+            >
+              <Text
+                style={[
+                  styles.bold,
+                  {
+                    color: "#FFF",
+                    paddingBottom: 2,
+                    fontSize: 12,
+                  },
+                ]}
+              >
+                Subscribe Now
+              </Text>
+            </TouchableOpacity>
           </View>
-        </LinearGradient>
+          <View style={[styles.planContainer, { backgroundColor: "#EAFFF1" }]}>
+            <LinearGradient
+              colors={["#0AEC80", "#00A555"]}
+              start={{ x: 0.0, y: 0.5 }}
+              end={{ x: 1.0, y: 0.5 }}
+              style={styles.gradient}
+            >
+              <Text
+                style={[
+                  styles.header,
+                  { color: "#FFF", fontSize: 12, paddingBottom: 3 },
+                ]}
+              >
+                Weekly Wash
+              </Text>
+            </LinearGradient>
+            <View
+              style={{
+                flexDirection: "row",
+
+                width: "100%",
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Exterior Shines
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: -10,
+                }}
+              >
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Wax Coating
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: -10,
+                }}
+              >
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Interior Cleaning
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                source={require("../assets/images/priority.png")}
+              />
+              <Text
+                style={[
+                  styles.header,
+                  {
+                    color: "#00A638",
+                    fontSize: 10,
+                  },
+                ]}
+              >
+                Alloy Cleans
+              </Text>
+            </View>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#393939",
+                  fontSize: 12,
+                  marginTop: 5,
+                },
+              ]}
+            >
+              Everything Standard + Once a week Ex..{" "}
+              <Text style={{ color: "#1A9E75" }}>See More</Text>
+            </Text>
+            <Text style={{ fontSize: 18, color: "#393939" }}>
+              ₹{" "}
+              <Text style={styles.header}>
+                699
+                <Text style={{ color: "#A0A0A0", fontSize: 10 }}>
+                  /per Month
+                </Text>
+              </Text>
+            </Text>
+            <TouchableOpacity
+              onPress={() => handlePress(699)}
+              style={styles.button3}
+            >
+              <Text
+                style={[
+                  styles.bold,
+                  {
+                    color: "#FFF",
+                    paddingBottom: 2,
+                    fontSize: 12,
+                  },
+                ]}
+              >
+                Subscribe Now
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.planContainer, { backgroundColor: "#DEFBFF" }]}>
+            <LinearGradient
+              colors={["#2A89EF", "#155FAF"]}
+              start={{ x: 0.0, y: 0.5 }}
+              end={{ x: 1.0, y: 0.5 }}
+              style={styles.gradient}
+            >
+              <Text
+                style={[
+                  styles.header,
+                  { color: "#FFF", fontSize: 12, paddingBottom: 3 },
+                ]}
+              >
+                Monthly Wash
+              </Text>
+            </LinearGradient>
+            <View
+              style={{
+                flexDirection: "row",
+
+                width: "100%",
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Exterior Shines
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: -10,
+                }}
+              >
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Wax Coating
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: -10,
+                }}
+              >
+                <Image
+                  style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                  source={require("../assets/images/priority.png")}
+                />
+                <Text
+                  style={[
+                    styles.header,
+                    {
+                      color: "#00A638",
+                      fontSize: 10,
+                    },
+                  ]}
+                >
+                  Interior Cleaning
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
+                source={require("../assets/images/priority.png")}
+              />
+              <Text
+                style={[
+                  styles.header,
+                  {
+                    color: "#00A638",
+                    fontSize: 10,
+                  },
+                ]}
+              >
+                Alloy Cleans
+              </Text>
+            </View>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#393939",
+                  fontSize: 12,
+                  marginTop: 5,
+                },
+              ]}
+            >
+              Everything Standard + Once a week Ex..{" "}
+              <Text style={{ color: "#1A9E75" }}>See More</Text>
+            </Text>
+            <Text style={{ fontSize: 18, color: "#393939" }}>
+              ₹{" "}
+              <Text style={styles.header}>
+                399
+                <Text style={{ color: "#A0A0A0", fontSize: 10 }}>
+                  /per Month
+                </Text>
+              </Text>
+            </Text>
+            <TouchableOpacity
+              onPress={() => handlePress(399)}
+              style={styles.button3}
+            >
+              <Text
+                style={[
+                  styles.bold,
+                  {
+                    color: "#FFF",
+                    paddingBottom: 2,
+                    fontSize: 12,
+                  },
+                ]}
+              >
+                Subscribe Now
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ flexDirection: "row", gap: 15, width: "90%" }}>
+          <TouchableOpacity onPress={() => setSelected("information")}>
+            <Text
+              style={
+                selected === "information"
+                  ? [
+                      styles.text,
+                      {
+                        color: "#1A9E75",
+                        fontSize: 16,
+                        borderBottomColor: "#1A9E75",
+                        borderBottomWidth: 3,
+                      },
+                    ]
+                  : [
+                      styles.text,
+                      {
+                        color: "#A0A0A0",
+                        fontSize: 16,
+                      },
+                    ]
+              }
+            >
+              Information
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelected("reviews")}>
+            <Text
+              style={
+                selected === "reviews"
+                  ? [
+                      styles.text,
+                      {
+                        color: "#1A9E75",
+                        fontSize: 16,
+                        borderBottomColor: "#1A9E75",
+                        borderBottomWidth: 3,
+                      },
+                    ]
+                  : [
+                      styles.text,
+                      {
+                        color: "#A0A0A0",
+                        fontSize: 16,
+                      },
+                    ]
+              }
+            >
+              Reviews
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Content selected={selected} />
       </ScrollView>
-      <TouchableOpacity
-        onPress={() => handlePress(99)}
-        style={styles.container}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-          <Image
-            style={{ maxWidth: 25, maxHeight: 25, marginTop: 5 }}
-            source={require("../assets/images/greenwash.png")}
-          />
-          <Text style={[styles.text, { color: "#393939", paddingTop: 3 }]}>
-            Book Your Car Wash
-          </Text>
-        </View>
-        <FontAwesomeIcon icon={"angle-right"} color="#1A9E75" />
-      </TouchableOpacity>
-      <Text
-        style={[
-          styles.header,
-          { color: "#393939", fontSize: 16, width: "90%" },
-        ]}
-      >
-        Premium Plans
-      </Text>
-      <View style={{ width: "100%", alignItems: "center", gap: 13 }}>
-        <View style={[styles.planContainer, { backgroundColor: "#FFF5DE" }]}>
-          <LinearGradient
-            colors={["#FFB70A", "#DC9C03"]}
-            start={{ x: 0.0, y: 0.5 }}
-            end={{ x: 1.0, y: 0.5 }}
-            style={styles.gradient}
-          >
-            <Text
-              style={[
-                styles.header,
-                { color: "#FFF", fontSize: 12, paddingBottom: 3 },
-              ]}
-            >
-              Daily Wash
-            </Text>
-          </LinearGradient>
-          <View
-            style={{
-              flexDirection: "row",
-
-              width: "100%",
-            }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Exterior Shines
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: -10,
-              }}
-            >
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Wax Coating
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: -10,
-              }}
-            >
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Interior Cleaning
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-              source={require("../assets/images/priority.png")}
-            />
-            <Text
-              style={[
-                styles.header,
-                {
-                  color: "#00A638",
-                  fontSize: 10,
-                },
-              ]}
-            >
-              Alloy Cleans
-            </Text>
-          </View>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#393939",
-                fontSize: 12,
-                marginTop: 5,
-              },
-            ]}
-          >
-            Everything Standard + Everyday Exteri..{" "}
-            <Text style={{ color: "#1A9E75" }}>See More</Text>
-          </Text>
-          <Text style={{ fontSize: 18, color: "#393939" }}>
-            ₹{" "}
-            <Text style={styles.header}>
-              999
-              <Text style={{ color: "#A0A0A0", fontSize: 10 }}>/per Month</Text>
-            </Text>
-          </Text>
-          <TouchableOpacity
-            onPress={() => handlePress(999)}
-            style={styles.button3}
-          >
-            <Text
-              style={[
-                styles.bold,
-                {
-                  color: "#FFF",
-                  paddingBottom: 2,
-                  fontSize: 12,
-                },
-              ]}
-            >
-              Subscribe Now
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.planContainer, { backgroundColor: "#EAFFF1" }]}>
-          <LinearGradient
-            colors={["#0AEC80", "#00A555"]}
-            start={{ x: 0.0, y: 0.5 }}
-            end={{ x: 1.0, y: 0.5 }}
-            style={styles.gradient}
-          >
-            <Text
-              style={[
-                styles.header,
-                { color: "#FFF", fontSize: 12, paddingBottom: 3 },
-              ]}
-            >
-              Weekly Wash
-            </Text>
-          </LinearGradient>
-          <View
-            style={{
-              flexDirection: "row",
-
-              width: "100%",
-            }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Exterior Shines
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: -10,
-              }}
-            >
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Wax Coating
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: -10,
-              }}
-            >
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Interior Cleaning
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-              source={require("../assets/images/priority.png")}
-            />
-            <Text
-              style={[
-                styles.header,
-                {
-                  color: "#00A638",
-                  fontSize: 10,
-                },
-              ]}
-            >
-              Alloy Cleans
-            </Text>
-          </View>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#393939",
-                fontSize: 12,
-                marginTop: 5,
-              },
-            ]}
-          >
-            Everything Standard + Once a week Ex..{" "}
-            <Text style={{ color: "#1A9E75" }}>See More</Text>
-          </Text>
-          <Text style={{ fontSize: 18, color: "#393939" }}>
-            ₹{" "}
-            <Text style={styles.header}>
-              699
-              <Text style={{ color: "#A0A0A0", fontSize: 10 }}>/per Month</Text>
-            </Text>
-          </Text>
-          <TouchableOpacity
-            onPress={() => handlePress(699)}
-            style={styles.button3}
-          >
-            <Text
-              style={[
-                styles.bold,
-                {
-                  color: "#FFF",
-                  paddingBottom: 2,
-                  fontSize: 12,
-                },
-              ]}
-            >
-              Subscribe Now
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.planContainer, { backgroundColor: "#DEFBFF" }]}>
-          <LinearGradient
-            colors={["#2A89EF", "#155FAF"]}
-            start={{ x: 0.0, y: 0.5 }}
-            end={{ x: 1.0, y: 0.5 }}
-            style={styles.gradient}
-          >
-            <Text
-              style={[
-                styles.header,
-                { color: "#FFF", fontSize: 12, paddingBottom: 3 },
-              ]}
-            >
-              Monthly Wash
-            </Text>
-          </LinearGradient>
-          <View
-            style={{
-              flexDirection: "row",
-
-              width: "100%",
-            }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Exterior Shines
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: -10,
-              }}
-            >
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Wax Coating
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: -10,
-              }}
-            >
-              <Image
-                style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-                source={require("../assets/images/priority.png")}
-              />
-              <Text
-                style={[
-                  styles.header,
-                  {
-                    color: "#00A638",
-                    fontSize: 10,
-                  },
-                ]}
-              >
-                Interior Cleaning
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              style={{ maxWidth: 13, maxHeight: 13, marginTop: 3 }}
-              source={require("../assets/images/priority.png")}
-            />
-            <Text
-              style={[
-                styles.header,
-                {
-                  color: "#00A638",
-                  fontSize: 10,
-                },
-              ]}
-            >
-              Alloy Cleans
-            </Text>
-          </View>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#393939",
-                fontSize: 12,
-                marginTop: 5,
-              },
-            ]}
-          >
-            Everything Standard + Once a week Ex..{" "}
-            <Text style={{ color: "#1A9E75" }}>See More</Text>
-          </Text>
-          <Text style={{ fontSize: 18, color: "#393939" }}>
-            ₹{" "}
-            <Text style={styles.header}>
-              399
-              <Text style={{ color: "#A0A0A0", fontSize: 10 }}>/per Month</Text>
-            </Text>
-          </Text>
-          <TouchableOpacity
-            onPress={() => handlePress(399)}
-            style={styles.button3}
-          >
-            <Text
-              style={[
-                styles.bold,
-                {
-                  color: "#FFF",
-                  paddingBottom: 2,
-                  fontSize: 12,
-                },
-              ]}
-            >
-              Subscribe Now
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={{ flexDirection: "row", gap: 15, width: "90%" }}>
-        <TouchableOpacity onPress={() => setSelected("information")}>
-          <Text
-            style={
-              selected === "information"
-                ? [
-                    styles.text,
-                    {
-                      color: "#1A9E75",
-                      fontSize: 16,
-                      borderBottomColor: "#1A9E75",
-                      borderBottomWidth: 3,
-                    },
-                  ]
-                : [
-                    styles.text,
-                    {
-                      color: "#A0A0A0",
-                      fontSize: 16,
-                    },
-                  ]
-            }
-          >
-            Information
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setSelected("reviews")}>
-          <Text
-            style={
-              selected === "reviews"
-                ? [
-                    styles.text,
-                    {
-                      color: "#1A9E75",
-                      fontSize: 16,
-                      borderBottomColor: "#1A9E75",
-                      borderBottomWidth: 3,
-                    },
-                  ]
-                : [
-                    styles.text,
-                    {
-                      color: "#A0A0A0",
-                      fontSize: 16,
-                    },
-                  ]
-            }
-          >
-            Reviews
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <Content selected={selected} />
       <Popup plan={plan} modal={modal} setModal={setModal} />
-    </ScrollView>
+    </View>
   );
 };
 
@@ -997,6 +1009,7 @@ const Popup = ({ plan, modal, setModal }) => {
   const navigation = useNavigation();
 
   const hanldeNavigate = () => {
+    setModal(false);
     navigation.navigate("wash2");
   };
 
@@ -1004,13 +1017,16 @@ const Popup = ({ plan, modal, setModal }) => {
     <Modal
       isVisible={modal}
       backdropColor="#B7B7B7"
+      backdropOpacity={0.3}
       useNativeDriver
+      useNativeDriverForBackdrop
       style={{ margin: 0, justifyContent: "flex-end" }}
+      onBackdropPress={() => setModal(false)}
     >
       <View style={styles.details}>
         <TouchableOpacity
           onPress={() => setModal(false)}
-          style={{ position: "absolute", right: 15, top: 15 }}
+          style={{ position: "absolute", right: 15, top: 15, zIndex: 5 }}
         >
           <FontAwesomeIcon
             icon={"circle-xmark"}
@@ -1018,17 +1034,58 @@ const Popup = ({ plan, modal, setModal }) => {
             size={24}
           />
         </TouchableOpacity>
-        <Text
-          style={[
-            styles.header,
-            {
-              color: "#393939",
-              fontSize: 18,
-            },
-          ]}
-        >
-          Details
-        </Text>
+        {plan === 99 && (
+          <Text
+            style={[
+              styles.header,
+              {
+                color: "#393939",
+                fontSize: 18,
+              },
+            ]}
+          >
+            Details
+          </Text>
+        )}
+        {plan === 999 && (
+          <Text
+            style={[
+              styles.header,
+              {
+                color: "#393939",
+                fontSize: 18,
+              },
+            ]}
+          >
+            Daily Wash
+          </Text>
+        )}
+        {plan === 699 && (
+          <Text
+            style={[
+              styles.header,
+              {
+                color: "#393939",
+                fontSize: 18,
+              },
+            ]}
+          >
+            Weekly Wash
+          </Text>
+        )}
+        {plan === 399 && (
+          <Text
+            style={[
+              styles.header,
+              {
+                color: "#393939",
+                fontSize: 18,
+              },
+            ]}
+          >
+            Monthly Wash
+          </Text>
+        )}
         <View
           style={{
             flexDirection: "row",
@@ -1051,6 +1108,7 @@ const Popup = ({ plan, modal, setModal }) => {
                   {
                     color: "#00A638",
                     fontSize: 10,
+                    width: 90,
                   },
                 ]}
               >
@@ -1059,16 +1117,57 @@ const Popup = ({ plan, modal, setModal }) => {
             </View>
           ))}
         </View>
-        <Text
-          style={[
-            styles.text,
-            {
-              color: "#393939",
-            },
-          ]}
-        >
-          Everything standard + Exterior cleaning + Interior cleaning.
-        </Text>
+        {plan === 99 && (
+          <Text
+            style={[
+              styles.text,
+              {
+                color: "#393939",
+              },
+            ]}
+          >
+            Everything standard + Exterior cleaning + Interior cleaning.
+          </Text>
+        )}
+        {plan === 699 && (
+          <Text
+            style={[
+              styles.text,
+              {
+                color: "#393939",
+              },
+            ]}
+          >
+            Everything standard + Once a week exterior cleaning + Once a week
+            interior cleaning.
+          </Text>
+        )}
+        {plan === 399 && (
+          <Text
+            style={[
+              styles.text,
+              {
+                color: "#393939",
+              },
+            ]}
+          >
+            Everything standard + Once a month exterior cleaning + Once a month
+            interior cleaning.
+          </Text>
+        )}
+        {plan === 999 && (
+          <Text
+            style={[
+              styles.text,
+              {
+                color: "#393939",
+              },
+            ]}
+          >
+            Everything standard + Everyday exterior cleaning + 4 times a month
+            interior cleaning.
+          </Text>
+        )}
         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
           <FontAwesomeIcon icon={"circle-check"} size={14} />
           <Text
@@ -1116,14 +1215,27 @@ const Popup = ({ plan, modal, setModal }) => {
           >
             Amount
           </Text>
-          <Text
-            style={{
-              color: "#393939",
-              fontSize: 20,
-            }}
-          >
-            ₹ <Text style={styles.header}>{plan}</Text>
-          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              style={{
+                color: "#393939",
+                fontSize: 20,
+              }}
+            >
+              ₹ <Text style={[styles.header, { fontSize: 20 }]}>{plan}</Text>
+            </Text>
+            {plan !== 99 && (
+              <Text
+                style={[
+                  styles.bold,
+                  { color: "#A0A0A0", fontSize: 12, paddingTop: 2 },
+                ]}
+              >
+                {" "}
+                per Month
+              </Text>
+            )}
+          </View>
         </View>
         <TouchableOpacity style={styles.button4} onPress={hanldeNavigate}>
           <Text

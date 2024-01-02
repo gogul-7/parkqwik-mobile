@@ -7,6 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import Wash2 from "../components/carwash/Wash2";
 import Wash3 from "../components/carwash/Wash3";
 import Wash4 from "../components/carwash/Wash4";
+import Wash5 from "../components/carwash/Wash5";
+import Wash6 from "../components/carwash/Wash6";
+import Wash7 from "../components/carwash/Wash7";
+import Wash8 from "../components/carwash/Wash8";
 
 const WashStack = createStackNavigator();
 
@@ -50,6 +54,42 @@ const Wash = () => {
         options={{
           header: () => {
             return <Header title={"Payment Options"} />;
+          },
+        }}
+      />
+      <WashStack.Screen
+        name="wash5"
+        component={Wash5}
+        options={{
+          header: () => {
+            return <Header title={"Personal Details"} />;
+          },
+        }}
+      />
+      <WashStack.Screen
+        name="wash6"
+        component={Wash6}
+        options={{
+          header: () => {
+            return <Header title={"Add vehicle Details"} />;
+          },
+        }}
+      />
+      <WashStack.Screen
+        name="wash7"
+        component={Wash7}
+        options={{
+          header: () => {
+            return <Header title={"Select Address"} />;
+          },
+        }}
+      />
+      <WashStack.Screen
+        name="wash8"
+        component={Wash8}
+        options={{
+          header: () => {
+            return <Header title={"Add Address"} />;
           },
         }}
       />

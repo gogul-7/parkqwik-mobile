@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -7,255 +7,406 @@ import {
   TextInput,
   Image,
   Pressable,
+  TouchableOpacity,
+  Animated,
 } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
 import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView } from "react-native-virtualized-view";
 import { useNavigation } from "@react-navigation/native";
+import Modal from "react-native-modal";
+import { RadioButton } from "react-native-paper";
 
-const countries = ["India", "Egypt", "Canada", "Australia", "Ireland"];
+const states = [
+  "Andaman and Nicobar Islands",
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chandigarh",
+  "Delhi",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Sikkim",
+  "Tripura",
+  "Jammu and Kashmir",
+];
 
 const faqs = [
-  { id: 1, question: "What is a traffic challan ?", answer: "" },
+  {
+    id: 1,
+    question: "What is a traffic challan ?",
+    answer:
+      "A traffic challan is a fine or penalty imposed on individuals for violating traffic rules and regulations.",
+    height: 65,
+    maxHeight: 180,
+  },
   {
     id: 2,
     question: "Can I contest or dispute a traffic challan?",
-    answer: "",
+    height: 65,
+    maxHeight: 180,
+    answer:
+      "Yes, you can contest or dispute a traffic challan by following the procedures and deadlines set by your local traffic authorities.",
   },
-  { id: 3, question: "How can I avoid future traffic challans ?", answer: "" },
+  {
+    id: 3,
+    height: 65,
+    maxHeight: 180,
+    question: "How can I avoid future traffic challans ?",
+    answer:
+      "1.Follow traffic rules and signs. \n 2.Maintain speed limits. \n 3.Use seatbelts and helmets. \n 4.Avoid using mobile devices while driving. \n 5.Maintain proper documentation (license, insurance).",
+  },
   {
     id: 4,
+    height: 65,
+    maxHeight: 180,
     question: "How can I download or print a copy of my challan receipt?",
-    answer: "",
+    answer: `Click on the ${"Download"} option to obtain a copy of your challan receipt.`,
   },
 ];
 
 const PayChallan = () => {
   const navigation = useNavigation();
+  const [modal, setModal] = useState(false);
+  const [value, setValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const animatedHeight = useRef(new Animated.Value(0)).current;
+
+  const handleClick = (n) => {
+    // const index = faqs.findIndex((item) => item.id === n);
+    // const newIsOpen = [...isOpen];
+    // newIsOpen[index] = !newIsOpen[index];
+    // setIsOpen(newIsOpen);
+    setIsOpen(!isOpen);
+    Animated.timing(animatedHeight, {
+      toValue: isOpen ? 1 : 0,
+      useNativeDriver: false,
+      duration: 300,
+    }).start();
+  };
 
   const handlePress = () => {
     navigation.navigate("challan2");
   };
+  console.log(isOpen);
 
-  const handleSelect = (item) => {
-    if (item === "India") navigation.navigate("challan5");
-  };
+  useEffect(() => {
+    if (value === "Tamil Nadu") {
+      setModal(false);
+      navigation.navigate("challan5");
+    }
+  }, [value]);
 
   return (
-    <ScrollView>
-      <View
-        style={{
-          alignItems: "center",
-          padding: 15,
-          gap: 20,
-          backgroundColor: "#FFF",
-        }}
-      >
-        <View style={styles.container}>
-          <Text style={[styles.header, { fontSize: 16 }]}>Check Challan</Text>
-          <Text style={[styles.text, { color: "#A0A0A0", width: "90%" }]}>
-            Enter your vehicle number and check your challans
-          </Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Your Vehicle Number"
-              placeholderTextColor="#1A9E75"
-            />
-            <Pressable onPress={handlePress} style={styles.button}>
-              <Text style={[styles.bold, { color: "#FFF", paddingTop: 2 }]}>
-                Check
-              </Text>
-            </Pressable>
+    <View style={{ flex: 1 }}>
+      <ScrollView>
+        <View
+          style={{
+            alignItems: "center",
+            padding: 15,
+            gap: 20,
+            backgroundColor: "#FFF",
+          }}
+        >
+          <View style={styles.container}>
+            <Text style={[styles.header, { fontSize: 16 }]}>Check Challan</Text>
+            <Text style={[styles.text, { color: "#A0A0A0", width: "90%" }]}>
+              Enter your vehicle number and check your challans
+            </Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Your Vehicle Number"
+                placeholderTextColor="#1A9E75"
+              />
+              <Pressable onPress={handlePress} style={styles.button}>
+                <Text style={[styles.bold, { color: "#FFF", paddingTop: 2 }]}>
+                  Check
+                </Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
 
-        <View style={{ width: "100%", gap: 10 }}>
-          <Text style={[styles.header, { fontSize: 16 }]}>How it works?</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <View style={{ alignItems: "center", width: "30%" }}>
-              <View style={styles.circle}>
-                <Image
-                  style={{ width: 50, height: 20 }}
-                  source={require("../assets/images/greenlicense.png")}
-                />
-              </View>
-              <Text style={[styles.header]}>Step 1</Text>
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    color: "#A0A0A0",
-                    fontSize: 10,
-                    width: "80%",
-                    textAlign: "center",
-                  },
-                ]}
-              >
-                Enter your vehicle number
-              </Text>
-            </View>
-            <FontAwesomeIcon
-              style={{ marginBottom: 50 }}
-              icon="arrow-right-long"
-              size={20}
-              color="#1A9E75"
-            />
-            <View style={{ alignItems: "center", width: "30%" }}>
-              <View style={styles.circle}>
-                <Image
-                  style={{ width: 32, height: 40 }}
-                  source={require("../assets/images/greendocument.png")}
-                />
-              </View>
-              <Text style={[styles.header]}>Step 2</Text>
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    color: "#A0A0A0",
-                    fontSize: 10,
-                    width: "90%",
-                    textAlign: "center",
-                  },
-                ]}
-              >
-                Check Your Challans
-              </Text>
-            </View>
-            <FontAwesomeIcon
-              style={{ marginBottom: 50 }}
-              icon="arrow-right-long"
-              size={20}
-              color="#1A9E75"
-            />
+          <View style={{ width: "100%", gap: 10 }}>
+            <Text style={[styles.header, { fontSize: 16 }]}>How it works?</Text>
             <View
               style={{
+                flexDirection: "row",
+                justifyContent: "space-evenly",
                 alignItems: "center",
-                width: "30%",
-                justifyContent: "flex-start",
               }}
             >
-              <View style={styles.circle}>
-                <Image
-                  style={{ width: 40, height: 40 }}
-                  source={require("../assets/images/greenpayment.png")}
-                />
+              <View style={{ alignItems: "center", width: "30%" }}>
+                <View style={styles.circle}>
+                  <Image
+                    style={{ width: 50, height: 20 }}
+                    source={require("../assets/images/greenlicense.png")}
+                  />
+                </View>
+                <Text style={[styles.header]}>Step 1</Text>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color: "#A0A0A0",
+                      fontSize: 10,
+                      width: "80%",
+                      textAlign: "center",
+                    },
+                  ]}
+                >
+                  Enter your vehicle number
+                </Text>
               </View>
-              <Text style={[styles.header]}>Step 3</Text>
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    color: "#A0A0A0",
-                    fontSize: 10,
-                    width: "60%",
-                    textAlign: "center",
-                  },
-                ]}
+              <FontAwesomeIcon
+                style={{ marginBottom: 50 }}
+                icon="arrow-right-long"
+                size={20}
+                color="#1A9E75"
+              />
+              <View style={{ alignItems: "center", width: "30%" }}>
+                <View style={styles.circle}>
+                  <Image
+                    style={{ width: 32, height: 40 }}
+                    source={require("../assets/images/greendocument.png")}
+                  />
+                </View>
+                <Text style={[styles.header]}>Step 2</Text>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color: "#A0A0A0",
+                      fontSize: 10,
+                      width: "90%",
+                      textAlign: "center",
+                    },
+                  ]}
+                >
+                  Check Your Challans
+                </Text>
+              </View>
+              <FontAwesomeIcon
+                style={{ marginBottom: 50 }}
+                icon="arrow-right-long"
+                size={20}
+                color="#1A9E75"
+              />
+              <View
+                style={{
+                  alignItems: "center",
+                  width: "30%",
+                  justifyContent: "flex-start",
+                }}
               >
-                Make Payment
+                <View style={styles.circle}>
+                  <Image
+                    style={{ width: 40, height: 40 }}
+                    source={require("../assets/images/greenpayment.png")}
+                  />
+                </View>
+                <Text style={[styles.header]}>Step 3</Text>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color: "#A0A0A0",
+                      fontSize: 10,
+                      width: "60%",
+                      textAlign: "center",
+                    },
+                  ]}
+                >
+                  Make Payment
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.container}>
+            <Text style={[styles.header, { fontSize: 16 }]}>Traffic Fines</Text>
+            <Text
+              style={[
+                styles.text,
+                { color: "#A0A0A0", marginBottom: 5, width: "90%" },
+              ]}
+            >
+              Select your state to see traffic fines
+            </Text>
+            <TouchableOpacity
+              onPress={() => setModal(true)}
+              style={styles.dropdown}
+            >
+              <Text style={[styles.text, { color: "#AFAFAF", paddingTop: 3 }]}>
+                Select Your State
               </Text>
+              <FontAwesomeIcon icon="caret-down" color="#1A9E75" />
+            </TouchableOpacity>
+          </View>
+          <LinearGradient
+            colors={["#0BC189", "#27CD99"]}
+            start={{ x: 0.0, y: 0.0 }}
+            end={{ x: 1.0, y: 1.0 }}
+            style={styles.gradient}
+          >
+            <Text style={[styles.text, { color: "#FBFF29", fontSize: 14 }]}>
+              Invite your friends to make hassle-free
+            </Text>
+            <Text style={[styles.text, { color: "white", fontSize: 17 }]}>
+              Challan Payments
+            </Text>
+            <Text style={[styles.text, { color: "white", fontSize: 11 }]}>
+              Pay using UPI, Debit & Credit Cards
+            </Text>
+            <View style={styles.buttonSmall}>
+              <Text style={[styles.bold, { fontSize: 10, paddingTop: 1 }]}>
+                Invite Now
+              </Text>
+            </View>
+            <Image
+              style={styles.image}
+              source={require("../assets/images/michand.png")}
+            />
+          </LinearGradient>
+          <View style={{ width: "95%", gap: 15 }}>
+            <Text style={[styles.header, { fontSize: 16 }]}>FAQs</Text>
+            <View style={{ width: "100%", gap: 10 }}>
+              {faqs.map((item, index) => (
+                <Animated.View
+                  key={item.id}
+                  style={[
+                    styles.container,
+                    {
+                      paddingVertical: 15,
+                      paddingHorizontal: 15,
+                      alignItems: "flex-start",
+                      overflow: "hidden",
+                      height: animatedHeight.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [50, 150],
+                      }),
+                    },
+                  ]}
+                >
+                  <TouchableOpacity
+                    onPress={() => handleClick(item.id)}
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={[
+                        styles.text,
+                        { color: "#393939", width: "88%", marginTop: 5 },
+                      ]}
+                    >
+                      {item.question}
+                    </Text>
+                    <FontAwesomeIcon
+                      icon={"angle-down"}
+                      style={{ marginTop: 10 }}
+                    />
+                  </TouchableOpacity>
+                  <Text style={[styles.text, { color: "#A0A0A0" }]}>
+                    {item.answer}
+                  </Text>
+                </Animated.View>
+              ))}
             </View>
           </View>
         </View>
-        <View style={styles.container}>
-          <Text style={[styles.header, { fontSize: 16 }]}>Traffic Fines</Text>
-          <Text
-            style={[
-              styles.text,
-              { color: "#A0A0A0", marginBottom: 5, width: "90%" },
-            ]}
+      </ScrollView>
+      <Modal
+        useNativeDriver
+        style={{ margin: 0, justifyContent: "flex-end" }}
+        isVisible={modal}
+        backdropOpacity={0.3}
+        useNativeDriverForBackdrop
+      >
+        <View style={styles.modal}>
+          <TouchableOpacity
+            onPress={() => setModal(false)}
+            style={{ position: "absolute", right: 20, top: 20, zIndex: 5 }}
           >
-            Select your state to see traffic fines
-          </Text>
-          <SelectDropdown
-            onSelect={handleSelect}
-            data={countries}
-            defaultButtonText="Select your country"
-            buttonStyle={styles.dropdown}
-            buttonTextStyle={[
-              styles.text,
-              {
-                fontSize: 14,
-                color: "#AFAFAF",
-                textAlign: "left",
-                flex: 0.7,
-                marginTop: 3,
-              },
-            ]}
-            renderDropdownIcon={() => {
-              return <FontAwesomeIcon icon="caret-down" color="#1A9E75" />;
-            }}
-          />
+            <FontAwesomeIcon icon={"circle-xmark"} size={22} color="#1A9E75" />
+          </TouchableOpacity>
+          <Text style={[styles.header, { fontSize: 16 }]}>Choose State</Text>
+          <ScrollView
+            contentContainerStyle={{ gap: 10 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <RadioButton.Group
+              onValueChange={(value) => setValue(value)}
+              value={value}
+            >
+              {states.map((item, index) => (
+                <View key={index} style={{ flexDirection: "row" }}>
+                  <View style={{ height: 15 }}>
+                    <RadioButton
+                      value={item}
+                      color="#1A9E75"
+                      uncheckedColor="#1A9E75"
+                    />
+                  </View>
+                  <View>
+                    <Text
+                      style={[styles.text, { paddingTop: 7, marginLeft: 5 }]}
+                    >
+                      {item}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </RadioButton.Group>
+          </ScrollView>
         </View>
-        <LinearGradient
-          colors={["#0BC189", "#27CD99"]}
-          start={{ x: 0.0, y: 0.0 }}
-          end={{ x: 1.0, y: 1.0 }}
-          style={styles.gradient}
-        >
-          <Text style={[styles.text, { color: "#FBFF29", fontSize: 14 }]}>
-            Invite your friends to make hassle-free
-          </Text>
-          <Text style={[styles.text, { color: "white", fontSize: 17 }]}>
-            Challan Payments
-          </Text>
-          <Text style={[styles.text, { color: "white", fontSize: 11 }]}>
-            Pay using UPI, Debit & Credit Cards
-          </Text>
-          <View style={styles.buttonSmall}>
-            <Text style={[styles.bold, { fontSize: 10, paddingTop: 1 }]}>
-              Invite Now
-            </Text>
-          </View>
-          <Image
-            style={styles.image}
-            source={require("../assets/images/michand.png")}
-          />
-        </LinearGradient>
-        <View style={{ width: "95%", gap: 15 }}>
-          <Text style={[styles.text, { fontSize: 16 }]}>FAQs</Text>
-          <View style={{ width: "100%", gap: 10 }}>
-            {faqs.map((item) => (
-              <View
-                key={item.id}
-                style={[
-                  styles.container,
-                  {
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  },
-                ]}
-              >
-                <Text style={[styles.text, { fontSize: 12 }]}>
-                  {item.question}
-                </Text>
-                <FontAwesomeIcon icon={"chevron-down"} size={13} />
-              </View>
-            ))}
-          </View>
-        </View>
-      </View>
-    </ScrollView>
+      </Modal>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  modal: {
+    backgroundColor: "#FFF",
+    height: 559,
+    width: "100%",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    padding: 20,
+  },
   container: {
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     padding: 15,
     gap: 5,
-    elevation: 3,
+    elevation: 2,
   },
   text: {
     fontFamily: "Poppins_400Regular",
@@ -301,11 +452,14 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     width: "100%",
-    backgroundColor: "white",
     borderWidth: 1,
     borderRadius: 8,
     borderColor: "#A0A0A0",
     height: 40,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+    alignItems: "center",
   },
   gradient: {
     width: "100%",

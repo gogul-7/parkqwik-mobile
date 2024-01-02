@@ -8,18 +8,22 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Modal from "react-native-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import AppContext from "../../context/AppContext";
 
 const Address2 = () => {
+  const { setHam } = useContext(AppContext);
   const [border, setBorder] = useState({
     name: "#E5E5E5",
     number: "#E5E5E5",
     address1: "#E5E5E5",
     address2: "#E5E5E5",
+    pincode: "#E5E5E5",
     city: "#E5E5E5",
     state: "#E5E5E5",
   });
@@ -33,6 +37,7 @@ const Address2 = () => {
   });
   const [data, setData] = useState([]);
   const [alert, setAlert] = useState(false);
+  const [alert2, setAlert2] = useState(false);
   const [alertData, setAlertData] = useState([]);
   const navigation = useNavigation();
 
@@ -52,12 +57,43 @@ const Address2 = () => {
       }
     };
     retrieveData();
-  }, []);
+  }, [setData]);
+
+  const fetchData = async (text) => {
+    try {
+      const res = await axios.get(
+        `https://api.postalpincode.in/pincode/${text}`
+      );
+      if (res !== null && res.data[0].Message === "No records found") {
+        setAlert2(true);
+      } else {
+        setAlert2(false);
+        setValue({
+          ...value,
+          ["city"]: res.data[0].PostOffice[0].District,
+          ["state"]: res.data[0].PostOffice[0].State,
+          ["pincode"]: res.data[0].PostOffice[0].Pincode,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleChangeText = (text, key) => {
-    setBorder({ ...border, [key]: "#1A9E75" });
     if (text.length === 0) setBorder({ ...border, [key]: "#E5E5E5" });
-    setValue({ ...value, [key]: text });
+    else {
+      setBorder({ ...border, [key]: "#1A9E75" });
+    }
+    if (key === "name") {
+      const cleanedText = text.replace(/[^a-zA-Z]/g, "");
+      setValue({ ...value, name: cleanedText });
+    } else {
+      setValue({ ...value, [key]: text });
+      if (key === "pincode" && text.length === 6) {
+        fetchData(text);
+      }
+    }
   };
 
   const handleSave = async () => {
@@ -91,8 +127,9 @@ const Address2 = () => {
 
   const handleAlert = () => {
     if (alertData === "Address saved Successfully.") {
-      navigation.navigate("address1");
       setAlert(false);
+      navigation.navigate("Home");
+      setHam(true);
     } else setAlert(false);
   };
 
@@ -122,7 +159,7 @@ const Address2 = () => {
       >
         <View style={styles.alert}>
           <Pressable
-            style={{ position: "absolute", right: 10, top: 10 }}
+            style={{ position: "absolute", right: 10, top: 10, zIndex: 5 }}
             onPress={handleAlert}
           >
             <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={18} />
@@ -135,6 +172,7 @@ const Address2 = () => {
         onChangeText={(text) => handleChangeText(text, "name")}
         style={[styles.input, { borderColor: border.name }]}
         placeholder="Enter your full name"
+        value={value.name}
       />
       <Text style={styles.header}>Mobile Number</Text>
       <View style={{ width: "90%", justifyContent: "center" }}>
@@ -146,6 +184,7 @@ const Address2 = () => {
             { width: "100%", paddingLeft: 41, borderColor: border.number },
           ]}
           placeholder="| Enter your mobile number"
+          maxLength={10}
         />
         <Text style={[styles.text, { position: "absolute", left: 10 }]}>
           +91
@@ -163,17 +202,37 @@ const Address2 = () => {
         style={[styles.input, { borderColor: border.address2 }]}
         placeholder="Locality name / Area name"
       />
+      <Text style={styles.header}>Pincode</Text>
+      <TextInput
+        onChangeText={(text) => handleChangeText(text, "pincode")}
+        style={[styles.input, { borderColor: border.pincode }]}
+        placeholder="Enter your pincode"
+        keyboardType="numeric"
+        maxLength={6}
+      />
+      {alert2 && (
+        <Text
+          style={[
+            styles.text,
+            { color: "#FF4A4A", width: "90%", marginTop: -10 },
+          ]}
+        >
+          Pincode not found.
+        </Text>
+      )}
       <Text style={styles.header}>City</Text>
       <TextInput
         onChangeText={(text) => handleChangeText(text, "city")}
         style={[styles.input, { borderColor: border.city }]}
         placeholder="Enter your city"
+        value={value.city}
       />
       <Text style={styles.header}>State</Text>
       <TextInput
         onChangeText={(text) => handleChangeText(text, "state")}
         style={[styles.input, { borderColor: border.state }]}
         placeholder="Enter your state"
+        value={value.state}
       />
       <Text style={styles.text}>or</Text>
       <View style={styles.button}>
@@ -234,7 +293,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 15,
     fontFamily: "Poppins_400Regular",
-    paddingTop: 5,
+    paddingTop: 3,
     marginTop: -5,
   },
   button: {

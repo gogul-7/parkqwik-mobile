@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,6 +15,31 @@ const Mobile1 = () => {
   const handlePress = () => {
     navigation.navigate("mobile2");
   };
+  const [alert, setAlert] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const input = useRef();
+
+  const handleChange = (text) => {
+    if (text.length === 0) {
+      input.current.setNativeProps({
+        style: { borderColor: "#E5E5E5" },
+      });
+      setDisable(true);
+    } else if (text.length !== 10) {
+      input.current.setNativeProps({
+        style: { borderColor: "#FC6969" },
+      });
+      setAlert(true);
+      setDisable(true);
+    } else {
+      input.current.setNativeProps({
+        style: { borderColor: "#1A9E75" },
+      });
+      setAlert(false);
+      setDisable(false);
+    }
+  };
+
   return (
     <View
       style={{
@@ -40,15 +65,29 @@ const Mobile1 = () => {
             +91
           </Text>
           <TextInput
+            ref={input}
+            onChangeText={handleChange}
             style={[styles.input, { paddingLeft: 40 }]}
             placeholder="| Enter your mobile number"
             placeholderTextColor="#AFAFAF"
+            keyboardType="numeric"
+            maxLength={10}
           />
           <TouchableOpacity onPress={handlePress} style={styles.contact}>
             <FontAwesomeIcon color="#1A9E75" size={22} icon={"user-plus"} />
           </TouchableOpacity>
         </View>
       </View>
+      {alert && (
+        <Text
+          style={[
+            styles.text,
+            { color: "#FC6969", fontSize: 12, width: "89%", top: 3 },
+          ]}
+        >
+          Invalid Mobile Number
+        </Text>
+      )}
       <View
         style={{
           position: "absolute",
@@ -58,12 +97,19 @@ const Mobile1 = () => {
           gap: 15,
         }}
       >
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={disable ? styles.disabled : styles.button}
+          onPress={() => navigation.navigate("mobile3")}
+        >
           <Text
-            style={[
-              styles.bold,
-              { color: "#FFF", fontSize: 16, paddingTop: 2 },
-            ]}
+            style={
+              disable
+                ? [
+                    styles.bold,
+                    { color: "#9F9F9F", fontSize: 16, paddingTop: 2 },
+                  ]
+                : [styles.bold, { color: "#FFF", fontSize: 16, paddingTop: 2 }]
+            }
           >
             Continue
           </Text>
@@ -99,10 +145,10 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderWidth: 1,
-    height: 40,
+    height: 41,
     borderRadius: 8,
     paddingHorizontal: 10,
-    borderColor: "#AFAFAF",
+    borderColor: "#E5E5E5",
     fontFamily: "Poppins_400Regular",
     paddingTop: 3,
   },
@@ -125,6 +171,17 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  disabled: {
+    width: "90%",
+    alignSelf: "center",
+    height: 40,
+    backgroundColor: "#DFDFDF",
+    borderRadius: 15,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    pointerEvents: "none",
   },
 });
 

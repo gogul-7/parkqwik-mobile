@@ -6,16 +6,30 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
 
 const Wash2 = () => {
+  const { personalDetails, vehicleDetails, addressDetails } =
+    useContext(AppContext);
   const navigation = useNavigation();
+  const [disable, setDisable] = useState(true);
+
+  useEffect(() => {
+    if (
+      Object.keys(vehicleDetails).length !== 0 &&
+      Object.keys(personalDetails).length !== 0 &&
+      Object.keys(addressDetails).length !== 0
+    ) {
+      setDisable(false);
+    }
+  }, [personalDetails, vehicleDetails]);
 
   const handlePress = () => {
     navigation.navigate("wash3");
   };
-
   return (
     <View
       style={{
@@ -139,62 +153,95 @@ const Wash2 = () => {
         >
           Personal Details
         </Text>
-        <View
-          style={[
-            styles.container,
-            { alignItems: "flex-start", padding: 15, justifyContent: "center" },
-          ]}
-        >
-          <Text
+        {Object.keys(personalDetails).length !== 0 ? (
+          <View
             style={[
-              styles.header,
+              styles.container,
               {
-                color: "#393939",
+                alignItems: "flex-start",
+                padding: 15,
+                justifyContent: "center",
               },
             ]}
           >
-            Krishna
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-              },
-            ]}
-          >
-            krishna501@gmail.com
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-              },
-            ]}
-          >
-            +91 8200089270
-          </Text>
-          <View style={styles.button}>
-            <Image
-              source={require("../assets/images/greenedit.png")}
-              style={{ width: 15, height: 15 }}
-            />
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                },
+              ]}
+            >
+              {personalDetails.name}
+            </Text>
             <Text
               style={[
                 styles.text,
                 {
-                  color: "#1A9E75",
+                  color: "#A0A0A0",
                   fontSize: 12,
                 },
               ]}
             >
-              Edit
+              {personalDetails.mail}
             </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#A0A0A0",
+                  fontSize: 12,
+                },
+              ]}
+            >
+              +91 {personalDetails.number}
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("wash5")}
+              style={styles.button}
+            >
+              <Image
+                source={require("../assets/images/greenedit.png")}
+                style={{ width: 15, height: 15 }}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color: "#1A9E75",
+                    fontSize: 12,
+                  },
+                ]}
+              >
+                Edit
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("wash5");
+            }}
+            style={[styles.container2]}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#A0A0A0",
+                  paddingTop: 3,
+                },
+              ]}
+            >
+              Tap to add personal details
+            </Text>
+            <FontAwesomeIcon
+              icon={"circle-plus"}
+              color="rgba(26, 158, 117, 1)"
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
         <Text
           style={[
             styles.header,
@@ -207,52 +254,108 @@ const Wash2 = () => {
         >
           Address Details
         </Text>
-        <View
-          style={[
-            styles.container,
-            { alignItems: "flex-start", padding: 15, justifyContent: "center" },
-          ]}
-        >
-          <Text
+        {Object.keys(addressDetails).length !== 0 ? (
+          <View
             style={[
-              styles.header,
+              styles.container,
               {
-                color: "#393939",
+                alignItems: "flex-start",
+                padding: 15,
+                justifyContent: "center",
               },
             ]}
           >
-            Krishna
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-                width: "50%",
-              },
-            ]}
-          >
-            NO.20, Anna Street, Near Water Tank, Perungudi, Chennai - 600096
-          </Text>
-          <View style={styles.button}>
-            <Image
-              source={require("../assets/images/greenedit.png")}
-              style={{ width: 15, height: 15 }}
-            />
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                },
+              ]}
+            >
+              {addressDetails.name}
+            </Text>
             <Text
               style={[
                 styles.text,
                 {
-                  color: "#1A9E75",
+                  color: "#A0A0A0",
                   fontSize: 12,
                 },
               ]}
             >
-              Edit
+              {`${addressDetails.address1}, ${addressDetails.address2},`}
             </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#A0A0A0",
+                  fontSize: 12,
+                  marginTop: -3,
+                },
+              ]}
+            >
+              {`${addressDetails.city}, ${addressDetails.state},`}
+            </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#A0A0A0",
+                  fontSize: 12,
+                  marginTop: -3,
+                },
+              ]}
+            >
+              {addressDetails.number}
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("wash7")}
+              style={[
+                styles.button,
+                { borderRadius: 15, paddingHorizontal: 8 },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.bold,
+                  {
+                    color: "#1A9E75",
+                    fontSize: 10,
+                    paddingTop: 1,
+                  },
+                ]}
+              >
+                Change
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("wash7");
+            }}
+            style={[styles.container2]}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#A0A0A0",
+                  paddingTop: 3,
+                },
+              ]}
+            >
+              Tap to add address
+            </Text>
+            <FontAwesomeIcon
+              icon={"circle-plus"}
+              color="rgba(26, 158, 117, 1)"
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
         <Text
           style={[
             styles.header,
@@ -265,51 +368,85 @@ const Wash2 = () => {
         >
           Vehicle Details
         </Text>
-        <View
-          style={[
-            styles.container,
-            { alignItems: "flex-start", padding: 15, justifyContent: "center" },
-          ]}
-        >
-          <Text
+        {Object.keys(vehicleDetails).length !== 0 ? (
+          <View
             style={[
-              styles.header,
+              styles.container,
               {
-                color: "#393939",
+                alignItems: "flex-start",
+                padding: 15,
+                justifyContent: "center",
               },
             ]}
           >
-            TN05BM5656
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-              },
-            ]}
-          >
-            Maruti Dzire | Diesel
-          </Text>
-          <View style={styles.button}>
-            <Image
-              source={require("../assets/images/greenedit.png")}
-              style={{ width: 15, height: 15 }}
-            />
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                },
+              ]}
+            >
+              {vehicleDetails.vnumber}
+            </Text>
             <Text
               style={[
                 styles.text,
                 {
-                  color: "#1A9E75",
-                  fontSize: 12,
+                  color: "#A0A0A0",
+                  marginTop: -3,
                 },
               ]}
             >
-              Edit
+              {vehicleDetails.type}
             </Text>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("wash6")}
+              style={styles.button}
+            >
+              <Image
+                source={require("../assets/images/greenedit.png")}
+                style={{ width: 15, height: 15 }}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color: "#1A9E75",
+                    fontSize: 12,
+                  },
+                ]}
+              >
+                Edit
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("wash6");
+            }}
+            style={[styles.container2]}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#A0A0A0",
+                  paddingTop: 3,
+                },
+              ]}
+            >
+              Tap to add vehicle details
+            </Text>
+            <FontAwesomeIcon
+              icon={"circle-plus"}
+              color="rgba(26, 158, 117, 1)"
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
         <Text
           style={[
             styles.header,
@@ -364,15 +501,30 @@ const Wash2 = () => {
             116
           </Text>
         </Text>
-        <TouchableOpacity onPress={handlePress} style={styles.button2}>
+        <TouchableOpacity
+          onPress={handlePress}
+          style={disable ? styles.disbaled : styles.button2}
+        >
           <Text
-            style={[
-              styles.bold,
-              {
-                color: "white",
-                fontSize: 16,
-              },
-            ]}
+            style={
+              disable
+                ? [
+                    styles.bold,
+                    {
+                      color: "#9F9F9F",
+                      fontSize: 16,
+                      paddingTop: 1,
+                    },
+                  ]
+                : [
+                    styles.bold,
+                    {
+                      color: "#FFF",
+                      fontSize: 16,
+                      paddingTop: 1,
+                    },
+                  ]
+            }
           >
             Continue
           </Text>
@@ -392,6 +544,18 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     elevation: 3,
+  },
+  container2: {
+    borderRadius: 15,
+    backgroundColor: "#FFF",
+    width: "90%",
+    overflow: "hidden",
+    alignItems: "center",
+    elevation: 3,
+    height: 55,
+    flexDirection: "row",
+    paddingHorizontal: 15,
+    justifyContent: "space-between",
   },
   header: {
     fontFamily: "Poppins_500Medium",
@@ -429,5 +593,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 7,
     borderRadius: 14,
+  },
+  disbaled: {
+    width: 178,
+    height: 41,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#DFDFDF",
+    borderRadius: 14,
+    pointerEvents: "none",
   },
 });

@@ -7,12 +7,16 @@ import {
   Pressable,
   Easing,
   ScrollView,
+  TouchableOpacity,
   Image,
 } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../context/AppContext";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
+import * as Sharing from "expo-sharing";
+import { captureRef } from "react-native-view-shot";
+import { Share } from "react-native";
 
 const options = [
   {
@@ -73,11 +77,40 @@ const options = [
 ];
 
 const Hamburger = () => {
+  const ref = useRef();
   const { setHam } = useContext(AppContext);
   const navigation = useNavigation();
+  // const imagePlaceholder =
+  //   "https://images.unsplash.com/photo-1673209139602-30b6e9100131?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80";
 
   const handleHam = () => {
     setHam(false);
+  };
+
+  const handleShare = async () => {
+    try {
+      messageText = "Text that you want to share goes here";
+      const options = {
+        dialogTitle: messageText,
+      };
+      const uri = await captureRef(ref, {
+        format: "png",
+        quality: 0.7,
+      });
+      await Sharing.shareAsync(uri, options);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleShareLink = async () => {
+    try {
+      const res = await Share.share({
+        message: "Checkout ParkQwik App https://parkqwik.referrallink.one...",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleNavigate = (route) => {
@@ -103,7 +136,7 @@ const Hamburger = () => {
             </Text>
           </View>
         </View>
-        <View style={styles.qrContainer}>
+        <View ref={ref} style={styles.qrContainer}>
           <Image
             style={{ width: "90%", height: "90%" }}
             source={require("../assets/images/qr.png")}
@@ -115,7 +148,7 @@ const Hamburger = () => {
             { justifyContent: "space-between", marginTop: 15 },
           ]}
         >
-          <View style={styles.button}>
+          <TouchableOpacity onPress={handleShare} style={styles.button}>
             <Image
               style={{ height: 18, width: 18 }}
               source={require("../assets/images/share.png")}
@@ -123,8 +156,8 @@ const Hamburger = () => {
             <Text style={[styles.header, { color: "white", fontSize: 12 }]}>
               Share QR
             </Text>
-          </View>
-          <View style={styles.button}>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleShareLink} style={styles.button}>
             <Image
               style={{ height: 18, width: 18 }}
               source={require("../assets/images/share.png")}
@@ -132,7 +165,7 @@ const Hamburger = () => {
             <Text style={[styles.header, { color: "white", fontSize: 12 }]}>
               Share Link
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
       <ScrollView

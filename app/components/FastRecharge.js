@@ -136,11 +136,12 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 16,
-    fontWeight: "600",
     fontFamily: "Poppins_500Medium",
+    color: "#393939",
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
   bold: {
     fontFamily: "Poppins_600SemiBold",

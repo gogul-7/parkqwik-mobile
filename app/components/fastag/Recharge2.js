@@ -99,6 +99,7 @@ const Recharge2 = () => {
             placeholder="Eg. 500"
             style={styles.input}
             value={value}
+            keyboardType="numeric"
           />
           <View
             style={{

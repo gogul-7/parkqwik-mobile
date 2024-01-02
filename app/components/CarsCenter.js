@@ -71,7 +71,7 @@ const CarsCenter = () => {
 
   return (
     <View style={{ width: "100%", alignItems: "center", gap: 15 }}>
-      <View style={styles.travelContainer}>
+      <View style={[styles.travelContainer, { paddingBottom: 13 }]}>
         <Text style={styles.header}>Your Car’s Center</Text>
         <View style={styles.discContainer}>
           {carCenter.map((item) => (
@@ -92,7 +92,9 @@ const CarsCenter = () => {
         </View>
       </View>
       <View style={{ width: "90%", marginBottom: -8 }}>
-        <Text style={[styles.header, { marginLeft: 10 }]}>Trending</Text>
+        <Text style={[styles.header, { marginTop: 3, marginLeft: 3 }]}>
+          Trending
+        </Text>
       </View>
       <ScrollView
         showsHorizontalScrollIndicator={false}
@@ -226,6 +228,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 16,
     fontFamily: "Poppins_500Medium",
+    color: "#393939",
   },
   discContainer: {
     display: "flex",
@@ -235,10 +238,12 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontFamily: "Poppins_600SemiBold",
+
     fontSize: 14,
   },
   text: {
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
   icon: {
     display: "flex",

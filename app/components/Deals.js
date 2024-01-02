@@ -16,16 +16,19 @@ const travel = [
     id: 1,
     title: "Car Wash",
     image: require("../assets/images/greenwash.png"),
+    route: "Wash",
   },
   {
     id: 2,
     title: "Estimate Toll",
     image: require("../assets/images/greentoll.png"),
+    route: "Toll",
   },
   {
     id: 3,
     title: "Shop",
     image: require("../assets/images/greenshop.png"),
+    route: "Shop",
   },
   {
     id: 4,
@@ -44,8 +47,10 @@ const Deals = () => {
 
   return (
     <View style={styles.contianer}>
-      <View style={{ width: "100%" }}>
-        <Text style={[styles.header, { marginLeft: 22 }]}>Deals For You</Text>
+      <View style={{ width: "90%" }}>
+        <Text style={[styles.header, { width: "90%", marginBottom: -5 }]}>
+          Deals For You
+        </Text>
       </View>
       <ScrollView
         style={{ marginTop: 10 }}
@@ -83,7 +88,7 @@ const Deals = () => {
             source={require("../assets/images/acko.png")}
           />
           <Text
-            style={[styles.text, { color: "white", fontSize: 9, marginTop: 8 }]}
+            style={[styles.bold, { color: "#FFF", fontSize: 9, marginTop: 8 }]}
           >
             Car Insurance
           </Text>
@@ -136,7 +141,7 @@ const Deals = () => {
           <Text
             style={[
               styles.header,
-              { fontSize: 8, color: "white", marginTop: -5 },
+              { fontSize: 10, color: "white", marginTop: -5 },
             ]}
           >
             on your first car wash
@@ -198,6 +203,7 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "Poppins_500Medium",
     color: "#393939",
+    fontSize: 16,
   },
   bold: { fontFamily: "Poppins_600SemiBold" },
   button: {

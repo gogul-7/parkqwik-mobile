@@ -21,8 +21,10 @@ const Electricity2 = () => {
   const navigation = useNavigation();
 
   const handleChange = (value) => {
-    if (value.length === 0) setBorder("#E5E5E5    ");
-    else {
+    if (value.length === 0) {
+      setBorder("#E5E5E5");
+      setDisable(true);
+    } else {
       setBorder("#1A9E75");
       setDisable(false);
       setValue(value);

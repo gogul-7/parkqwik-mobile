@@ -98,7 +98,7 @@ const Wash3 = () => {
                   { fontSize: 14, color: "#FFF", paddingTop: 2 },
                 ]}
               >
-                Pay ₹ 2,869 In Single Click{" "}
+                Pay ₹ 116 In Single Click{" "}
               </Text>
             </View>
           </View>
@@ -185,7 +185,7 @@ const Wash3 = () => {
 
       <View style={styles.payment}>
         <Text style={[{ fontSize: 20, color: "#393939", paddingTop: 3 }]}>
-          ₹ <Text style={[styles.header, { fontSize: 20 }]}>2,869</Text>
+          ₹ <Text style={[styles.header, { fontSize: 20 }]}>116</Text>
         </Text>
         <Pressable style={styles.button} onPress={handleContinue}>
           <Text

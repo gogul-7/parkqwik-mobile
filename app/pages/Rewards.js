@@ -309,7 +309,7 @@ const Rewards = () => {
           ]}
         >
           <Pressable
-            style={{ position: "absolute", right: 20, top: 20 }}
+            style={{ position: "absolute", right: 20, top: 20, zIndex: 5 }}
             onPress={() => setIsRedeem(false)}
           >
             <FontAwesomeIcon icon={"circle-xmark"} color="#1A9E75" size={24} />

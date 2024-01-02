@@ -5,6 +5,10 @@ import Nearby1 from "../components/nearby/Nearby1";
 import AppContext from "../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
 import Nearby2 from "../components/nearby/Nearby2";
+import PersonalDetails from "../components/nearby/PersonalDetails";
+import VehicleDetails from "../components/nearby/VehicleDetails";
+import Nearby5 from "../components/nearby/Nearby5";
+import Nearby6 from "../components/nearby/Nearby6";
 
 const NearbyStack = createStackNavigator();
 
@@ -34,6 +38,34 @@ const Nearby = () => {
         name="nearby2"
         component={Nearby2}
       />
+      <NearbyStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Personal Details"} />;
+          },
+        }}
+        name="nearby3"
+        component={PersonalDetails}
+      />
+      <NearbyStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Vehicle Details"} />;
+          },
+        }}
+        name="nearby4"
+        component={VehicleDetails}
+      />
+      <NearbyStack.Screen
+        options={{
+          header: () => {
+            return <Header title={"Payment Options"} />;
+          },
+        }}
+        name="nearby5"
+        component={Nearby5}
+      />
+      <NearbyStack.Screen name="nearby6" component={Nearby6} />
     </NearbyStack.Navigator>
   );
 };

@@ -40,7 +40,7 @@ const Rent2 = () => {
         <Text style={[styles.header, { fontSize: 16 }]}>Recipient UPI ID</Text>
       </View>
       <TextInput
-        onChangeText={(value) => handleChange(value)}
+        // onChangeText={(value) => handleChange(value)}
         placeholder="Enter Recipient UPI ID"
         style={[styles.input]}
       />
@@ -48,7 +48,8 @@ const Rent2 = () => {
         <Text style={[styles.header, { fontSize: 16 }]}>Mobile Number</Text>
       </View>
       <TextInput
-        onChangeText={(value) => handleChange(value)}
+        // onChangeText={(value) => handleChange(value)}
+        keyboardType="numeric"
         placeholder="Enter Mobile Number"
         style={[styles.input]}
       />

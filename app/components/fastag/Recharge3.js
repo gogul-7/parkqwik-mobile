@@ -39,21 +39,30 @@ const data = [
 ];
 
 const Recharge3 = () => {
+  const { setHeaderNum } = useContext(AppContext);
   const [checked, setChecked] = useState(false);
   const [checkedCard, setCheckedCard] = useState(false);
   const [value, setValue] = useState("first");
   const navigation = useNavigation();
-  const { amount } = useContext(AppContext);
 
   const handleContinue = () => {
     navigation.navigate("recharge4");
   };
 
+  useEffect(() => {
+    setHeaderNum(3);
+    return () => {
+      setHeaderNum(2);
+    };
+  }, []);
+
   return (
-    <View>
+    <View style={{ backgroundColor: "#FFF" }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.content}>
-          <Text style={[styles.text]}>Preferred Payment Option</Text>
+          <Text style={[styles.header, { fontSize: 16 }]}>
+            Preferred Payment Option
+          </Text>
           <Pressable
             onPress={() => setChecked(!checked)}
             style={{
@@ -85,14 +94,14 @@ const Recharge3 = () => {
           </Pressable>
           <View style={{ width: "100%", alignItems: "center", marginTop: 15 }}>
             <View style={[styles.button, { width: 200 }]}>
-              <Text style={[styles.text, { color: "white" }]}>
-                Pay ₹ {amount} In Single Click{" "}
+              <Text style={[styles.header, { color: "white", paddingTop: 2 }]}>
+                Pay <Text>₹</Text> 600 In Single Click{" "}
               </Text>
             </View>
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={[styles.text]}>UPI</Text>
+          <Text style={[styles.header, { fontSize: 16 }]}>UPI</Text>
           {data.map((item) => (
             <RadioButton.Group
               onValueChange={(newValue) => setValue(newValue)}
@@ -139,7 +148,7 @@ const Recharge3 = () => {
           ))}
         </View>
         <View style={[styles.content, { marginBottom: 100 }]}>
-          <Text style={[styles.text]}>Cards</Text>
+          <Text style={[styles.header, { fontSize: 16 }]}>Cards</Text>
           <Pressable
             onPress={() => setCheckedCard(!checkedCard)}
             style={{
@@ -172,9 +181,16 @@ const Recharge3 = () => {
       </ScrollView>
 
       <View style={styles.payment}>
-        <Text style={[{ fontSize: 20, width: "50%" }]}>₹ {amount}</Text>
+        <Text style={[{ fontSize: 20 }]}>₹ 350</Text>
         <Pressable style={styles.button} onPress={handleContinue}>
-          <Text style={[styles.text, { color: "white" }]}>Proceed To Pay</Text>
+          <Text
+            style={[
+              styles.bold,
+              { color: "white", fontSize: 16, paddingTop: 2 },
+            ]}
+          >
+            Continue
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -193,12 +209,17 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     backgroundColor: "white",
+    elevation: 3,
   },
   text: {
     fontFamily: "Poppins_400Regular",
   },
+  header: {
+    fontFamily: "Poppins_500Medium",
+  },
+  bold: { fontFamily: "Poppins_600SemiBold" },
   button: {
-    width: 150,
+    width: 178,
     height: 40,
     backgroundColor: "#1A9E75",
     borderRadius: 15,
@@ -208,7 +229,7 @@ const styles = StyleSheet.create({
   },
   payment: {
     position: "absolute",
-    height: 80,
+    height: 63,
     backgroundColor: "white",
     bottom: 0,
     width: "100%",
@@ -216,7 +237,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     elevation: 3,
   },
 });

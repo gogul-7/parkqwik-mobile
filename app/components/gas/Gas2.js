@@ -41,6 +41,7 @@ const Gas2 = () => {
     } else {
       setBorder("#FC6969");
       setAlert(true);
+      setDisable(true);
     }
   };
 
@@ -67,10 +68,10 @@ const Gas2 = () => {
           <Text
             style={[
               styles.text,
-              { fontSize: 10, color: "#FC6969", marginLeft: 5 },
+              { fontSize: 12, color: "#FC6969", marginLeft: 5 },
             ]}
           >
-            Invalid Mobile No. / Smart Card Number
+            Invalid LPG ID
           </Text>
         )}
         <Text

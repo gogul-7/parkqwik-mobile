@@ -44,9 +44,12 @@ const Address1 = () => {
     };
     retrieveData();
   }, [setData]);
+
   const animate = (index) => {
     setOptions(index);
   };
+
+  console.log(data);
 
   const handleDelete = async () => {
     try {
@@ -89,7 +92,7 @@ const Address1 = () => {
             <Text
               style={[styles.text, { marginTop: -5 }]}
             >{`${item.city}, ${item.state}`}</Text>
-            <Text style={[styles.text, { marginTop: -5 }]}>{item.number}</Text>
+            <Text style={[styles.text, { marginTop: -5 }]}>{item.pincode}</Text>
             <TouchableOpacity
               onPress={() => animate(index)}
               style={{ position: "absolute", right: 10, top: 15 }}

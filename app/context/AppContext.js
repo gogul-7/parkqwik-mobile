@@ -18,6 +18,11 @@ export const AppContextProvider = ({ children }) => {
   const [bookData, setBookData] = useState({});
   const [data, setData] = useState([]);
   const [category, setCategory] = useState("");
+  const [personalDetails, setPersonalDetails] = useState({});
+  const [vehicleDetails, setVehicleDetails] = useState({});
+  const [addressDetails, setAddressDetails] = useState({});
+
+  console.log(hideHeader);
 
   return (
     <AppContext.Provider
@@ -37,6 +42,12 @@ export const AppContextProvider = ({ children }) => {
         bookData,
         data,
         category,
+        personalDetails,
+        vehicleDetails,
+        addressDetails,
+        setAddressDetails,
+        setVehicleDetails,
+        setPersonalDetails,
         setCategory,
         setData,
         setBookData,

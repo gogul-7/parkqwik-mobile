@@ -41,7 +41,7 @@ import Fastag from "./app/pages/AcitvateFastag";
 import Header from "./app/components/Header";
 import BuyFastag from "./app/pages/BuyFastag";
 import { ScrollView } from "react-native-virtualized-view";
-import AppContext, { AppContextProvider } from "./app/context/AppContext";
+import { AppContextProvider } from "./app/context/AppContext";
 import {
   Poppins_400Regular,
   useFonts,
@@ -68,7 +68,6 @@ import Rewards from "./app/pages/Rewards";
 import Discounts from "./app/pages/Discounts";
 import Refer from "./app/pages/Refer";
 import Notifications from "./app/pages/Notifications";
-import { useContext } from "react";
 import MyProfile from "./app/pages/MyProfile";
 import Transactions from "./app/pages/Transactions";
 import Bookings from "./app/pages/Bookings";
@@ -84,12 +83,12 @@ import MyWallet from "./app/pages/MyWallet";
 import Insurance from "./app/pages/Insurance";
 import Toll from "./app/pages/Toll";
 import Login from "./app/pages/Login";
-import Helmet1 from "./app/components/helmet/Helmet1";
 import Helmet from "./app/pages/Helmet";
 import RoadAssistance from "./app/pages/RoadAssistance";
 import EvParking from "./app/pages/EvParking";
 import CarShop from "./app/pages/CarShop";
 import Fuel from "./app/pages/Fuel";
+import RechargeFast2 from "./app/pages/RechargeFast2";
 
 library.add(
   faBars,
@@ -175,6 +174,7 @@ export default function App() {
             <Stack.Screen name="Recharge DTH" component={DTH} />
             <Stack.Screen name="Rent Payment" component={HouseRent} />
             <Stack.Screen name="FASTag Recharge" component={RechargeFast} />
+            <Stack.Screen name="FASTag Recharge2" component={RechargeFast2} />
             <Stack.Screen name="Replace FASTag" component={ReplaceFast} />
             <Stack.Screen name="Close FASTag" component={CloseFast} />
             <Stack.Screen name="Crime Reporter" component={Crime} />

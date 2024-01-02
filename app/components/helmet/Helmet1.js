@@ -6,18 +6,34 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
+import AppContext from "../../context/AppContext";
 
 const Helmet1 = () => {
+  const { personalDetails, vehicleDetails, addressDetails } =
+    useContext(AppContext);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [dateArray, setDateArray] = useState([]);
   const [hourArray, setHourArray] = useState([]);
   const [minArray, setMinArray] = useState([]);
+  const [startTime, setStartTime] = useState({
+    day: "Today",
+    hr: "00",
+    min: "00",
+  });
+  const [endTime, setEndTime] = useState({
+    day: "Today",
+    hr: "01",
+    min: "00",
+  });
+  const [duration, setDuration] = useState(1);
   const navigation = useNavigation();
   const handleNavigate = () => {
     navigation.navigate("helmet2");
@@ -27,6 +43,30 @@ const Helmet1 = () => {
     const newDate = new Date(date).toLocaleDateString("en-US", options);
     return newDate.slice(0, 3) + newDate.slice(4);
   };
+
+  useEffect(() => {
+    if (
+      Object.keys(vehicleDetails).length !== 0 &&
+      Object.keys(personalDetails).length !== 0 &&
+      Object.keys(addressDetails).length !== 0
+    ) {
+      setDisable(false);
+    }
+  }, [personalDetails, vehicleDetails]);
+
+  useEffect(() => {
+    if (
+      Object.keys(vehicleDetails).length !== 0 &&
+      Object.keys(personalDetails).length !== 0 &&
+      Object.keys(addressDetails).length !== 0
+    ) {
+      if (alert) {
+        setDisable(true);
+      } else {
+        setDisable(false);
+      }
+    }
+  }, [personalDetails, vehicleDetails, alert]);
 
   const generateArray = () => {
     const today = new Date();
@@ -41,7 +81,7 @@ const Helmet1 = () => {
       dateArray.push(formattedDate);
     }
 
-    for (let i = 1; i <= 24; i++) {
+    for (let i = 0; i <= 23; i++) {
       const formattedHours = i < 10 ? `0${i}` : `${i}`;
       newHours.push(formattedHours);
     }
@@ -54,6 +94,29 @@ const Helmet1 = () => {
     setHourArray(newHours);
     setMinArray(newMinutes);
   };
+
+  useEffect(() => {
+    const endDay = dateArray.findIndex((item) => item === endTime.day);
+    const startDay = dateArray.findIndex((item) => item === startTime.day);
+    const hourDiff = parseInt(endTime.hr) - parseInt(startTime.hr);
+    console.log(endDay - startDay, hourDiff);
+    if (endDay - startDay > 0) {
+      const newDuration = (endDay - startDay) * 24 + hourDiff;
+      setDuration(newDuration);
+      setAlert(false);
+    } else if (endDay - startDay === 0) {
+      if (hourDiff <= 0) {
+        setAlert(true);
+      } else {
+        setDuration(hourDiff);
+        setAlert(false);
+      }
+    } else {
+      setAlert(true);
+    }
+  }, [startTime, endTime]);
+
+  console.log(alert);
 
   useEffect(() => {
     generateArray();
@@ -124,7 +187,7 @@ const Helmet1 = () => {
                     },
                   ]}
                 >
-                  Today at 00:01
+                  {startTime.day} at {startTime.hr}:{startTime.min}
                 </Text>
                 <FontAwesomeIcon
                   icon={"angle-down"}
@@ -152,7 +215,7 @@ const Helmet1 = () => {
                     },
                   ]}
                 >
-                  Today at 00:01
+                  {endTime.day} at {endTime.hr}:{endTime.min}
                 </Text>
                 <FontAwesomeIcon
                   icon={"angle-down"}
@@ -180,7 +243,7 @@ const Helmet1 = () => {
                   },
                 ]}
               >
-                0
+                {duration} {duration === 1 ? "Hour" : "Hours"}
               </Text>
               <Text
                 style={[
@@ -191,7 +254,12 @@ const Helmet1 = () => {
                   },
                 ]}
               >
-                Total Duration
+                Total Duration{" "}
+                {alert && (
+                  <Text style={{ color: "#FC6969" }}>
+                    {"(Duration cannot be less than 1)"}
+                  </Text>
+                )}
               </Text>
             </View>
           </View>
@@ -208,53 +276,108 @@ const Helmet1 = () => {
         >
           Delivery Address
         </Text>
-        <View
-          style={[
-            styles.container,
-            { alignItems: "flex-start", padding: 15, justifyContent: "center" },
-          ]}
-        >
-          <Text
+        {Object.keys(addressDetails).length !== 0 ? (
+          <View
             style={[
-              styles.header,
+              styles.container,
               {
-                color: "#393939",
+                alignItems: "flex-start",
+                padding: 15,
+                justifyContent: "center",
               },
             ]}
           >
-            Krishna
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-                width: "60%",
-              },
-            ]}
-          >
-            NO.20, Anna Street, Near Water Tank, Perungudi, Chennai - 600096
-          </Text>
-
-          <View style={styles.button}>
-            <Image
-              source={require("../assets/images/greenedit.png")}
-              style={{ width: 15, height: 15 }}
-            />
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                },
+              ]}
+            >
+              {addressDetails.name}
+            </Text>
             <Text
               style={[
                 styles.text,
                 {
-                  color: "#1A9E75",
+                  color: "#A0A0A0",
                   fontSize: 12,
                 },
               ]}
             >
-              Edit
+              {`${addressDetails.address1}, ${addressDetails.address2},`}
             </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#A0A0A0",
+                  fontSize: 12,
+                  marginTop: -3,
+                },
+              ]}
+            >
+              {`${addressDetails.city}, ${addressDetails.state},`}
+            </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#A0A0A0",
+                  fontSize: 12,
+                  marginTop: -3,
+                },
+              ]}
+            >
+              {addressDetails.number}
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("helmet6")}
+              style={[
+                styles.button,
+                { borderRadius: 15, paddingHorizontal: 8 },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.bold,
+                  {
+                    color: "#1A9E75",
+                    fontSize: 10,
+                    paddingTop: 1,
+                  },
+                ]}
+              >
+                Change
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("helmet6");
+            }}
+            style={[styles.container2]}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#A0A0A0",
+                  paddingTop: 3,
+                },
+              ]}
+            >
+              Tap to add address
+            </Text>
+            <FontAwesomeIcon
+              icon={"circle-plus"}
+              color="rgba(26, 158, 117, 1)"
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
         <Text
           style={[
             styles.header,
@@ -270,7 +393,12 @@ const Helmet1 = () => {
         <View
           style={[
             styles.container,
-            { backgroundColor: "#F0FFFA", paddingVertical: 15, gap: 5 },
+            {
+              backgroundColor: "#F0FFFA",
+              paddingVertical: 15,
+              gap: 5,
+              elevation: 0,
+            },
           ]}
         >
           <View
@@ -362,62 +490,95 @@ const Helmet1 = () => {
         >
           Personal Details
         </Text>
-        <View
-          style={[
-            styles.container,
-            { alignItems: "flex-start", padding: 15, justifyContent: "center" },
-          ]}
-        >
-          <Text
+        {Object.keys(personalDetails).length !== 0 ? (
+          <View
             style={[
-              styles.header,
+              styles.container,
               {
-                color: "#393939",
+                alignItems: "flex-start",
+                padding: 15,
+                justifyContent: "center",
               },
             ]}
           >
-            Krishna
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-              },
-            ]}
-          >
-            krishna501@gmail.com
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-              },
-            ]}
-          >
-            +91 8200089270
-          </Text>
-          <View style={styles.button}>
-            <Image
-              source={require("../assets/images/greenedit.png")}
-              style={{ width: 15, height: 15 }}
-            />
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                },
+              ]}
+            >
+              {personalDetails.name}
+            </Text>
             <Text
               style={[
                 styles.text,
                 {
-                  color: "#1A9E75",
+                  color: "#A0A0A0",
                   fontSize: 12,
                 },
               ]}
             >
-              Edit
+              {personalDetails.mail}
             </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#A0A0A0",
+                  fontSize: 12,
+                },
+              ]}
+            >
+              +91 {personalDetails.number}
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("helmet4")}
+              style={styles.button}
+            >
+              <Image
+                source={require("../assets/images/greenedit.png")}
+                style={{ width: 15, height: 15 }}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color: "#1A9E75",
+                    fontSize: 12,
+                  },
+                ]}
+              >
+                Edit
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("helmet4");
+            }}
+            style={[styles.container2]}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#A0A0A0",
+                  paddingTop: 3,
+                },
+              ]}
+            >
+              Tap to add personal details
+            </Text>
+            <FontAwesomeIcon
+              icon={"circle-plus"}
+              color="rgba(26, 158, 117, 1)"
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
         <Text
           style={[
             styles.header,
@@ -430,52 +591,85 @@ const Helmet1 = () => {
         >
           Vehicle Details
         </Text>
-        <View
-          style={[
-            styles.container,
-            { alignItems: "flex-start", padding: 15, justifyContent: "center" },
-          ]}
-        >
-          <Text
+        {Object.keys(vehicleDetails).length !== 0 ? (
+          <View
             style={[
-              styles.header,
+              styles.container,
               {
-                color: "#393939",
+                alignItems: "flex-start",
+                padding: 15,
+                justifyContent: "center",
               },
             ]}
           >
-            TN04FD8902
-          </Text>
-          <Text
-            style={[
-              styles.text,
-              {
-                color: "#A0A0A0",
-                fontSize: 12,
-              },
-            ]}
-          >
-            Toyata
-          </Text>
-
-          <View style={styles.button}>
-            <Image
-              source={require("../assets/images/greenedit.png")}
-              style={{ width: 15, height: 15 }}
-            />
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#393939",
+                },
+              ]}
+            >
+              {vehicleDetails.vnumber}
+            </Text>
             <Text
               style={[
                 styles.text,
                 {
-                  color: "#1A9E75",
-                  fontSize: 12,
+                  color: "#A0A0A0",
+                  marginTop: -3,
                 },
               ]}
             >
-              Edit
+              {vehicleDetails.type}
             </Text>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("helmet5")}
+              style={styles.button}
+            >
+              <Image
+                source={require("../assets/images/greenedit.png")}
+                style={{ width: 15, height: 15 }}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color: "#1A9E75",
+                    fontSize: 12,
+                  },
+                ]}
+              >
+                Edit
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("helmet5");
+            }}
+            style={[styles.container2]}
+          >
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: "#A0A0A0",
+                  paddingTop: 3,
+                },
+              ]}
+            >
+              Tap to add vehicle details
+            </Text>
+            <FontAwesomeIcon
+              icon={"circle-plus"}
+              color="rgba(26, 158, 117, 1)"
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
         <Text
           style={[
             styles.header,
@@ -530,15 +724,30 @@ const Helmet1 = () => {
             270
           </Text>
         </Text>
-        <TouchableOpacity onPress={handleNavigate} style={styles.button2}>
+        <TouchableOpacity
+          onPress={handleNavigate}
+          style={disable ? styles.disbaled : styles.button2}
+        >
           <Text
-            style={[
-              styles.bold,
-              {
-                color: "white",
-                fontSize: 16,
-              },
-            ]}
+            style={
+              disable
+                ? [
+                    styles.bold,
+                    {
+                      color: "#9F9F9F",
+                      fontSize: 16,
+                      paddingTop: 1,
+                    },
+                  ]
+                : [
+                    styles.bold,
+                    {
+                      color: "#FFF",
+                      fontSize: 16,
+                      paddingTop: 1,
+                    },
+                  ]
+            }
           >
             Continue
           </Text>
@@ -613,7 +822,9 @@ const Helmet1 = () => {
               height={230}
               width={100}
               selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
-              initialSelectedIndex={1}
+              initialSelectedIndex={dateArray.findIndex(
+                (value) => value === startTime.day
+              )}
               haptics
               items={dateArray.map((name) => ({
                 label: (
@@ -630,7 +841,10 @@ const Helmet1 = () => {
                 ),
                 value: { name },
               }))}
-              onChange={() => {}}
+              onChange={({ item }) => {
+                setStartTime({ ...startTime, day: item.value.name });
+                setEndTime({ ...endTime, day: item.value.name });
+              }}
             />
 
             <View
@@ -640,7 +854,9 @@ const Helmet1 = () => {
                 height={230}
                 width={36}
                 selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
-                initialSelectedIndex={5}
+                initialSelectedIndex={hourArray.findIndex(
+                  (value) => value === startTime.hr
+                )}
                 haptics
                 items={hourArray.map((name) => ({
                   label: (
@@ -657,7 +873,16 @@ const Helmet1 = () => {
                   ),
                   value: { name },
                 }))}
-                onChange={() => {}}
+                onChange={({ item }) => {
+                  setStartTime({ ...startTime, hr: item.value.name });
+                  setEndTime({
+                    ...startTime,
+                    hr:
+                      parseInt(item.value.name) + 1 < 10
+                        ? `0${parseInt(item.value.name) + 1}`
+                        : parseInt(item.value.name) + 1,
+                  });
+                }}
               />
 
               <Text
@@ -673,7 +898,9 @@ const Helmet1 = () => {
                 height={230}
                 width={36}
                 selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
-                initialSelectedIndex={30}
+                initialSelectedIndex={minArray.findIndex(
+                  (value) => value === startTime.min
+                )}
                 haptics
                 items={minArray.map((name) => ({
                   label: (
@@ -690,7 +917,7 @@ const Helmet1 = () => {
                   ),
                   value: { name },
                 }))}
-                onChange={() => {}}
+                onChange={({}) => {}}
               />
             </View>
           </View>
@@ -786,7 +1013,9 @@ const Helmet1 = () => {
               height={230}
               width={100}
               selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
-              initialSelectedIndex={1}
+              initialSelectedIndex={dateArray.findIndex(
+                (value) => value === endTime.day
+              )}
               haptics
               items={dateArray.map((name) => ({
                 label: (
@@ -803,7 +1032,9 @@ const Helmet1 = () => {
                 ),
                 value: { name },
               }))}
-              onChange={() => {}}
+              onChange={({ item }) => {
+                setEndTime({ ...endTime, day: item.value.name });
+              }}
             />
 
             <View
@@ -813,7 +1044,9 @@ const Helmet1 = () => {
                 height={230}
                 width={36}
                 selectedStyle={{ borderColor: "#1A9E75", borderWidth: 2 }}
-                initialSelectedIndex={6}
+                initialSelectedIndex={hourArray.findIndex(
+                  (value) => value === endTime.hr
+                )}
                 haptics
                 items={hourArray.map((name) => ({
                   label: (
@@ -830,7 +1063,9 @@ const Helmet1 = () => {
                   ),
                   value: { name },
                 }))}
-                onChange={() => {}}
+                onChange={({ item }) => {
+                  setEndTime({ ...endTime, hr: item.value.name });
+                }}
               />
 
               <Text
@@ -904,6 +1139,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     elevation: 3,
   },
+  container2: {
+    borderRadius: 15,
+    backgroundColor: "#FFF",
+    width: "90%",
+    overflow: "hidden",
+    alignItems: "center",
+    elevation: 3,
+    height: 55,
+    flexDirection: "row",
+    paddingHorizontal: 15,
+    justifyContent: "space-between",
+  },
   header: {
     fontFamily: "Poppins_500Medium",
   },
@@ -911,6 +1158,12 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_400Regular",
   },
   bold: { fontFamily: "Poppins_600SemiBold" },
+  line: {
+    backgroundColor: "#D6D6D6",
+    borderRadius: 2,
+    width: 29,
+    height: 4,
+  },
   line2: {
     width: 1,
     height: 27,
@@ -940,6 +1193,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 7,
     borderRadius: 14,
+  },
+  disbaled: {
+    width: 178,
+    height: 41,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#DFDFDF",
+    borderRadius: 14,
+    pointerEvents: "none",
   },
   button4: {
     paddingVertical: 8,

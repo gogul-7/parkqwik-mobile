@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { RadioButton } from "react-native-paper";
 import DatePicker from "react-native-modern-datepicker";
@@ -16,40 +16,43 @@ import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import AppContext from "../context/AppContext";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const MyProfile = () => {
   const [value, setValue] = useState("");
+  const [gender, setGender] = useState("");
   const [image, setImage] = useState(null);
   const [alert, setAlert] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [border, setBorder] = useState({
     input1: "#E5E5E5",
     input2: "#E5E5E5",
     input3: "#E5E5E5",
+    input4: "#E5E5E5",
   });
+  const [defaultDOB, setDefaultDOB] = useState(new Date("2002-01-01"));
   const navigation = useNavigation();
-
   const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    if (
+      Object.values(border).every((value) => value === "#1A9E75") &&
+      gender &&
+      value
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [value, gender, border]);
+
   const today = new Date();
   const maxDOB = new Date(today);
-  maxDOB.setFullYear(maxDOB.getFullYear() - 100);
-
-  const defaultDOB = new Date(today);
-  defaultDOB.setFullYear(defaultDOB.getFullYear() - 6);
-  const [selectedDOB, setSelectedDOB] = useState(
-    defaultDOB.toLocaleDateString("en-IN")
-  );
-
-  const handleChangeDOB = (dob) => {
-    setSelectedDOB(dob.toLocaleDateString("en-IN"));
-  };
+  maxDOB.setFullYear(maxDOB.getFullYear() - 10);
 
   const handleOnPressDOB = () => {
-    setSelectedDOB(defaultDOB.toLocaleDateString("en-IN"));
     setToggle(true);
   };
-
-  console.log(selectedDOB);
-
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -85,6 +88,14 @@ const MyProfile = () => {
   const handleSave = () => {
     navigation.navigate("Home");
     setHam(true);
+  };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setToggle(false);
+    setValue(currentDate);
+    setBorder({ ...border, ["input4"]: "#1A9E75" });
+    setDefaultDOB(currentDate);
   };
 
   return (
@@ -179,8 +190,8 @@ const MyProfile = () => {
       <Text style={styles.header}>Gender</Text>
       <View style={{ width: "94%", marginTop: -10 }}>
         <RadioButton.Group
-          onValueChange={(newValue) => setValue(newValue)}
-          value={value}
+          onValueChange={(newValue) => setGender(newValue)}
+          value={gender}
         >
           <View
             style={{
@@ -189,58 +200,78 @@ const MyProfile = () => {
             }}
           >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <RadioButton color="#1A9E75" value="first" />
+              <RadioButton
+                color="#1A9E75"
+                value="first"
+                uncheckedColor="#1A9E75"
+              />
               <Text style={[styles.text, { paddingTop: 2 }]}>Male</Text>
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <RadioButton color="#1A9E75" value="second" />
+              <RadioButton
+                color="#1A9E75"
+                value="second"
+                uncheckedColor="#1A9E75"
+              />
               <Text style={[styles.text, { paddingTop: 2 }]}>Female</Text>
             </View>
           </View>
         </RadioButton.Group>
       </View>
       <Text style={styles.header}>Date of Birth</Text>
-      <View style={{ width: "90%", justifyContent: "center" }}>
-        <TextInput
-          style={[styles.input, { width: "100%" }]}
-          placeholder="Select Your Date of Birth"
-        />
+      <View
+        style={[
+          styles.input,
+          {
+            width: "90%",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexDirection: "row",
+            paddingRight: 10,
+            borderColor: border.input4,
+          },
+        ]}
+      >
+        {value ? (
+          <Text style={[styles.text, { paddingTop: 0 }]}>
+            {value.getDate() +
+              " / " +
+              (value.getMonth() + 1) +
+              " / " +
+              value.getFullYear()}
+          </Text>
+        ) : (
+          <Text style={[styles.text, { paddingTop: 0, color: "#AFAFAF" }]}>
+            Select Your Date of Birth
+          </Text>
+        )}
         <TouchableOpacity style={styles.calendar} onPress={handleOnPressDOB}>
           <Image
-            style={{ width: 25, height: 25 }}
+            style={{ width: 25, height: 25, bottom: 3 }}
             source={require("../assets/images/calendar.png")}
           />
         </TouchableOpacity>
       </View>
 
       {toggle && (
-        <Modal animationType="slide" transparent={true}>
-          <View style={styles.modal}>
-            <View
-              style={{
-                width: "90%",
-                alignItems: "center",
-                backgroundColor: "white",
-                gap: 15,
-                paddingBottom: 20,
-              }}
-            >
-              <DatePicker
-                mode="calendar"
-                minimumDate={maxDOB.toLocaleDateString("en-IN")}
-                selected={selectedDOB}
-                onDateChanged={handleChangeDOB}
-                style={styles.datePicker}
-              />
-              <TouchableOpacity onPress={() => setToggle(false)}>
-                <Text>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
+        <DateTimePicker
+          value={defaultDOB}
+          maximumDate={new Date(2013, 10, 20)}
+          accentColor="#1A9E75"
+          onChange={onChange}
+        />
       )}
-      <TouchableOpacity onPress={handleSave} style={styles.button}>
-        <Text style={[styles.bold, { fontSize: 16, color: "white" }]}>
+      <TouchableOpacity
+        onPress={handleSave}
+        style={disable ? styles.disbaled : styles.button}
+      >
+        <Text
+          style={
+            disable
+              ? [styles.bold, { fontSize: 16, color: "#9F9F9F" }]
+              : [styles.bold, { fontSize: 16, color: "#FFF" }]
+          }
+        >
           Save
         </Text>
       </TouchableOpacity>
@@ -280,14 +311,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 15,
     fontFamily: "Poppins_400Regular",
-    paddingTop: 5,
+    paddingTop: 3.5,
     marginTop: -5,
     borderColor: "#E5E5E5",
-  },
-  calendar: {
-    position: "absolute",
-    right: 10,
-    top: 3,
   },
   button: {
     width: "90%",
@@ -297,6 +323,16 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: "#1A9E75",
     marginTop: 30,
+  },
+  disbaled: {
+    width: "90%",
+    height: 41,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 14,
+    backgroundColor: "#DFDFDF",
+    marginTop: 30,
+    pointerEvents: "none",
   },
   modal: {
     backgroundColor: "rgba(57, 57, 57, .5)",

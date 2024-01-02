@@ -42,7 +42,7 @@ const services = [
   },
   {
     id: 4,
-    title: "Car Insurance",
+    title: "Vehicle Insurance",
     image: require("../assets/images/insure.png"),
     route: "Insurance",
   },
@@ -105,8 +105,7 @@ const Home = () => {
   const { ham, setHam } = useContext(AppContext);
   return (
     <View style={{ flex: 1, backgroundColor: "#FFF" }}>
-      <StatusBar backgroundColor="#1A9E75" barStyle="light-content" />
-
+      <StatusBar backgroundColor="#B8DED2" barStyle="dark-content" />
       <Modal
         isVisible={ham}
         animationIn={"slideInLeft"}
@@ -124,7 +123,7 @@ const Home = () => {
         source={require("../assets/images/headerback.png")}
       />
       <View style={styles.homeContent}>
-        <View style={[styles.serviceContainer]}>
+        <View style={[styles.serviceContainer, { paddingBottom: 4 }]}>
           <Text style={styles.header}>Services</Text>
           <FlatList
             data={mainService}
@@ -140,7 +139,7 @@ const Home = () => {
         </View>
         <FastRecharge />
         <Banner />
-        <View style={styles.serviceContainer}>
+        <View style={[styles.serviceContainer, { paddingBottom: 3 }]}>
           <Text style={styles.header}>Others</Text>
           <FlatList
             data={otherService}
@@ -187,7 +186,12 @@ const Home = () => {
               }}
             >
               <View style={styles.button}>
-                <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
+                <Text
+                  style={[
+                    styles.bold,
+                    { fontSize: 10, color: "#393939", paddingTop: 1 },
+                  ]}
+                >
                   Recharge Now
                 </Text>
               </View>
@@ -225,7 +229,12 @@ const Home = () => {
               }}
             >
               <View style={styles.button}>
-                <Text style={[styles.bold, { fontSize: 10, color: "black" }]}>
+                <Text
+                  style={[
+                    styles.bold,
+                    { fontSize: 10, color: "#393939", paddingTop: 1 },
+                  ]}
+                >
                   Explore Now
                 </Text>
               </View>
@@ -291,9 +300,9 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 16,
-    fontWeight: "600",
     fontFamily: "Poppins_500Medium",
     marginLeft: 8,
+    color: "#393939",
   },
   gridItem: {
     width: "25%",
@@ -316,6 +325,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 11,
     fontFamily: "Poppins_400Regular",
+    color: "#393939",
   },
   imgCard: {
     display: "flex",

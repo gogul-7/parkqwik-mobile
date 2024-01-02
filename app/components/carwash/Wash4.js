@@ -12,11 +12,19 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 const Wash4 = () => {
-  const { setHideHeader } = useContext(AppContext);
+  const {
+    setHideHeader,
+    setPersonalDetails,
+    setVehicleDetails,
+    setAddressDetails,
+  } = useContext(AppContext);
   const navigation = useNavigation();
   const [enable, setEnable] = useState(false);
 
   const handleDone = () => {
+    setPersonalDetails({});
+    setVehicleDetails({});
+    setAddressDetails({});
     navigation.navigate("Home");
   };
   useEffect(() => {

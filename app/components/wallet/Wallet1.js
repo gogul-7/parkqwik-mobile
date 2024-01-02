@@ -80,6 +80,7 @@ const Wallet1 = () => {
           <TextInput
             onChangeText={handleChange}
             placeholder="Eg. 500"
+            keyboardType="number-pad"
             style={styles.input}
             value={value}
           />

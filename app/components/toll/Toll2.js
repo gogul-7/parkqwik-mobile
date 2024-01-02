@@ -2,9 +2,16 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Modal from "react-native-modal";
+import { useNavigation } from "@react-navigation/native";
 
 const Toll2 = () => {
   const [modal, setModal] = useState(false);
+  const navigation = useNavigation();
+
+  const handleClose = () => {
+    setModal(false);
+    navigation.navigate("Home");
+  };
   return (
     <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       <View style={styles.headerContainer}>
@@ -57,7 +64,7 @@ const Toll2 = () => {
         <View style={styles.modal}>
           <TouchableOpacity
             onPress={() => setModal(false)}
-            style={{ position: "absolute", right: 20, top: 15 }}
+            style={{ position: "absolute", right: 20, top: 15, zIndex: 5 }}
           >
             <FontAwesomeIcon size={22} icon={"circle-xmark"} color="#1A9E75" />
           </TouchableOpacity>
@@ -106,7 +113,10 @@ const Toll2 = () => {
               ₹ <Text style={[styles.header, { color: "#00A638" }]}>160</Text>
             </Text>
           </View>
-          <View style={[styles.button, { bottom: 20 }]}>
+          <TouchableOpacity
+            onPress={handleClose}
+            style={[styles.button, { bottom: 20 }]}
+          >
             <Text
               style={[
                 styles.bold,
@@ -115,7 +125,7 @@ const Toll2 = () => {
             >
               Close
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>

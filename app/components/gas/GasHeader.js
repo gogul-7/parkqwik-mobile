@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
@@ -92,13 +93,16 @@ const GasHeader = ({ name }) => {
               {headData.name}
             </Text>
           </View>
-          <View style={styles.change}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("gas1")}
+            style={styles.change}
+          >
             <Text
               style={[styles.headerText, { color: "#1A9E75", fontSize: 10 }]}
             >
               Change
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -132,13 +136,16 @@ const GasHeader = ({ name }) => {
             </Text>
             <Text style={styles.headerText}>Krishna K</Text>
           </View>
-          <View style={styles.change}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("gas1")}
+            style={styles.change}
+          >
             <Text
               style={[styles.headerText, { color: "#1A9E75", fontSize: 10 }]}
             >
               Change
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -179,15 +186,15 @@ const styles = StyleSheet.create({
   },
   search: { width: 20, height: 20, position: "absolute", left: 10 },
   header: {
-    paddingVertical: 18,
+    paddingVertical: 15,
     gap: 20,
     backgroundColor: "#1A9E75",
     alignItems: "center",
     justifyContent: "center",
   },
   headerContainer: {
-    height: 70,
-    paddingTop: 25,
+    height: 80,
+    paddingTop: 20,
     backgroundColor: "#1A9E75",
     paddingHorizontal: 15,
     justifyContent: "space-between",

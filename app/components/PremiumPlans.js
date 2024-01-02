@@ -17,7 +17,7 @@ const services = [
     id: 1,
     title: "Fastag Recharge",
     image: require("../assets/images/greenfast.png"),
-    route: "",
+    route: "FASTag Recharge2",
   },
   {
     id: 2,
@@ -71,7 +71,7 @@ const PremiumPlans = () => {
   };
   return (
     <View style={styles.contianer}>
-      <Text style={[styles.header, { marginLeft: 15 }]}>Premium Plans</Text>
+      <Text style={[styles.header, { marginLeft: 3 }]}>Premium Plans</Text>
       <View style={styles.planContainer}>
         <LinearGradient
           colors={["#48C9A1", "#199E75"]}
@@ -95,9 +95,11 @@ const PremiumPlans = () => {
             }}
           >
             <View style={styles.button}>
-              <Text style={[styles.bold, { fontSize: 8 }]}>Explore Now</Text>
+              <Text style={[styles.bold, { fontSize: 8, paddingTop: 1 }]}>
+                Explore Now
+              </Text>
               <FontAwesomeIcon
-                style={{ maxWidth: 10, marginBottom: 1 }}
+                style={{ maxWidth: 10, marginBottom: 0 }}
                 icon="arrow-right-long"
               />
             </View>
@@ -126,9 +128,11 @@ const PremiumPlans = () => {
           </Text>
 
           <View style={[styles.button, { marginTop: 8 }]}>
-            <Text style={[styles.bold, { fontSize: 8 }]}>Explore Now</Text>
+            <Text style={[styles.bold, { fontSize: 8, paddingTop: 1 }]}>
+              Explore Now
+            </Text>
             <FontAwesomeIcon
-              style={{ maxWidth: 10, marginBottom: 1 }}
+              style={{ maxWidth: 10, marginBottom: 0 }}
               icon="arrow-right-long"
             />
           </View>
@@ -144,7 +148,7 @@ const PremiumPlans = () => {
           />
         </LinearGradient>
       </View>
-      <View style={styles.serviceContainer}>
+      <View style={[styles.serviceContainer, { paddingBottom: 3 }]}>
         <Text style={[styles.header, { marginLeft: 10 }]}>
           Recharge & Bill Payments
         </Text>
@@ -178,8 +182,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 16,
-    fontWeight: "600",
     fontFamily: "Poppins_500Medium",
+    color: "#393939",
   },
   planContainer: {
     display: "flex",
@@ -199,6 +203,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   text: {
+    color: "#393939",
     fontFamily: "Poppins_400Regular",
   },
   bold: {

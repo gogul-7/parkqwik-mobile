@@ -30,7 +30,11 @@ const Transaction2 = () => {
 
   return (
     <ScrollView
-      contentContainerStyle={{ alignItems: "center", paddingBottom: 40 }}
+      contentContainerStyle={{
+        alignItems: "center",
+        paddingBottom: 40,
+        backgroundColor: "#FFF",
+      }}
     >
       <View style={[styles.greenCircle]}></View>
       <View style={styles.headerContainer}>

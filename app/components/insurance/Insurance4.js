@@ -19,8 +19,6 @@ const Insurance4 = () => {
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
 
-  console.log(modal2);
-
   return (
     <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       <ScrollView
@@ -158,11 +156,14 @@ const Modal1 = ({ modal1, setModal1, setModal2 }) => {
           }}
         >
           <Text style={[styles.header]}>Select Car Variant</Text>
-          <FontAwesomeIcon
-            icon={"circle-xmark"}
-            color="rgba(26, 158, 117, 1)"
-            size={20}
-          />
+          <TouchableOpacity onPress={() => setModal1(false)}>
+            <FontAwesomeIcon
+              icon={"circle-xmark"}
+              color="rgba(26, 158, 117, 1)"
+              size={22}
+              style={{ right: 5 }}
+            />
+          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -213,11 +214,14 @@ const Modal2 = ({ modal2, setModal2 }) => {
           }}
         >
           <Text style={[styles.header]}>Select Car Registration Year</Text>
-          <FontAwesomeIcon
-            icon={"circle-xmark"}
-            color="rgba(26, 158, 117, 1)"
-            size={20}
-          />
+          <TouchableOpacity onPress={() => setModal2(false)}>
+            <FontAwesomeIcon
+              icon={"circle-xmark"}
+              color="rgba(26, 158, 117, 1)"
+              size={22}
+              style={{ right: 5 }}
+            />
+          </TouchableOpacity>
         </View>
         <View
           style={{
